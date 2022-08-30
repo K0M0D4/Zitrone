@@ -13,6 +13,7 @@ add_executable(${PROJECT_NAME}
     src/App.cpp
     
     src/fw/ResourceManager.cpp
+    src/fw/Button.cpp
     )
 
 target_include_directories(${PROJECT_NAME} PUBLIC dep/SFML/include)

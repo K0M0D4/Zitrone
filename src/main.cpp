@@ -1,7 +1,6 @@
 #include "App.hpp"
 
 int main(int argc, char** argv) {
-
-
-    return 0;
+    cmt::App app;
+    return app.start();
 }

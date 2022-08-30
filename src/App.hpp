@@ -16,13 +16,15 @@ namespace cmt {
     private:
         sf::RenderWindow m_window;
 
+        sf::Text m_testText;
+
         ResourceManager m_resources;
 
         /*
         Texture IDs:
 
         Font IDs:
-        
+            0 -> PlayfairDisplay
         */
     };
 }

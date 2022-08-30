@@ -20,19 +20,19 @@ namespace cmt {
     }
 
     sf::Texture& ResourceManager::getTexture(uint32_t ID) {
-        if(m_textures.size() < ID - 1)
+        if(m_textures.size() <= ID)
             throw std::runtime_error(
                 "Resource manager can't return texture with ID: "
-                + ID);
+                + std::to_string(ID));
         
         return m_textures.at(ID);
     }
 
     sf::Font& ResourceManager::getFont(uint32_t ID) {
-        if(m_fonts.size() < ID - 1)
+        if(m_fonts.size() <= ID)
             throw std::runtime_error(
                 "Resource manager can't return font with ID: "
-                + ID);
+                + std::to_string(ID));
 
         return m_fonts.at(ID);
     }

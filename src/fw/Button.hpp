@@ -18,10 +18,12 @@ namespace cmt {
             sf::Vector2f pos, sf::Color text,
             sf::Color normal, sf::Color touch, sf::Color click);
 
-        bool isClicked();
+        bool isClicked(sf::Vector2f mousePos);
 
         void enable(bool value);
         bool isEnabled();
+
+        void setPos(sf::Vector2f pos);
 
         void render(sf::RenderWindow& target);
 
@@ -32,6 +34,10 @@ namespace cmt {
         sf::RectangleShape m_rect;
 
         std::array<sf::Color, 3> m_colors;
+
+        bool isTouched(sf::Vector2f mousePos);
+
+        void setCenterText();
 
     };
 }

@@ -29,8 +29,19 @@ namespace cmt {
         m_colors[2] = click;
     }
 
-    bool Button::isClicked() {
+    bool Button::isClicked(sf::Vector2f mousePos) {
+        if(m_enable && isTouched(mousePos)
+            && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            
+            return true;
 
+        return false;
+    }
+
+    bool Button::isTouched(sf::Vector2f mousePos) {
+        if(m_rect.getGlobalBounds().contains(mousePos)) return true;
+
+        return false;
     }
 
     void Button::enable(bool value) {
@@ -41,10 +52,31 @@ namespace cmt {
         return m_enable;
     }
 
+    void Button::setPos(sf::Vector2f pos) {
+        m_rect.setPosition(pos);
+        setCenterText();
+    }
+
     void Button::render(sf::RenderWindow& target) {
-        // check if touched/clicked or no and change colors
+        sf::Vector2f mousePos{};
+        mousePos.x = sf::Mouse::getPosition(target).x;
+        mousePos.y = sf::Mouse::getPosition(target).y;
+
+        if(isClicked(mousePos)) {
+            m_rect.setFillColor(m_colors[2]);
+        } else if(isTouched(mousePos)) {
+            m_rect.setFillColor(m_colors[1]);
+        } else {
+            m_rect.setFillColor(m_colors[0]);
+        }
 
         target.draw(m_rect);
         target.draw(m_text);
+    }
+
+    void Button::setCenterText() {
+        m_text.setPosition(sf::Vector2f(
+            m_rect.getPosition().x + m_text.getGlobalBounds().width / 2,
+            m_rect.getPosition().y + m_text.getGlobalBounds().height / 2));
     }
 }

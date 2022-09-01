@@ -9,7 +9,12 @@ namespace cmt {
 
         m_testText.setFont(m_resources.getFont(0));
         m_testText.setString("totally test text!");
-        m_testText.setCharacterSize(20);
+        m_testText.setCharacterSize(25);
+
+        m_testButton.create("And totally test button", 
+            m_resources.getFont(0), 25, sf::Vector2f(270, 20),
+            sf::Vector2f(200, 300), sf::Color::Black, sf::Color::White,
+            sf::Color::Green, sf::Color::Red);
         
     }
 
@@ -21,9 +26,18 @@ namespace cmt {
                     m_window.close();
             }
 
+            sf::Vector2f mousePos{};
+            mousePos.x = sf::Mouse::getPosition(m_window).x;
+            mousePos.y = sf::Mouse::getPosition(m_window).y;
+
+            if(m_testButton.isClicked(mousePos)) {
+                m_window.close();
+            }
+
             m_window.clear(sf::Color(20, 20, 30));
 
             m_window.draw(m_testText);
+            m_testButton.render(m_window);
 
             m_window.display();
         }

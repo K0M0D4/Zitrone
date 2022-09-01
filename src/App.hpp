@@ -1,5 +1,6 @@
 #pragma once
 
+#include "fw/Button.hpp"
 #include "fw/ResourceManager.hpp"
 
 #include <SFML/Graphics.hpp>
@@ -17,6 +18,8 @@ namespace cmt {
         sf::RenderWindow m_window;
 
         sf::Text m_testText;
+
+        Button m_testButton;
 
         ResourceManager m_resources;
 

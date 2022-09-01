@@ -23,6 +23,8 @@ namespace cmt {
         m_rect.setSize(size);
         m_rect.setPosition(pos);
 
+        setCenterText();
+
         m_text.setFillColor(text);
         m_colors[0] = normal;
         m_colors[1] = touch;
@@ -76,7 +78,9 @@ namespace cmt {
 
     void Button::setCenterText() {
         m_text.setPosition(sf::Vector2f(
-            m_rect.getPosition().x + m_text.getGlobalBounds().width / 2,
-            m_rect.getPosition().y + m_text.getGlobalBounds().height / 2));
+            m_rect.getPosition().x + (m_rect.getLocalBounds().width
+                - m_text.getLocalBounds().width) / 2,
+            m_rect.getPosition().y + (m_rect.getLocalBounds().height
+                - m_text.getLocalBounds().height) / 2));
     }
 }

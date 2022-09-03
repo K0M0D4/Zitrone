@@ -13,11 +13,6 @@ namespace cmt {
             sf::Color normal, sf::Color touch, sf::Color click);
         Button();
 
-        void create(const std::string& string, sf::Font& font,
-            uint32_t textSize, sf::Vector2f size,
-            sf::Vector2f pos, sf::Color text,
-            sf::Color normal, sf::Color touch, sf::Color click);
-
         bool isClicked(sf::Vector2f mousePos);
 
         void enable(bool value);

@@ -11,7 +11,7 @@ namespace cmt {
         m_testText.setString("totally test text!");
         m_testText.setCharacterSize(25);
 
-        m_testButton.create("And totally test button", 
+        m_testButton = Button("And totally test button", 
             m_resources.getFont(0), 30, sf::Vector2f(270, 25),
             sf::Vector2f(200, 300), sf::Color::Black, sf::Color::White,
             sf::Color::Green, sf::Color::Red);

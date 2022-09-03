@@ -9,16 +9,6 @@ namespace cmt {
             sf::Vector2f pos, sf::Color text,
             sf::Color normal, sf::Color touch, sf::Color click) {
 
-        create(string, font, textSize, size, pos, text, normal, touch, click);
-    }
-
-    Button::Button() {}
-
-    void Button::create(const std::string& string, sf::Font& font,
-            uint32_t textSize, sf::Vector2f size,
-            sf::Vector2f pos, sf::Color text,
-            sf::Color normal, sf::Color touch, sf::Color click) {
-
         if(textSize > size.y) {
             uint32_t newSize{round(static_cast<uint32_t>(size.y))};
             printf("Warning: button text size too big, changing to: %u\n",
@@ -40,6 +30,8 @@ namespace cmt {
         m_colors[1] = touch;
         m_colors[2] = click;
     }
+
+    Button::Button() {}
 
     bool Button::isClicked(sf::Vector2f mousePos) {
         if(m_enable && isTouched(mousePos)

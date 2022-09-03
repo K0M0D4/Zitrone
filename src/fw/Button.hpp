@@ -22,8 +22,7 @@ namespace cmt {
         void enable(bool value);
         bool isEnabled();
 
-        void enableTexture(bool value,
-            const sf::Texture& texture = sf::Texture());
+        void enableTexture(const sf::Texture& texture = sf::Texture{});
 
         void setPos(sf::Vector2f pos);
 
@@ -31,7 +30,6 @@ namespace cmt {
 
     private:
         bool m_enable{true};
-        bool m_texture{false};
         sf::Text m_text{};
 
         sf::RectangleShape m_rect{};

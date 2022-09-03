@@ -20,7 +20,7 @@ namespace cmt {
 
         m_imageBtnTest = Button("", m_resources.getFont(0), 1,
             sf::Vector2f(30, 30), sf::Vector2f(500, 500));
-        m_imageBtnTest.enableTexture(true, m_resources.getTexture(0));
+        m_imageBtnTest.enableTexture(m_resources.getTexture(0));
     }
 
     int32_t App::start() {

@@ -56,9 +56,11 @@ namespace cmt {
         return m_enable;
     }
 
-    void Button::enableTexture(bool value, const sf::Texture& texture) {
-        m_texture = value;
+    void Button::enableTexture(const sf::Texture& texture) {
         m_rect.setTexture(&texture);
+
+        if(sizeof(texture) > 40)
+            m_text.setString("");
     }
 
     void Button::setPos(sf::Vector2f pos) {

@@ -8,9 +8,13 @@ namespace cmt {
     class Button {
     public:
         Button(const std::string& string, sf::Font& font,
-            uint32_t textSize, sf::Vector2f size,
-            sf::Vector2f pos, sf::Color text,
-            sf::Color normal, sf::Color touch, sf::Color click);
+            uint32_t textSize = 25,
+            sf::Vector2f size = sf::Vector2f(100.0f, 25.0f),
+            sf::Vector2f pos = sf::Vector2f(0.0f, 0.0f),
+            sf::Color text = sf::Color::Black,
+            sf::Color normal = sf::Color(100, 100, 100),
+            sf::Color touch = sf::Color(45, 45, 45),
+            sf::Color click = sf::Color::Black);
         Button();
 
         bool isClicked(sf::Vector2f mousePos);

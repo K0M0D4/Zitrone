@@ -23,6 +23,7 @@ namespace cmt {
 
         /*
         Texture IDs:
+            0 -> dot
 
         Font IDs:
             0 -> PlayfairDisplay

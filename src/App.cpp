@@ -5,6 +5,8 @@ namespace cmt {
         m_window.create(sf::VideoMode(1280, 720), "Zitrone");
         m_window.setVerticalSyncEnabled(true);
 
+        m_resources.loadTexture("res/dot.png");
+
         m_resources.loadFont("res/PlayfairDisplay.ttf");
 
         m_testText.setFont(m_resources.getFont(0));
@@ -12,9 +14,9 @@ namespace cmt {
         m_testText.setCharacterSize(25);
 
         m_testButton = Button("And totally test button", 
-            m_resources.getFont(0), 30, sf::Vector2f(270, 25),
+            m_resources.getFont(0));/*, 30, sf::Vector2f(270, 25),
             sf::Vector2f(200, 300), sf::Color::Black, sf::Color::White,
-            sf::Color::Green, sf::Color::Red);
+            sf::Color::Green, sf::Color::Red);*/
         
     }
 

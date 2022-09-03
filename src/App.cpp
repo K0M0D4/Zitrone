@@ -14,10 +14,13 @@ namespace cmt {
         m_testText.setCharacterSize(25);
 
         m_testButton = Button("And totally test button", 
-            m_resources.getFont(0));/*, 30, sf::Vector2f(270, 25),
+            m_resources.getFont(0), 30, sf::Vector2f(270, 25),
             sf::Vector2f(200, 300), sf::Color::Black, sf::Color::White,
-            sf::Color::Green, sf::Color::Red);*/
-        
+            sf::Color::Green, sf::Color::Red);
+
+        m_imageBtnTest = Button("", m_resources.getFont(0), 1,
+            sf::Vector2f(30, 30), sf::Vector2f(500, 500));
+        m_imageBtnTest.enableTexture(true, m_resources.getTexture(0));
     }
 
     int32_t App::start() {
@@ -35,11 +38,15 @@ namespace cmt {
             if(m_testButton.isClicked(mousePos)) {
                 m_window.close();
             }
+            if(m_imageBtnTest.isClicked(mousePos)) {
+                m_window.close();
+            }
 
             m_window.clear(sf::Color(20, 20, 30));
 
             m_window.draw(m_testText);
             m_testButton.render(m_window);
+            m_imageBtnTest.render(m_window);
 
             m_window.display();
         }

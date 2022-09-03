@@ -22,17 +22,21 @@ namespace cmt {
         void enable(bool value);
         bool isEnabled();
 
+        void enableTexture(bool value,
+            const sf::Texture& texture = sf::Texture());
+
         void setPos(sf::Vector2f pos);
 
         void render(sf::RenderWindow& target);
 
     private:
         bool m_enable{true};
-        sf::Text m_text;
+        bool m_texture{false};
+        sf::Text m_text{};
 
-        sf::RectangleShape m_rect;
+        sf::RectangleShape m_rect{};
 
-        std::array<sf::Color, 3> m_colors;
+        std::array<sf::Color, 3> m_colors{};
 
         bool isTouched(sf::Vector2f mousePos);
 

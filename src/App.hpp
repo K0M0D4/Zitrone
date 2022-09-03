@@ -18,6 +18,7 @@ namespace cmt {
         sf::Text m_testText;
 
         Button m_testButton;
+        Button m_imageBtnTest;
 
         ResourceManager m_resources;
 

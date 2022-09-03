@@ -10,7 +10,7 @@ namespace cmt {
             sf::Color normal, sf::Color touch, sf::Color click) {
 
         if(textSize > size.y) {
-            uint32_t newSize{round(static_cast<uint32_t>(size.y))};
+            uint32_t newSize{static_cast<uint32_t>(round(size.y))};
             printf("Warning: button text size too big, changing to: %u\n",
                 newSize);
             textSize = newSize;
@@ -54,6 +54,11 @@ namespace cmt {
 
     bool Button::isEnabled() {
         return m_enable;
+    }
+
+    void Button::enableTexture(bool value, const sf::Texture& texture) {
+        m_texture = value;
+        m_rect.setTexture(&texture);
     }
 
     void Button::setPos(sf::Vector2f pos) {

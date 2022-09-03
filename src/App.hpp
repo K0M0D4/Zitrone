@@ -5,8 +5,6 @@
 
 #include <SFML/Graphics.hpp>
 
-#include <iostream>
-
 namespace cmt {
     class App {
     public:

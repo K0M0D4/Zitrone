@@ -1,5 +1,8 @@
 #include "Button.hpp"
 
+#include <cstdio>
+#include <cmath>
+
 namespace cmt {
     Button::Button(const std::string& string, sf::Font& font,
             uint32_t textSize, sf::Vector2f size,
@@ -15,6 +18,13 @@ namespace cmt {
             uint32_t textSize, sf::Vector2f size,
             sf::Vector2f pos, sf::Color text,
             sf::Color normal, sf::Color touch, sf::Color click) {
+
+        if(textSize > size.y) {
+            uint32_t newSize{round(size.y)};
+            printf("Warning: button text size too big, changing to: %u\n",
+                newSize);
+            textSize = newSize;
+        }
 
         m_text.setString(string);
         m_text.setFont(font);
@@ -77,10 +87,16 @@ namespace cmt {
     }
 
     void Button::setCenterText() {
-        m_text.setPosition(sf::Vector2f(
-            m_rect.getPosition().x + (m_rect.getLocalBounds().width
-                - m_text.getLocalBounds().width) / 2,
-            m_rect.getPosition().y + (m_rect.getLocalBounds().height
-                - m_text.getLocalBounds().height) / 2));
+        sf::FloatRect textRect = m_text.getLocalBounds();
+        m_text.setOrigin(textRect.left + textRect.width / 2.0f,
+            textRect.top + textRect.height / 2.0f);
+
+        sf::Vector2f newPos{};
+        newPos.x = m_rect.getPosition().x
+            + m_rect.getLocalBounds().width / 2.0f;
+        newPos.y = m_rect.getPosition().y
+            + m_rect.getLocalBounds().height / 2.0f;
+
+        m_text.setPosition(sf::Vector2f(round(newPos.x), round(newPos.y)));
     }
 }

@@ -13,14 +13,17 @@ namespace cmt {
         int32_t start();
 
     private:
-        sf::RenderWindow m_window;
+        sf::RenderWindow m_window{};
 
-        sf::Text m_testText;
+        Button m_newBtn{};
+        Button m_saveBtn{};
+        Button m_exportBtn{};
+        Button m_loadBtn{};
+        Button m_settingsBtn{};
 
-        Button m_testButton;
-        Button m_imageBtnTest;
+        Button m_imageBtnTest{};
 
-        ResourceManager m_resources;
+        ResourceManager m_resources{};
 
         /*
         Texture IDs:

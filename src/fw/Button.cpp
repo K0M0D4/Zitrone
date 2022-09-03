@@ -20,7 +20,7 @@ namespace cmt {
             sf::Color normal, sf::Color touch, sf::Color click) {
 
         if(textSize > size.y) {
-            uint32_t newSize{round(size.y)};
+            uint32_t newSize{round(static_cast<uint32_t>(size.y))};
             printf("Warning: button text size too big, changing to: %u\n",
                 newSize);
             textSize = newSize;

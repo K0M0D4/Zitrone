@@ -6,12 +6,8 @@ namespace cmt {
     Button::Button(sf::Vector2f size, sf::Vector2f pos, sf::Color normal,
         sf::Color point, sf::Color press) {
 
-        sf::RectangleShape rect{};
-
-        rect.setSize(size);
-        rect.setPosition(pos);
-
-        m_drawables.push_back(rect);
+        m_rect.setSize(size);
+        m_rect.setPosition(pos);
 
         m_colors[0] = normal;
         m_colors[1] = point;
@@ -25,19 +21,17 @@ namespace cmt {
     }
 
     bool Button::isPointed(sf::Vector2f mousePos) {
-        return (m_drawables.at(0).getGlobalBounds().contains(mousePos))
+        return (m_rect.getGlobalBounds().contains(mousePos))
             ? true: false;
     }
 
     void Button::setPos(sf::Vector2f pos) {
-        m_drawables.at(0).setPosition(pos);
+        m_rect.setPosition(pos);
     }
 
     void Button::render(sf::RenderWindow& target) {
         processColors(target);
-        for(auto& drawable : m_drawables) {
-            target.draw(drawable);
-        }
+        target.draw(m_rect);
     }
 
     void Button::processColors(sf::RenderWindow& target) {
@@ -45,14 +39,12 @@ namespace cmt {
         mousePos.x = sf::Mouse::getPosition(target).x;
         mousePos.y = sf::Mouse::getPosition(target).y;
 
-        for(auto& drawable : m_drawables) {
-            if(isPressed(mousePos)) {
-                drawable.setFillColor(m_colors[2]);
-            } else if(isPointed(mousePos)) {
-                drawable.setFillColor(m_colors[1]);
-            } else {
-                drawable.setFillColor(m_colors[0]);
-            }
+        if(isPressed(mousePos)) {
+            m_rect.setFillColor(m_colors[2]);
+        } else if(isPointed(mousePos)) {
+            m_rect.setFillColor(m_colors[1]);
+        } else {
+            m_rect.setFillColor(m_colors[0]);
         }
     }
 }   

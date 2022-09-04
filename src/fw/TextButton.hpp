@@ -1,35 +1,30 @@
 #pragma once
 
+#include "Button.hpp"
+
 #include <SFML/Graphics.hpp>
 
-#include <array>
-#include <vector>
+// debug
+#include <cstdio>
 
 namespace cmt {
-    class Button {
+    class TextButton : public Button {
     public:
-        Button();
-        Button(sf::Vector2f size,
+        TextButton();
+        TextButton(const sf::Font& font, const std::string& string,
+            uint32_t verticalSize,
             sf::Vector2f pos = sf::Vector2f(0.0f, 0.0f),
+            sf::Color textColor = sf::Color::Black,
             sf::Color normal = sf::Color::White,
             sf::Color point = sf::Color(255, 255, 255, 140),
             sf::Color press = sf::Color::Transparent);
-
-        bool isPressed(sf::Vector2f mousePos);
-
-        bool m_enable{true};
 
         void setPos(sf::Vector2f pos);
 
         void render(sf::RenderWindow& target);
 
-    protected:
-        sf::RectangleShape m_rect{};
-
-        std::array<sf::Color, 3> m_colors{};
-
-        bool isPointed(sf::Vector2f mousePos);
-        void processColors(sf::RenderWindow& target);
+    private:
+        sf::Text m_text{};
 
     };
 }

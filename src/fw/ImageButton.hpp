@@ -20,6 +20,8 @@ namespace cmt {
         void render(sf::RenderWindow& target);
 
     private:
+        sf::RectangleShape m_image{};
+
         uint32_t m_padding;
 
     };

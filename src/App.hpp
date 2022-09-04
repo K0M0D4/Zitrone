@@ -1,6 +1,7 @@
 #pragma once
 
 #include "fw/Button.hpp"
+#include "fw/ImageButton.hpp"
 #include "fw/ResourceManager.hpp"
 
 #include <SFML/Graphics.hpp>
@@ -16,6 +17,7 @@ namespace cmt {
         sf::RenderWindow m_window{};
 
         Button m_testBtn{};
+        ImageButton m_testImageBtn{};
 
         ResourceManager m_resources{};
 

@@ -29,5 +29,8 @@ namespace cmt {
 
         bool isPointed(sf::Vector2f mousePos);
 
+        friend class ImageButton;
+        friend class TextButton;
+
     };
 }

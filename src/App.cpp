@@ -11,6 +11,9 @@ namespace cmt {
 
         m_testBtn = Button(sf::Vector2f(100.0f, 20.0f),
             sf::Vector2f(5.0f, 5.0f));
+
+        m_testImageBtn = ImageButton(m_resources.getTexture(0),
+            sf::Vector2f(60.0f, 60.0f), sf::Vector2f(110.0f, 5.0f));
     }
 
     int32_t App::start() {
@@ -25,13 +28,14 @@ namespace cmt {
             mousePos.x = sf::Mouse::getPosition(m_window).x;
             mousePos.y = sf::Mouse::getPosition(m_window).y;
 
-            if(m_testBtn.isPressed(mousePos)) {
-                m_window.close();
+            if(m_testImageBtn.isPressed(mousePos)) {
+                //m_window.close();
             }
 
             m_window.clear(sf::Color(20, 20, 30));
 
             m_testBtn.render(m_window);
+            m_testImageBtn.render(m_window);
 
             m_window.display();
         }

@@ -1,11 +1,13 @@
 cmake_minimum_required(VERSION 3.24)
-project(Zitrone)
+project(Zitrone VERSION 0.1.0 LANGUAGES CXX)
+
+set(CMAKE_BUILD_TYPE Debug)
 
 set(CMAKE_CXX_STANDARD 20)
 
 set(BUILD_SAHRED_LIBS FALSE)
 set(SFML_STATIC_LIBRARIES FALSE)
-set(CMAKE_BUILD_TYPE Debug)
+
 add_subdirectory(dep/SFML)
 
 add_executable(${PROJECT_NAME}
@@ -14,6 +16,7 @@ add_executable(${PROJECT_NAME}
     
     src/fw/ResourceManager.cpp
     src/fw/Button.cpp
+    src/fw/ImageButton.cpp
     )
 
 target_include_directories(${PROJECT_NAME} PUBLIC dep/SFML/include)

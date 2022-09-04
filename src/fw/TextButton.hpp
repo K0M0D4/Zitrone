@@ -14,6 +14,7 @@ namespace cmt {
         TextButton(const sf::Font& font, const std::string& string,
             uint32_t verticalSize,
             sf::Vector2f pos = sf::Vector2f(0.0f, 0.0f),
+            uint32_t padding = 4,
             sf::Color textColor = sf::Color::Black,
             sf::Color normal = sf::Color::White,
             sf::Color point = sf::Color(255, 255, 255, 140),

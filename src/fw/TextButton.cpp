@@ -3,19 +3,21 @@
 namespace cmt {
     TextButton::TextButton() {}
 
-    TextButton::TextButton(const sf::Font& font,
-        const std::string& string, uint32_t verticalSize,
-        sf::Vector2f pos, sf::Color textColor,
+    TextButton::TextButton(const sf::Font& font, const std::string& string,
+        uint32_t verticalSize, sf::Vector2f pos,
+        uint32_t padding, sf::Color textColor,
         sf::Color normal, sf::Color point, sf::Color press) 
         : Button(sf::Vector2f(0.0f, verticalSize), pos,
             normal, point, press) {
 
         m_text.setFont(font);
-        m_text.setCharacterSize(static_cast<uint32_t>(verticalSize - 8));
+        m_text.setCharacterSize(static_cast<uint32_t>(verticalSize
+            - padding * 2));
         m_text.setFillColor(textColor);
         m_text.setString(string);
 
-        m_rect.setSize(sf::Vector2f(m_text.getLocalBounds().width + 8,
+        m_rect.setSize(sf::Vector2f(m_text.getLocalBounds().width
+            + padding * 2,
             m_rect.getSize().y));
 
         setPos(pos);

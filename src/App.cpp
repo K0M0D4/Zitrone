@@ -19,7 +19,7 @@ namespace cmt {
 
         m_testTextBtn = TextButton(m_resources.getFont(0),
             "Total test button!", 30,
-            sf::Vector2f(175.0f, 5.0f));
+            sf::Vector2f(175.0f, 5.0f), 8);
     }
 
     int32_t App::start() {

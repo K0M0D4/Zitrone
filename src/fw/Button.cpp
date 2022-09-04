@@ -29,6 +29,11 @@ namespace cmt {
     }
 
     void Button::render(sf::RenderWindow& target) {
+        processColors(target);
+        target.draw(m_rect);
+    }
+
+    void Button::processColors(sf::RenderWindow& target) {
         sf::Vector2f mousePos{};
         mousePos.x = sf::Mouse::getPosition(target).x;
         mousePos.y = sf::Mouse::getPosition(target).y;
@@ -40,7 +45,5 @@ namespace cmt {
         } else {
             m_rect.setFillColor(m_colors[0]);
         }
-
-        target.draw(m_rect);
     }
 }   

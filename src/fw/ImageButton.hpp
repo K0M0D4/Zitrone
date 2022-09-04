@@ -13,7 +13,5 @@ namespace cmt {
         ImageButton(const sf::Texture& texture, sf::Vector2f size,
             sf::Vector2f pos = sf::Vector2f(0.0f, 0.0f));
 
-        void render(sf::RenderWindow& target);
-
     };
 }

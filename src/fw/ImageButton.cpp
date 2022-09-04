@@ -4,29 +4,14 @@ namespace cmt {
     ImageButton::ImageButton() {}
 
     ImageButton::ImageButton(const sf::Texture& texture, sf::Vector2f size,
-        sf::Vector2f pos) {
+        sf::Vector2f pos) 
+        : Button(size, pos) {
 
-        m_rect.setSize(size);
-        m_rect.setPosition(pos);
+        m_colors[0] = sf::Color::White;
+        m_colors[1] = sf::Color(255, 255, 255, 140);
+        m_colors[2] = sf::Color::Transparent;
 
         m_rect.setTexture(&texture);
-    }
-
-    void ImageButton::render(sf::RenderWindow& target) {
-        // fix code repetition with inheritance
-        sf::Vector2f mousePos{};
-        mousePos.x = sf::Mouse::getPosition(target).x;
-        mousePos.y = sf::Mouse::getPosition(target).y;
-
-        if(isPressed(mousePos)) {
-            m_rect.setFillColor(sf::Color::Transparent);
-        } else if(isPointed(mousePos)) {
-            m_rect.setFillColor(sf::Color(255, 255, 255, 140));
-        } else {
-            m_rect.setFillColor(sf::Color(255, 255, 255, 255));
-        }
-
-        target.draw(m_rect);
     }
 
 }

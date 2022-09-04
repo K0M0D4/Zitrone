@@ -28,6 +28,7 @@ namespace cmt {
         std::array<sf::Color, 3> m_colors{};
 
         bool isPointed(sf::Vector2f mousePos);
+        void processColors(sf::RenderWindow& target);
 
         friend class ImageButton;
         friend class TextButton;

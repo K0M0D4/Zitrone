@@ -13,7 +13,9 @@ namespace cmt {
             sf::Vector2f(5.0f, 5.0f));
 
         m_testImageBtn = ImageButton(m_resources.getTexture(0),
-            sf::Vector2f(60.0f, 60.0f), 5, sf::Vector2f(110.0f, 5.0f));
+            sf::Vector2f(60.0f, 60.0f), 5,
+            sf::Vector2f(m_testBtn.getPos().x
+            + m_testBtn.getBounds().width + 5.0f, 5.0f));
 
         m_testTextBtn = TextButton(m_resources.getFont(0),
             "Total test button!", 30,

@@ -21,6 +21,9 @@ namespace cmt {
 
         void setPos(sf::Vector2f pos);
 
+        const sf::Vector2f& getPos();
+        sf::FloatRect getBounds();
+
         void render(sf::RenderWindow& target);
 
     protected:

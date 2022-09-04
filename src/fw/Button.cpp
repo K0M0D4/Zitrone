@@ -29,6 +29,14 @@ namespace cmt {
         m_rect.setPosition(pos);
     }
 
+    const sf::Vector2f& Button::getPos() {
+        return m_rect.getPosition();
+    }
+
+    sf::FloatRect Button::getBounds() {
+        return m_rect.getLocalBounds();
+    }
+
     void Button::render(sf::RenderWindow& target) {
         processColors(target);
         target.draw(m_rect);

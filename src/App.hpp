@@ -15,13 +15,7 @@ namespace cmt {
     private:
         sf::RenderWindow m_window{};
 
-        Button m_newBtn{};
-        Button m_saveBtn{};
-        Button m_exportBtn{};
-        Button m_loadBtn{};
-        Button m_settingsBtn{};
-
-        Button m_imageBtnTest{};
+        Button m_testBtn{};
 
         ResourceManager m_resources{};
 

@@ -10,7 +10,10 @@ namespace cmt {
         ImageButton();
         ImageButton(const sf::Texture& texture,
             sf::Vector2f size, uint32_t padding = 0,
-            sf::Vector2f pos = sf::Vector2f(0.0f, 0.0f));
+            sf::Vector2f pos = sf::Vector2f(0.0f, 0.0f),
+            sf::Color normal = sf::Color::White,
+            sf::Color point = sf::Color(255, 255, 255, 140),
+            sf::Color press = sf::Color::Transparent);
 
         void setPos(sf::Vector2f pos);
 

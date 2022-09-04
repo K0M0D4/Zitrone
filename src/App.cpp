@@ -13,7 +13,7 @@ namespace cmt {
             sf::Vector2f(5.0f, 5.0f));
 
         m_testImageBtn = ImageButton(m_resources.getTexture(0),
-            sf::Vector2f(60.0f, 60.0f), sf::Vector2f(110.0f, 5.0f));
+            sf::Vector2f(60.0f, 60.0f), 5, sf::Vector2f(110.0f, 5.0f));
     }
 
     int32_t App::start() {

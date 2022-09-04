@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include <array>
+#include <vector>
 
 namespace cmt {
     class Button {
@@ -10,9 +11,9 @@ namespace cmt {
         Button();
         Button(sf::Vector2f size,
             sf::Vector2f pos = sf::Vector2f(0.0f, 0.0f),
-            sf::Color normal = sf::Color(100, 100, 100),
-            sf::Color point = sf::Color(45, 45, 45),
-            sf::Color press = sf::Color::Black);
+            sf::Color normal = sf::Color::White,
+            sf::Color point = sf::Color(255, 255, 255, 140),
+            sf::Color press = sf::Color::Transparent);
 
         bool isPressed(sf::Vector2f mousePos);
 
@@ -23,7 +24,7 @@ namespace cmt {
         void render(sf::RenderWindow& target);
 
     protected:
-        sf::RectangleShape m_rect{};
+        std::vector<sf::RectangleShape> m_drawables;
 
         std::array<sf::Color, 3> m_colors{};
 

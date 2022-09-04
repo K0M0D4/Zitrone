@@ -17,9 +17,10 @@ namespace cmt {
     private:
         sf::RenderWindow m_window{};
 
-        Button m_testBtn{};
         ImageButton m_testImageBtn{};
-        TextButton m_testTextBtn{};
+
+        TextButton m_plusBtn{};
+        TextButton m_minusBtn{};
 
         ResourceManager m_resources{};
 

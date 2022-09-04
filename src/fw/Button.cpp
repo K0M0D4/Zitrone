@@ -6,16 +6,13 @@ namespace cmt {
     Button::Button(sf::Vector2f size, sf::Vector2f pos, sf::Color normal,
         sf::Color point, sf::Color press) {
 
-        m_rect.setSize(size);
-        m_rect.setPosition(pos);
-
-        m_colors[0] = normal;
-        m_colors[1] = point;
-        m_colors[2] = press;
+        setSize(size);
+        setPos(pos);
+        setColors(normal, point, press);
     }
 
     bool Button::isPressed(sf::Vector2f mousePos) {
-        return (m_enable && isPointed(mousePos)
+        return (enable && isPointed(mousePos)
             && sf::Mouse::isButtonPressed(sf::Mouse::Left))
             ? true: false;
     }
@@ -25,17 +22,38 @@ namespace cmt {
             ? true: false;
     }
 
+    // setters 
     void Button::setPos(sf::Vector2f pos) {
         m_rect.setPosition(pos);
     }
 
+    void Button::setSize(sf::Vector2f size) {
+        m_rect.setSize(size);
+    }
+
+    void Button::setColors(sf::Color normal, sf::Color point, sf::Color press) {
+        m_colors[0] = normal;
+        m_colors[1] = point;
+        m_colors[2] = press;
+    }
+
+    // getters
     const sf::Vector2f& Button::getPos() {
         return m_rect.getPosition();
+    }
+
+    const sf::Vector2f& Button::getSize() {
+        return m_rect.getSize();
+    }
+
+    std::array<sf::Color, 3>& Button::getColors() {
+        return m_colors;
     }
 
     sf::FloatRect Button::getBounds() {
         return m_rect.getLocalBounds();
     }
+
 
     void Button::render(sf::RenderWindow& target) {
         processColors(target);

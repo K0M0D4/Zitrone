@@ -16,13 +16,18 @@ namespace cmt {
             sf::Color press = sf::Color::Transparent);
 
         void setPos(sf::Vector2f pos);
+        void setSize(sf::Vector2f size);
+        void setPadding(uint32_t padding);
+        void setTexture(const sf::Texture& texture);
+
+        const uint32_t& getPadding();
 
         void render(sf::RenderWindow& target);
 
     private:
         sf::RectangleShape m_image{};
 
-        uint32_t m_padding;
+        uint32_t m_padding{};
 
     };
 }

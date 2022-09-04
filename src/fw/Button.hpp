@@ -17,11 +17,15 @@ namespace cmt {
 
         bool isPressed(sf::Vector2f mousePos);
 
-        bool m_enable{true};
+        bool enable{true};
 
         void setPos(sf::Vector2f pos);
+        void setSize(sf::Vector2f size);
+        void setColors(sf::Color normal, sf::Color point, sf::Color press);
 
         const sf::Vector2f& getPos();
+        const sf::Vector2f& getSize();
+        std::array<sf::Color, 3>& getColors();
         sf::FloatRect getBounds();
 
         void render(sf::RenderWindow& target);

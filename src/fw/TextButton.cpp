@@ -8,21 +8,16 @@ namespace cmt {
         uint32_t padding, sf::Color textColor,
         sf::Color normal, sf::Color point, sf::Color press) 
         : Button(sf::Vector2f(0.0f, verticalSize), pos,
-            normal, point, press) {
+            normal, point, press), m_padding(padding) {
 
-        m_text.setFont(font);
-        m_text.setCharacterSize(static_cast<uint32_t>(verticalSize
-            - padding * 2));
-        m_text.setFillColor(textColor);
-        m_text.setString(string);
-
-        m_rect.setSize(sf::Vector2f(m_text.getLocalBounds().width
-            + padding * 2,
-            m_rect.getSize().y));
-
+        setFont(font);
+        setTextColor(textColor);
+        setString(string);
+        setSize(verticalSize);
         setPos(pos);
     }
 
+    // setters
     void TextButton::setPos(sf::Vector2f pos) {
         Button::setPos(pos);
 
@@ -40,6 +35,48 @@ namespace cmt {
             static_cast<int32_t>(newPos.x),
             static_cast<int32_t>((newPos.y))));
     }
+
+    void TextButton::setSize(sf::Vector2f size) {
+        setSize(size.y);
+    }
+
+    void TextButton::setSize(uint32_t verticalSize) {
+        m_text.setCharacterSize(static_cast<uint32_t>(verticalSize
+            - m_padding * 2));
+        m_rect.setSize(sf::Vector2f(m_text.getLocalBounds().width
+            + m_padding * 2,
+            m_rect.getSize().y));
+    }
+
+    void TextButton::setFont(const sf::Font& font) {
+        m_text.setFont(font);
+    }
+
+    void TextButton::setString(const std::string& string) {
+        m_text.setString(string);
+    }
+
+    void TextButton::setPadding(uint32_t padding) {
+        m_padding = padding;
+    }
+
+    void TextButton::setTextColor(sf::Color color) {
+        m_text.setFillColor(color);
+    }
+
+    // getters
+    std::string TextButton::getString() {
+        return m_text.getString();
+    }
+
+    const uint32_t& TextButton::getPadding() {
+        return m_padding;
+    }
+
+    const sf::Color& TextButton::getTextColor() {
+        return m_text.getFillColor();
+    }
+
 
     void TextButton::render(sf::RenderWindow& target) {
         Button::render(target);

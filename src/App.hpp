@@ -7,6 +7,9 @@
 
 #include <SFML/Graphics.hpp>
 
+// debug
+#include <cstdio>
+
 namespace cmt {
     class App {
     public:
@@ -17,16 +20,23 @@ namespace cmt {
     private:
         sf::RenderWindow m_window{};
 
-        ImageButton m_testImageBtn{};
+        // horizontal navbar
+        TextButton m_saveBtn{};
+        TextButton m_exportBtn{};
+        TextButton m_openBtn{};
+        TextButton m_settingsBtn{};
 
-        TextButton m_plusBtn{};
-        TextButton m_minusBtn{};
+        // vertical buttons
+        ImageButton m_noteBtn{};
+        std::array<TextButton, 6> m_chBtn{};
+        ImageButton m_moveButton{};
 
         ResourceManager m_resources{};
 
         /*
         Texture IDs:
             0 -> dot
+            1 -> move
 
         Font IDs:
             0 -> PlayfairDisplay

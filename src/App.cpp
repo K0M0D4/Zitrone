@@ -2,8 +2,7 @@
 
 namespace cmt {
     App::App() {
-        m_window.create(sf::VideoMode(1280, 720), "Zitrone",
-            sf::Style::Titlebar | sf::Style::Close);
+        m_window.create(sf::VideoMode(1280, 720), "Zitrone");
         m_window.setVerticalSyncEnabled(true);
 
         m_resources.loadTexture("res/dot.png");
@@ -14,8 +13,6 @@ namespace cmt {
         m_resources.loadFont("res/PlayfairDisplay.ttf");
 
         // viewport
-        m_viewport = m_window.getDefaultView();
-        m_viewport.setViewport(sf::FloatRect{0.0f, 0.1f, 0.9f, 1.0f});
         m_background.setTexture(m_resources.getTexture(2));
         sf::IntRect bgRect{sf::Vector2i(0, 0), sf::Vector2i{
             static_cast<int32_t>(m_window.getSize().x),
@@ -74,22 +71,22 @@ namespace cmt {
             while(m_window.pollEvent(event)) {
                 if(event.type == sf::Event::Closed)
                     m_window.close();
+
+                if (event.type == sf::Event::Resized)
+                {
+                    sf::FloatRect visibleArea(0.f, 0.f,
+                        event.size.width, event.size.height);
+                    m_window.setView(sf::View(visibleArea));
+                }
             }
 
             sf::Vector2f mousePos{};
             mousePos.x = sf::Mouse::getPosition(m_window).x;
             mousePos.y = sf::Mouse::getPosition(m_window).y;
 
-            if(m_saveBtn.isPressed(mousePos)) {
-                m_viewport.move(-2.0f, 0.0f);
-            }
-
             m_window.clear(sf::Color(20, 20, 30));
 
-            m_window.setView(m_viewport);
             m_window.draw(m_background);
-
-            m_window.setView(m_window.getDefaultView());
 
             // horizontal navbar
             m_saveBtn.render(m_window);

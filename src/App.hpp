@@ -29,7 +29,6 @@ namespace cmt {
         ImageButton m_moveButton{};
 
         // viewport
-        sf::View m_viewport{};
         sf::Sprite m_background{};
 
         ResourceManager m_resources{};

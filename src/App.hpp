@@ -7,9 +7,6 @@
 
 #include <SFML/Graphics.hpp>
 
-// debug
-#include <cstdio>
-
 namespace cmt {
     class App {
     public:

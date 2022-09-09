@@ -8,8 +8,19 @@ namespace cmt {
 
         m_resources.loadTexture("res/dot.png");
         m_resources.loadTexture("res/move.png");
+        m_resources.loadTexture("res/background.png");
+        m_resources.getTexture(2).setRepeated(true);
 
         m_resources.loadFont("res/PlayfairDisplay.ttf");
+
+        // viewport
+        m_viewport = m_window.getDefaultView();
+        m_viewport.setViewport(sf::FloatRect{0.0f, 0.1f, 0.9f, 1.0f});
+        m_background.setTexture(m_resources.getTexture(2));
+        sf::IntRect bgRect{sf::Vector2i(0, 0), sf::Vector2i{
+            static_cast<int32_t>(m_window.getSize().x),
+            static_cast<int32_t>(m_window.getSize().y)}};
+        m_background.setTextureRect(bgRect);
 
         // horizontal navbar
         m_saveBtn = TextButton(m_resources.getFont(0), "Save", 25,
@@ -69,7 +80,16 @@ namespace cmt {
             mousePos.x = sf::Mouse::getPosition(m_window).x;
             mousePos.y = sf::Mouse::getPosition(m_window).y;
 
+            if(m_saveBtn.isPressed(mousePos)) {
+                m_viewport.move(-2.0f, 0.0f);
+            }
+
             m_window.clear(sf::Color(20, 20, 30));
+
+            m_window.setView(m_viewport);
+            m_window.draw(m_background);
+
+            m_window.setView(m_window.getDefaultView());
 
             // horizontal navbar
             m_saveBtn.render(m_window);

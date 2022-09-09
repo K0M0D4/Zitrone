@@ -28,12 +28,17 @@ namespace cmt {
         std::array<TextButton, 6> m_chBtn{};
         ImageButton m_moveButton{};
 
+        // viewport
+        sf::View m_viewport{};
+        sf::Sprite m_background{};
+
         ResourceManager m_resources{};
 
         /*
         Texture IDs:
             0 -> dot
             1 -> move
+            2 -> background
 
         Font IDs:
             0 -> PlayfairDisplay

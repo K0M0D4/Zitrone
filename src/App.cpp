@@ -4,7 +4,6 @@ namespace cmt {
     App::App() {
         m_window.create(sf::VideoMode(1280, 720), "Zitrone");
         m_window.setVerticalSyncEnabled(true);
-        //m_window.setFramerateLimit(10);
 
         m_resources.loadTexture("res/dot.png");
         m_resources.loadTexture("res/move.png");
@@ -54,22 +53,6 @@ namespace cmt {
                 if(event.type == sf::Event::Closed)
                     m_window.close();
 
-                /*if(event.type == sf::Event::MouseWheelScrolled
-                    && event.mouseWheelScroll.delta > 0) {
-
-                    m_viewportZoom = 0.99f;
-                } 
-                
-                if(event.type == sf::Event::MouseWheelScrolled
-                    && event.mouseWheelScroll.delta < 0) {
-
-                    m_viewportZoom = 1.01f;
-                }
-
-                if(event.mouseWheelScroll.delta == 0) {
-                    m_viewportZoom = 1.0f;
-                }*/
-
                 if(event.type == sf::Event::Resized) {
                     // views stuff
                     float navBarSize = m_saveBtn.getSize().y * 1.5f;
@@ -79,6 +62,7 @@ namespace cmt {
                     m_viewport = sf::View(sf::FloatRect(0.f, 0.f,
                         event.size.width - vertBarSize,
                         event.size.height - navBarSize));
+                    m_viewport.setCenter(vpcenter);
 
                     m_viewport.setViewport(sf::FloatRect(0.0f,
                         1.0f - (m_window.getSize().y - navBarSize)
@@ -87,8 +71,7 @@ namespace cmt {
                         / m_window.getSize().x,
                         (m_window.getSize().y - navBarSize)
                         / m_window.getSize().y));
-                    m_viewport.setCenter(vpcenter);
-
+                    
                     m_normalView = sf::View(sf::FloatRect(0.f, 0.f,
                         event.size.width, event.size.height));
 
@@ -115,7 +98,11 @@ namespace cmt {
                 }
             }
             
-            //m_viewport.zoom(m_viewportZoom);
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Equal)) {
+                m_viewport.zoom(0.99f);
+            } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Hyphen)) {
+                m_viewport.zoom(1.01f);
+            }
 
             sf::Vector2f mousePos{};
             mousePos.x = sf::Mouse::getPosition(m_window).x;

@@ -14,10 +14,7 @@ namespace cmt {
 
         // viewport
         m_background.setTexture(m_resources.getTexture(2));
-        sf::IntRect bgRect{sf::Vector2i(0, 0), sf::Vector2i{
-            static_cast<int32_t>(m_window.getSize().x),
-            static_cast<int32_t>(m_window.getSize().y)}};
-        m_background.setTextureRect(bgRect);
+        m_background.setTextureRect(sf::IntRect(0, 0, 4096, 4096));
 
         // horizontal navbar
         m_saveBtn = TextButton(m_resources.getFont(0), "Save", 25,
@@ -67,6 +64,7 @@ namespace cmt {
 
     int32_t App::start() {
         while(m_window.isOpen()) {
+            // input
             sf::Event event;
             while(m_window.pollEvent(event)) {
                 if(event.type == sf::Event::Closed)
@@ -78,17 +76,58 @@ namespace cmt {
                         event.size.width, event.size.height);
                     m_window.setView(sf::View(visibleArea));
                 }
+
+                if (event.type == sf::Event::Resized) {
+                    float navBarSize = m_saveBtn.getSize().y * 1.5f;
+                    float vertBarSize = m_moveButton.getSize().x * 1.5f;
+
+                    m_viewport = sf::View(sf::FloatRect(0.f, 0.f,
+                        event.size.width - vertBarSize,
+                        event.size.height - navBarSize));
+
+                    m_viewport.setViewport(sf::FloatRect(0.0f,
+                        1.0f - (m_window.getSize().y - navBarSize)
+                        / m_window.getSize().y,
+                        (m_window.getSize().x - vertBarSize)
+                        / m_window.getSize().x,
+                        (m_window.getSize().y - navBarSize)
+                        / m_window.getSize().y));
+
+                    m_normalView = sf::View(sf::FloatRect(0.f, 0.f,
+                        event.size.width, event.size.height));
+
+                    
+                }
             }
 
             sf::Vector2f mousePos{};
             mousePos.x = sf::Mouse::getPosition(m_window).x;
             mousePos.y = sf::Mouse::getPosition(m_window).y;
 
+            if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+                sf::Vector2i realPos = sf::Mouse::getPosition(m_window);
+                if(m_wasMousePressed) {
+                    m_deltaMousePos = realPos - m_prevMousePos;
+                }
+                m_prevMousePos = realPos;
+                m_wasMousePressed = true;
+            } else {
+                m_wasMousePressed = false;
+                m_prevMousePos = sf::Vector2i{};
+                m_deltaMousePos = sf::Vector2i{};
+            }
+
+            m_viewport.move(static_cast<float>(-m_deltaMousePos.x),
+                static_cast<float>(-m_deltaMousePos.y));
+
+            // rendering
             m_window.clear(sf::Color(20, 20, 30));
 
+            m_window.setView(m_viewport);
             m_window.draw(m_background);
 
             // horizontal navbar
+            m_window.setView(m_normalView);
             m_saveBtn.render(m_window);
             m_exportBtn.render(m_window);
             m_openBtn.render(m_window);

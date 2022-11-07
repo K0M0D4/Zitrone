@@ -32,6 +32,7 @@ namespace cmt {
         sf::Sprite m_background{};
         sf::View m_viewport{};
         sf::View m_normalView{};
+        //float m_viewportZoom{1.0f};
         sf::Vector2i m_prevMousePos{};
         sf::Vector2i m_deltaMousePos{};
         bool m_wasMousePressed{};

@@ -4,6 +4,7 @@ namespace cmt {
     App::App() {
         m_window.create(sf::VideoMode(1280, 720), "Zitrone");
         m_window.setVerticalSyncEnabled(true);
+        //m_window.setFramerateLimit(10);
 
         m_resources.loadTexture("res/dot.png");
         m_resources.loadTexture("res/move.png");
@@ -53,14 +54,23 @@ namespace cmt {
                 if(event.type == sf::Event::Closed)
                     m_window.close();
 
-                if (event.type == sf::Event::Resized)
-                {
-                    sf::FloatRect visibleArea(0.f, 0.f,
-                        event.size.width, event.size.height);
-                    m_window.setView(sf::View(visibleArea));
+                /*if(event.type == sf::Event::MouseWheelScrolled
+                    && event.mouseWheelScroll.delta > 0) {
+
+                    m_viewportZoom = 0.99f;
+                } 
+                
+                if(event.type == sf::Event::MouseWheelScrolled
+                    && event.mouseWheelScroll.delta < 0) {
+
+                    m_viewportZoom = 1.01f;
                 }
 
-                if (event.type == sf::Event::Resized) {
+                if(event.mouseWheelScroll.delta == 0) {
+                    m_viewportZoom = 1.0f;
+                }*/
+
+                if(event.type == sf::Event::Resized) {
                     // views stuff
                     float navBarSize = m_saveBtn.getSize().y * 1.5f;
                     float vertBarSize = m_noteBtn.getSize().x * 1.5f;
@@ -104,6 +114,8 @@ namespace cmt {
                         + m_chBtn.back().getBounds().height));
                 }
             }
+            
+            //m_viewport.zoom(m_viewportZoom);
 
             sf::Vector2f mousePos{};
             mousePos.x = sf::Mouse::getPosition(m_window).x;

@@ -8,7 +8,11 @@ set(CMAKE_CXX_STANDARD 20)
 set(BUILD_SHARED_LIBS FALSE)
 set(SFML_STATIC_LIBRARIES TRUE)
 
-add_subdirectory(dep/SFML)
+include(FetchContent)
+FetchContent_Declare(SFML
+    GIT_REPOSITORY https://github.com/SFML/SFML.git
+    GIT_TAG 2.6.x)
+FetchContent_MakeAvailable(SFML)
 
 add_executable(${PROJECT_NAME}
     src/main.cpp
@@ -19,8 +23,6 @@ add_executable(${PROJECT_NAME}
     src/fw/ImageButton.cpp
     src/fw/TextButton.cpp
     )
-
-set_property(TARGET ${PROJECT_NAME} PROPERTY COMPILE_WARNING_AS_ERROR OFF)
 
 target_include_directories(${PROJECT_NAME} PUBLIC dep/SFML/include)
 target_compile_options(${PROJECT_NAME} PUBLIC -DSFML_STATIC)

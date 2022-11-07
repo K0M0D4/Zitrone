@@ -36,30 +36,13 @@ namespace cmt {
         m_noteBtn = ImageButton(m_resources.getTexture(0),
             sf::Vector2f(40.0f, 40.0f), 4);
 
-        float xVerBtnsPos = static_cast<float>(m_window.getSize().x)
-            - m_noteBtn.getBounds().width - 10;
-
-        m_noteBtn.setPos(sf::Vector2f(xVerBtnsPos, 40.0f));
-
-        // chord buttons
         for(uint16_t c{0}; c < 6; ++c) {
             m_chBtn.at(c) = TextButton(m_resources.getFont(0),
                 std::to_string(c + 1), 40);
         }
-        m_chBtn.at(0).setPos(sf::Vector2f(xVerBtnsPos,
-            m_noteBtn.getPos().y + m_noteBtn.getBounds().height + 15.0f));
-        for(uint16_t c{0}; c < 5; ++c) {
-            m_chBtn.at(c + 1).setPos(sf::Vector2f(xVerBtnsPos, 10.0f
-                + m_chBtn.at(c).getPos().y
-                + m_chBtn.at(c).getBounds().height));
-        }
 
-        // move button
         m_moveButton = ImageButton(m_resources.getTexture(1),
             sf::Vector2f(40.0f, 40.0f), 4);
-
-        m_moveButton.setPos(sf::Vector2f(xVerBtnsPos, 15.0f +
-            m_chBtn.back().getPos().y + m_chBtn.back().getBounds().height));
     }
 
     int32_t App::start() {
@@ -78,8 +61,9 @@ namespace cmt {
                 }
 
                 if (event.type == sf::Event::Resized) {
+                    // views stuff
                     float navBarSize = m_saveBtn.getSize().y * 1.5f;
-                    float vertBarSize = m_moveButton.getSize().x * 1.5f;
+                    float vertBarSize = m_noteBtn.getSize().x * 1.5f;
 
                     m_viewport = sf::View(sf::FloatRect(0.f, 0.f,
                         event.size.width - vertBarSize,
@@ -96,7 +80,26 @@ namespace cmt {
                     m_normalView = sf::View(sf::FloatRect(0.f, 0.f,
                         event.size.width, event.size.height));
 
-                    
+                    // vertical buttons positions
+                    float xVerBtnsPos =
+                        static_cast<float>(m_window.getSize().x)
+                        - m_noteBtn.getBounds().width - 10;
+
+                    m_noteBtn.setPos(sf::Vector2f(xVerBtnsPos, 40.0f));
+
+                    m_chBtn.at(0).setPos(sf::Vector2f(xVerBtnsPos,
+                        m_noteBtn.getPos().y
+                        + m_noteBtn.getBounds().height + 15.0f));
+
+                    for(uint16_t c{0}; c < 5; ++c) {
+                        m_chBtn.at(c + 1).setPos(sf::Vector2f(xVerBtnsPos,
+                            10.0f + m_chBtn.at(c).getPos().y
+                            + m_chBtn.at(c).getBounds().height));
+                    }
+
+                    m_moveButton.setPos(sf::Vector2f(xVerBtnsPos, 15.0f
+                        + m_chBtn.back().getPos().y
+                        + m_chBtn.back().getBounds().height));
                 }
             }
 

@@ -65,6 +65,7 @@ namespace cmt {
                     float navBarSize = m_saveBtn.getSize().y * 1.5f;
                     float vertBarSize = m_noteBtn.getSize().x * 1.5f;
 
+                    sf::Vector2f vpcenter = m_viewport.getCenter();
                     m_viewport = sf::View(sf::FloatRect(0.f, 0.f,
                         event.size.width - vertBarSize,
                         event.size.height - navBarSize));
@@ -76,6 +77,7 @@ namespace cmt {
                         / m_window.getSize().x,
                         (m_window.getSize().y - navBarSize)
                         / m_window.getSize().y));
+                    m_viewport.setCenter(vpcenter);
 
                     m_normalView = sf::View(sf::FloatRect(0.f, 0.f,
                         event.size.width, event.size.height));

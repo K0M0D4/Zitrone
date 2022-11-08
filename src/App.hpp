@@ -35,6 +35,7 @@ namespace cmt {
         sf::Vector2i m_prevMousePos{};
         sf::Vector2i m_deltaMousePos{};
         bool m_wasMousePressed{};
+        float m_vpzoom{1.0f};
 
         ResourceManager m_resources{};
 

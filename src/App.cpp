@@ -100,13 +100,14 @@ namespace cmt {
             
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Equal)) {
                 m_viewport.zoom(0.99f);
+                m_vpzoom *= 0.99f;
             } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Hyphen)) {
                 m_viewport.zoom(1.01f);
+                m_vpzoom *= 1.01f;
             }
 
-            sf::Vector2f mousePos{};
-            mousePos.x = sf::Mouse::getPosition(m_window).x;
-            mousePos.y = sf::Mouse::getPosition(m_window).y;
+            sf::Vector2f mousePos{m_window.mapPixelToCoords(
+                    sf::Mouse::getPosition(m_window))};
 
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
                 sf::Vector2i realPos = sf::Mouse::getPosition(m_window);
@@ -121,8 +122,8 @@ namespace cmt {
                 m_deltaMousePos = sf::Vector2i{};
             }
 
-            m_viewport.move(static_cast<float>(-m_deltaMousePos.x),
-                static_cast<float>(-m_deltaMousePos.y));
+            m_viewport.move(static_cast<float>(-m_deltaMousePos.x) * m_vpzoom,
+                static_cast<float>(-m_deltaMousePos.y) * m_vpzoom);
 
             // rendering
             m_window.clear(sf::Color(20, 20, 30));

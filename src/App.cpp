@@ -43,6 +43,8 @@ namespace cmt {
 
         m_moveButton = ImageButton(m_resources.getTexture(1),
             sf::Vector2f(40.0f, 40.0f), 4);
+
+        m_line = DashLine{sf::Vector2f(0.0f, 0.0f), sf::Vector2f(100.0f, 100.0f), 20.0f, sf::Color::Red};
     }
 
     int32_t App::start() {
@@ -130,6 +132,7 @@ namespace cmt {
 
             m_window.setView(m_viewport);
             m_window.draw(m_background);
+            m_line.render(m_window);
 
             // horizontal navbar
             m_window.setView(m_normalView);

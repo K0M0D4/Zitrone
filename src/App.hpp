@@ -1,9 +1,8 @@
 #pragma once
 
 #include "fw/Button.hpp"
-#include "fw/ImageButton.hpp"
+#include "fw/DashLine.hpp"
 #include "fw/ResourceManager.hpp"
-#include "fw/TextButton.hpp"
 
 #include <SFML/Graphics.hpp>
 
@@ -36,6 +35,8 @@ namespace cmt {
         sf::Vector2i m_deltaMousePos{};
         bool m_wasMousePressed{};
         float m_vpzoom{1.0f};
+
+        DashLine m_line{};
 
         ResourceManager m_resources{};
 

@@ -1,0 +1,24 @@
+// important and key things
+
+drawing grid
+moving ui stuff to separate class for clearance of code
+tidying app.cpp functions
+handling active lines in grid
+maybe separate class for grid too
+adding notes to the grid
+implement modes like normal(move), edit
+adding chords to notes
+automatically connecting notes
+draw cut line
+
+make buttons actually usable
+    that means working exporting, saving, opening files
+    also working settins
+
+// stuff to polish:
+
+buttons working on sort of events instead of just isMouseClicked
+rounded rectangles for buttons
+try to inherit custom graphc classes from sf::Drawable
+    and maybe some from sf::Transformable
+add boundries check with mouse position while moving viewport

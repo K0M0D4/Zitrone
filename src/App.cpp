@@ -7,14 +7,8 @@ namespace cmt {
 
         m_resources.loadTexture("res/dot.png");
         m_resources.loadTexture("res/move.png");
-        m_resources.loadTexture("res/background.png");
-        m_resources.getTexture(2).setRepeated(true);
 
         m_resources.loadFont("res/PlayfairDisplay.ttf");
-
-        // viewport
-        m_background.setTexture(m_resources.getTexture(2));
-        m_background.setTextureRect(sf::IntRect(0, 0, 4096, 4096));
 
         // horizontal navbar
         m_saveBtn = TextButton(m_resources.getFont(0), "Save", 25,
@@ -44,7 +38,11 @@ namespace cmt {
         m_moveButton = ImageButton(m_resources.getTexture(1),
             sf::Vector2f(40.0f, 40.0f), 4);
 
-        m_line = DashLine{sf::Vector2f(0.0f, 0.0f), sf::Vector2f(100.0f, 100.0f), 20.0f, sf::Color::Red};
+        m_workspace.setOutlineThickness(5);
+        m_workspace.setFillColor(sf::Color::Transparent);
+        m_workspace.setOutlineColor(sf::Color::White);
+
+        m_line = DashLine{sf::Vector2f(20.0f, 20.0f), sf::Vector2f(100.0f, 100.0f), 20.0f, sf::Color::Red};
     }
 
     int32_t App::start() {
@@ -131,8 +129,8 @@ namespace cmt {
             m_window.clear(sf::Color(20, 20, 30));
 
             m_window.setView(m_viewport);
-            m_window.draw(m_background);
             m_line.render(m_window);
+            m_window.draw(m_workspace);
 
             // horizontal navbar
             m_window.setView(m_normalView);

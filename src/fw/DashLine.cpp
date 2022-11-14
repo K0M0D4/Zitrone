@@ -19,12 +19,13 @@ namespace cmt {
         uint32_t dashOcurrencies{static_cast<uint32_t>(std::floor(totalLength / dashLength))};
         float segmentWidth{dashLength * static_cast<float>(sin(angle))};
         float segmentHeight{dashLength * static_cast<float>(cos(angle))};
-        
-        m_verts.append(sf::Vertex(sf::Vector2f(0.0f, 0.0f)));
 
-        for(int i{1}; i < 10; ++i) {
+        m_verts.append(sf::Vertex(start));
+
+        for(int i{1}; i < dashOcurrencies; ++i) {
             m_verts.append(sf::Vertex(
-                sf::Vector2f(segmentWidth * i, segmentHeight * i)));
+                sf::Vector2f(segmentWidth * i + start.x,
+                    segmentHeight * i + start.y)));
         }
         
         setColor(color);

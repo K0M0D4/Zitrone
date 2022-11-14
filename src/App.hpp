@@ -28,13 +28,23 @@ namespace cmt {
         ImageButton m_moveButton{};
 
         // viewport
-        sf::Sprite m_background{};
         sf::View m_viewport{};
         sf::View m_normalView{};
         sf::Vector2i m_prevMousePos{};
         sf::Vector2i m_deltaMousePos{};
         bool m_wasMousePressed{};
         float m_vpzoom{1.0f};
+
+        float m_dpcm{118.1102f};
+
+        // values have to be in pixels, not centimeters
+        // outline of the workspace
+        sf::RectangleShape m_workspace{sf::Vector2f{21.0f * m_dpcm,
+            29.7f * m_dpcm}};
+
+        float m_firstNoteOffset{0.9f * m_dpcm};
+        float m_breakBetweenNotesH{0.9f * m_dpcm};
+        float m_breakBetweenNotesV{0.5f * m_dpcm};
 
         DashLine m_line{};
 
@@ -44,7 +54,6 @@ namespace cmt {
         Texture IDs:
             0 -> dot
             1 -> move
-            2 -> background
 
         Font IDs:
             0 -> PlayfairDisplay

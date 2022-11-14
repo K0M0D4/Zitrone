@@ -41,14 +41,20 @@ namespace cmt {
         m_workspace.setOutlineThickness(5);
         m_workspace.setFillColor(sf::Color::Transparent);
         m_workspace.setOutlineColor(sf::Color::White);
+
+        /*m_grid.emplace_back(DashLine{sf::Vector2f{100.0f, 0.0f},
+            sf::Vector2f{100.0f, 29.7f * m_dpcm},
+            20.0f});*/
+
+        m_testLine = DashLine{sf::Vector2f{100.0f, 0.0f},
+            sf::Vector2f{100.0f, 29.7f * m_dpcm},
+            20.0f};
     }
 
     int32_t App::start() {
         while(m_window.isOpen()) {
             update();
-
             render();
-
             m_window.display();
         }
 
@@ -137,8 +143,14 @@ namespace cmt {
     void App::render() {
         m_window.clear(sf::Color(20, 20, 30));
 
+            // viewport
             m_window.setView(m_viewport);
             m_window.draw(m_workspace);
+            /*for(uint32_t i{0}; i < m_grid.size(); ++i) {
+                m_grid.at(i).render(m_window);
+            }
+            m_grid.at(0).render(m_window);*/
+            m_testLine.render(m_window);
 
             // horizontal navbar
             m_window.setView(m_normalView);

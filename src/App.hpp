@@ -6,6 +6,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <vector>
+
 namespace cmt {
     class App {
     public:
@@ -46,9 +48,12 @@ namespace cmt {
         float m_breakBetweenNotesH{0.9f * m_dpcm};
         float m_breakBetweenNotesV{0.5f * m_dpcm};
 
-        DashLine m_line{};
+        std::vector<DashLine> m_grid{};
 
         ResourceManager m_resources{};
+
+        void update();
+        void render();
 
         /*
         Texture IDs:

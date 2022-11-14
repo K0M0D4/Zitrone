@@ -41,95 +41,103 @@ namespace cmt {
         m_workspace.setOutlineThickness(5);
         m_workspace.setFillColor(sf::Color::Transparent);
         m_workspace.setOutlineColor(sf::Color::White);
-
-        m_line = DashLine{sf::Vector2f(20.0f, 20.0f), sf::Vector2f(100.0f, 100.0f), 20.0f, sf::Color::Red};
     }
 
     int32_t App::start() {
         while(m_window.isOpen()) {
-            // input
-            sf::Event event;
-            while(m_window.pollEvent(event)) {
-                if(event.type == sf::Event::Closed)
-                    m_window.close();
+            update();
 
-                if(event.type == sf::Event::Resized) {
-                    // views stuff
-                    float navBarSize = m_saveBtn.getSize().y * 1.5f;
-                    float vertBarSize = m_noteBtn.getSize().x * 1.5f;
+            render();
 
-                    sf::Vector2f vpcenter = m_viewport.getCenter();
-                    m_viewport = sf::View(sf::FloatRect(0.f, 0.f,
-                        event.size.width - vertBarSize,
-                        event.size.height - navBarSize));
-                    m_viewport.setCenter(vpcenter);
+            m_window.display();
+        }
 
-                    m_viewport.setViewport(sf::FloatRect(0.0f,
-                        1.0f - (m_window.getSize().y - navBarSize)
-                        / m_window.getSize().y,
-                        (m_window.getSize().x - vertBarSize)
-                        / m_window.getSize().x,
-                        (m_window.getSize().y - navBarSize)
-                        / m_window.getSize().y));
-                    
-                    m_normalView = sf::View(sf::FloatRect(0.f, 0.f,
-                        event.size.width, event.size.height));
+        return 0;
+    }
 
-                    // vertical buttons positions
-                    float xVerBtnsPos =
-                        static_cast<float>(m_window.getSize().x)
-                        - m_noteBtn.getBounds().width - 10;
+    void App::update() {
+        sf::Event event;
+        while(m_window.pollEvent(event)) {
+            if(event.type == sf::Event::Closed)
+                m_window.close();
 
-                    m_noteBtn.setPos(sf::Vector2f(xVerBtnsPos, 40.0f));
+            if(event.type == sf::Event::Resized) {
+                // views stuff
+                float navBarSize = m_saveBtn.getSize().y * 1.5f;
+                float vertBarSize = m_noteBtn.getSize().x * 1.5f;
 
-                    m_chBtn.at(0).setPos(sf::Vector2f(xVerBtnsPos,
-                        m_noteBtn.getPos().y
-                        + m_noteBtn.getBounds().height + 15.0f));
+                sf::Vector2f vpcenter = m_viewport.getCenter();
+                m_viewport = sf::View(sf::FloatRect(0.f, 0.f,
+                    event.size.width - vertBarSize,
+                    event.size.height - navBarSize));
+                m_viewport.setCenter(vpcenter);
 
-                    for(uint16_t c{0}; c < 5; ++c) {
-                        m_chBtn.at(c + 1).setPos(sf::Vector2f(xVerBtnsPos,
-                            10.0f + m_chBtn.at(c).getPos().y
-                            + m_chBtn.at(c).getBounds().height));
-                    }
+                m_viewport.setViewport(sf::FloatRect(0.0f,
+                    1.0f - (m_window.getSize().y - navBarSize)
+                    / m_window.getSize().y,
+                    (m_window.getSize().x - vertBarSize)
+                    / m_window.getSize().x,
+                    (m_window.getSize().y - navBarSize)
+                    / m_window.getSize().y));
+                
+                m_normalView = sf::View(sf::FloatRect(0.f, 0.f,
+                    event.size.width, event.size.height));
 
-                    m_moveButton.setPos(sf::Vector2f(xVerBtnsPos, 15.0f
-                        + m_chBtn.back().getPos().y
-                        + m_chBtn.back().getBounds().height));
+                // vertical buttons positions
+                float xVerBtnsPos =
+                    static_cast<float>(m_window.getSize().x)
+                    - m_noteBtn.getBounds().width - 10;
+
+                m_noteBtn.setPos(sf::Vector2f(xVerBtnsPos, 40.0f));
+
+                m_chBtn.at(0).setPos(sf::Vector2f(xVerBtnsPos,
+                    m_noteBtn.getPos().y
+                    + m_noteBtn.getBounds().height + 15.0f));
+
+                for(uint16_t c{0}; c < 5; ++c) {
+                    m_chBtn.at(c + 1).setPos(sf::Vector2f(xVerBtnsPos,
+                        10.0f + m_chBtn.at(c).getPos().y
+                        + m_chBtn.at(c).getBounds().height));
                 }
+
+                m_moveButton.setPos(sf::Vector2f(xVerBtnsPos, 15.0f
+                    + m_chBtn.back().getPos().y
+                    + m_chBtn.back().getBounds().height));
             }
-            
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Equal)) {
-                m_viewport.zoom(0.99f);
-                m_vpzoom *= 0.99f;
-            } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Hyphen)) {
-                m_viewport.zoom(1.01f);
-                m_vpzoom *= 1.01f;
+        }
+        
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Equal)) {
+            m_viewport.zoom(0.99f);
+            m_vpzoom *= 0.99f;
+        } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Hyphen)) {
+            m_viewport.zoom(1.01f);
+            m_vpzoom *= 1.01f;
+        }
+
+        sf::Vector2f mousePos{m_window.mapPixelToCoords(
+                sf::Mouse::getPosition(m_window))};
+
+        if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+            sf::Vector2i realPos = sf::Mouse::getPosition(m_window);
+            if(m_wasMousePressed) {
+                m_deltaMousePos = realPos - m_prevMousePos;
             }
+            m_prevMousePos = realPos;
+            m_wasMousePressed = true;
+        } else {
+            m_wasMousePressed = false;
+            m_prevMousePos = sf::Vector2i{};
+            m_deltaMousePos = sf::Vector2i{};
+        }
 
-            sf::Vector2f mousePos{m_window.mapPixelToCoords(
-                    sf::Mouse::getPosition(m_window))};
+        m_viewport.move(static_cast<float>(-m_deltaMousePos.x) * m_vpzoom,
+            static_cast<float>(-m_deltaMousePos.y) * m_vpzoom);
+    }
 
-            if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-                sf::Vector2i realPos = sf::Mouse::getPosition(m_window);
-                if(m_wasMousePressed) {
-                    m_deltaMousePos = realPos - m_prevMousePos;
-                }
-                m_prevMousePos = realPos;
-                m_wasMousePressed = true;
-            } else {
-                m_wasMousePressed = false;
-                m_prevMousePos = sf::Vector2i{};
-                m_deltaMousePos = sf::Vector2i{};
-            }
-
-            m_viewport.move(static_cast<float>(-m_deltaMousePos.x) * m_vpzoom,
-                static_cast<float>(-m_deltaMousePos.y) * m_vpzoom);
-
-            // rendering
-            m_window.clear(sf::Color(20, 20, 30));
+    void App::render() {
+        m_window.clear(sf::Color(20, 20, 30));
 
             m_window.setView(m_viewport);
-            m_line.render(m_window);
             m_window.draw(m_workspace);
 
             // horizontal navbar
@@ -145,10 +153,5 @@ namespace cmt {
                 btn.render(m_window);
             }
             m_moveButton.render(m_window);
-
-            m_window.display();
-        }
-
-        return 0;
     }
 }

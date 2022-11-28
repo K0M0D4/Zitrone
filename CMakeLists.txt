@@ -14,16 +14,17 @@ FetchContent_Declare(SFML
     GIT_TAG 2.6.x)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(${PROJECT_NAME}
-    src/main.cpp
-    src/App.cpp
-    
+add_executable(${PROJECT_NAME}    
     src/fw/ResourceManager.cpp
     src/fw/DashLine.cpp
 
     src/fw/buttons/Button.cpp
     src/fw/buttons/ImageButton.cpp
     src/fw/buttons/TextButton.cpp
+
+    src/main.cpp
+    src/App.cpp
+    src/UI.cpp
     )
 
 target_compile_options(${PROJECT_NAME} PUBLIC -DSFML_STATIC)

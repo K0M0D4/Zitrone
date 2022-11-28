@@ -4,6 +4,8 @@
 #include "fw/DashLine.hpp"
 #include "fw/ResourceManager.hpp"
 
+#include "UI.hpp"
+
 #include <SFML/Graphics.hpp>
 
 #include <vector>
@@ -16,18 +18,11 @@ namespace cmt {
         int32_t start();
 
     private:
+        ResourceManager m_resources{};
+
         sf::RenderWindow m_window{};
 
-        // horizontal navbar
-        TextButton m_saveBtn{};
-        TextButton m_exportBtn{};
-        TextButton m_openBtn{};
-        TextButton m_settingsBtn{};
-
-        // vertical buttons
-        ImageButton m_noteBtn{};
-        std::array<TextButton, 6> m_chBtn{};
-        ImageButton m_moveButton{};
+        UI m_UI{};
 
         // viewport
         sf::View m_viewport{};
@@ -49,8 +44,6 @@ namespace cmt {
         float m_breakBetweenNotesH{0.9f * m_dpcm};
 
         std::vector<DashLine> m_grid{};
-
-        ResourceManager m_resources{};
 
         void update();
         void render();

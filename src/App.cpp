@@ -48,7 +48,7 @@ namespace cmt {
 
         m_testLine = DashLine{sf::Vector2f{100.0f, 0.0f},
             sf::Vector2f{100.0f, 29.7f * m_dpcm},
-            20.0f};
+            20.0f, sf::Color::Red};
     }
 
     int32_t App::start() {

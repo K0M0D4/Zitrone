@@ -2,6 +2,7 @@
 
 drawing grid
 moving ui stuff to separate class for clearance of code
+fix weird speed viewport moving while changing window's size
 tidying app.cpp functions
 handling active lines in grid
 maybe separate class for grid too

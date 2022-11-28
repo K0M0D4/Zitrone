@@ -1,5 +1,7 @@
 #include "DashLine.hpp"
 
+//#include <iostream>
+
 namespace cmt {
     DashLine::DashLine() {
         m_verts = sf::VertexArray(sf::Lines, 0);
@@ -12,13 +14,37 @@ namespace cmt {
         m_verts = sf::VertexArray(sf::Lines, 1);
         m_verts.clear();
 
-        float a{end.x - start.x};
-        float b{end.y - start.y};
-        double angle{std::atan2(b, a)};
-        double totalLength{a / sin(angle)};
-        uint32_t dashOcurrencies{static_cast<uint32_t>(std::floor(totalLength / dashLength))};
-        float segmentWidth{dashLength * static_cast<float>(sin(angle))};
-        float segmentHeight{dashLength * static_cast<float>(cos(angle))};
+        float segmentWidth{};
+        float segmentHeight{};
+
+        float totalLength{};
+        uint32_t dashOcurrencies{};
+
+        if(start.x == end.x) {
+            segmentHeight = dashLength;
+            totalLength = end.y - start.y;
+            dashOcurrencies = totalLength / dashLength;
+        } else if(start.y == end.y) {
+            segmentWidth = dashLength;
+            totalLength = end.x - start.x;
+            dashOcurrencies = totalLength / dashLength;
+        } else {
+            float a{end.x - start.x};
+            float b{end.y - start.y};
+            //std::cout << "a: " << a << "   b: " << b << '\n';
+            double angle{std::atan2(b, a)};
+            //std::cout << "angle: " << angle * 57.2957795 << '\n';
+            totalLength = static_cast<float>(a / cos(angle));
+            uint32_t dashOcurrencies = static_cast<uint32_t>
+                (std::floor(totalLength / dashLength));
+            segmentWidth = dashLength * static_cast<float>(cos(angle));
+            segmentHeight = dashLength * static_cast<float>(sin(angle));
+        }
+
+        /*std::cout << "length: " << totalLength << '\n';
+        std::cout << "DO: " << dashOcurrencies << '\n';
+        std::cout << "SW: " << segmentWidth << '\n';
+        std::cout << "SH: " << segmentHeight << '\n';*/
 
         m_verts.append(sf::Vertex(start));
 
@@ -27,13 +53,14 @@ namespace cmt {
                 sf::Vector2f(segmentWidth * i + start.x,
                     segmentHeight * i + start.y)));
         }
+        m_verts.append(sf::Vertex(end));
         
         setColor(color);
     }
 
     void DashLine::setColor(sf::Color color) {
         m_color = color;
-        for(int i{0}; i <= m_verts.getVertexCount(); ++i) {
+        for(int i{0}; i < m_verts.getVertexCount(); ++i) {
             m_verts[i].color = m_color;
         }
     }

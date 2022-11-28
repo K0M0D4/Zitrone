@@ -45,11 +45,10 @@ namespace cmt {
             29.7f * m_dpcm}};
 
         float m_firstNoteOffset{0.9f * m_dpcm};
-        float m_breakBetweenNotesH{0.9f * m_dpcm};
         float m_breakBetweenNotesV{0.5f * m_dpcm};
+        float m_breakBetweenNotesH{0.9f * m_dpcm};
 
         std::vector<DashLine> m_grid{};
-        DashLine m_testLine{};
 
         ResourceManager m_resources{};
 

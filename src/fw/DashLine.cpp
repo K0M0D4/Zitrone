@@ -1,7 +1,5 @@
 #include "DashLine.hpp"
 
-//#include <iostream>
-
 namespace cmt {
     DashLine::DashLine() {
         m_verts = sf::VertexArray(sf::Lines, 0);
@@ -31,20 +29,13 @@ namespace cmt {
         } else {
             float a{end.x - start.x};
             float b{end.y - start.y};
-            //std::cout << "a: " << a << "   b: " << b << '\n';
             double angle{std::atan2(b, a)};
-            //std::cout << "angle: " << angle * 57.2957795 << '\n';
             totalLength = static_cast<float>(a / cos(angle));
             uint32_t dashOcurrencies = static_cast<uint32_t>
                 (std::floor(totalLength / dashLength));
             segmentWidth = dashLength * static_cast<float>(cos(angle));
             segmentHeight = dashLength * static_cast<float>(sin(angle));
         }
-
-        /*std::cout << "length: " << totalLength << '\n';
-        std::cout << "DO: " << dashOcurrencies << '\n';
-        std::cout << "SW: " << segmentWidth << '\n';
-        std::cout << "SH: " << segmentHeight << '\n';*/
 
         m_verts.append(sf::Vertex(start));
 

@@ -42,13 +42,26 @@ namespace cmt {
         m_workspace.setFillColor(sf::Color::Transparent);
         m_workspace.setOutlineColor(sf::Color::White);
 
-        /*m_grid.emplace_back(DashLine{sf::Vector2f{100.0f, 0.0f},
-            sf::Vector2f{100.0f, 29.7f * m_dpcm},
-            20.0f});*/
+        uint32_t vLineOccurencies{static_cast<uint32_t>(
+            (m_workspace.getSize().x - m_firstNoteOffset)
+            / m_breakBetweenNotesV)};
 
-        m_testLine = DashLine{sf::Vector2f{100.0f, 0.0f},
-            sf::Vector2f{100.0f, 29.7f * m_dpcm},
-            20.0f, sf::Color::Red};
+        uint32_t hLineOccurencies{static_cast<uint32_t>(
+            m_workspace.getSize().y / m_breakBetweenNotesH)};
+
+        for(int32_t i{0}; i < vLineOccurencies; ++i) {
+            float vOffset{m_firstNoteOffset + m_breakBetweenNotesV * i};
+            m_grid.emplace_back(DashLine{sf::Vector2f{vOffset, 0.0f},
+                sf::Vector2f{vOffset, m_workspace.getSize().y}, 20.0f,
+                sf::Color(150.0f, 150.0f, 255.0f)});
+        }
+
+        for(int32_t i{1}; i < hLineOccurencies; ++i) {
+            float hOffset{m_breakBetweenNotesH * i};
+            m_grid.emplace_back(DashLine{sf::Vector2f{0.0f, hOffset},
+                sf::Vector2f{m_workspace.getSize().x, hOffset}, 20.0f,
+                sf::Color(255.0f, 150.0f, 150.0f)});
+        }
     }
 
     int32_t App::start() {
@@ -146,11 +159,9 @@ namespace cmt {
             // viewport
             m_window.setView(m_viewport);
             m_window.draw(m_workspace);
-            /*for(uint32_t i{0}; i < m_grid.size(); ++i) {
+            for(uint32_t i{0}; i < m_grid.size(); ++i) {
                 m_grid.at(i).render(m_window);
             }
-            m_grid.at(0).render(m_window);*/
-            m_testLine.render(m_window);
 
             // horizontal navbar
             m_window.setView(m_normalView);

@@ -3,7 +3,7 @@
 ✓ drawing grid
 ✓ moving ui stuff to separate class for clearance of code
 ✓ separate class for grid
-handling active lines in grid with keyboard
+✓ handling active lines in grid with keyboard
 handling active lines in grid with mose
 separate class for workspace to save all project data there
 adding notes to the grid

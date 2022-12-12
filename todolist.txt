@@ -17,9 +17,10 @@ make buttons actually usable
 
 // stuff to polish:
 
-✓ you can no longer move or resize viewport when window is not focused
+✓ moving and resizing workspace only when window is focused
+moving workspace on resized window without offset
 buttons working on sort of events instead of just isMouseClicked
 rounded rectangles for buttons
-try to inherit custom graphc classes from sf::Drawable
+try to inherit custom graphic classes from sf::Drawable
     and maybe some from sf::Transformable
 add boundries check with mouse position while moving viewport

@@ -3,7 +3,8 @@
 ✓ drawing grid
 ✓ moving ui stuff to separate class for clearance of code
 ✓ separate class for grid
-handling active lines in grid
+handling active lines in grid with keyboard
+handling active lines in grid with mose
 separate class for workspace to save all project data there
 adding notes to the grid
 implement modes like normal(move), edit
@@ -18,7 +19,7 @@ make buttons actually usable
 // stuff to polish:
 
 ✓ moving and resizing workspace only when window is focused
-moving workspace on resized window without offset
+✓ moving workspace on resized window without offset
 buttons working on sort of events instead of just isMouseClicked
 rounded rectangles for buttons
 try to inherit custom graphic classes from sf::Drawable

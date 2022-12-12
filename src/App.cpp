@@ -34,7 +34,7 @@ namespace cmt {
                 m_window.close();
 
             if(event.type == sf::Event::Resized) {
-                // views stuff
+                // viewport stuff
                 float navBarSize = m_UI.m_saveBtn.getSize().y * 1.5f;
                 float vertBarSize = m_UI.m_noteBtn.getSize().x * 1.5f;
 
@@ -57,6 +57,23 @@ namespace cmt {
 
                 m_UI.recalculate(m_window);
             }
+
+            if(event.type == sf::Event::KeyPressed) {
+                if(event.key.code == sf::Keyboard::Right) {
+                    m_grid.moveActiveLines(sf::Vector2i(1, 0));
+                } else if(event.key.code == sf::Keyboard::Left) {
+                    m_grid.moveActiveLines(sf::Vector2i(-1, 0));
+                } else if(event.key.code == sf::Keyboard::Up) {
+                    m_grid.moveActiveLines(sf::Vector2i(0, -1));
+                } else if(event.key.code == sf::Keyboard::Down) {
+                    m_grid.moveActiveLines(sf::Vector2i(0, 1));
+                }
+            }
+
+            // for later - moving active lines with mouse
+            /*if(event.type == sf::Event::MouseButtonPressed) {
+
+            }*/
         }
         
         if(m_window.hasFocus()) {

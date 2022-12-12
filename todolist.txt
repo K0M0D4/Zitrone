@@ -17,6 +17,7 @@ make buttons actually usable
 
 // stuff to polish:
 
+✓ you can no longer move or resize viewport when window is not focused
 buttons working on sort of events instead of just isMouseClicked
 rounded rectangles for buttons
 try to inherit custom graphc classes from sf::Drawable

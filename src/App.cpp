@@ -59,32 +59,34 @@ namespace cmt {
             }
         }
         
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Equal)) {
-            m_viewport.zoom(0.99f);
-            m_vpzoom *= 0.99f;
-        } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Hyphen)) {
-            m_viewport.zoom(1.01f);
-            m_vpzoom *= 1.01f;
-        }
-
-        sf::Vector2f mousePos{m_window.mapPixelToCoords(
-                sf::Mouse::getPosition(m_window))};
-
-        if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-            sf::Vector2i realPos = sf::Mouse::getPosition(m_window);
-            if(m_wasMousePressed) {
-                m_deltaMousePos = realPos - m_prevMousePos;
+        if(m_window.hasFocus()) {
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Equal)) {
+                m_viewport.zoom(0.99f);
+                m_vpzoom *= 0.99f;
+            } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Hyphen)) {
+                m_viewport.zoom(1.01f);
+                m_vpzoom *= 1.01f;
             }
-            m_prevMousePos = realPos;
-            m_wasMousePressed = true;
-        } else {
-            m_wasMousePressed = false;
-            m_prevMousePos = sf::Vector2i{};
-            m_deltaMousePos = sf::Vector2i{};
-        }
 
-        m_viewport.move(static_cast<float>(-m_deltaMousePos.x) * m_vpzoom,
-            static_cast<float>(-m_deltaMousePos.y) * m_vpzoom);
+            sf::Vector2f mousePos{m_window.mapPixelToCoords(
+                    sf::Mouse::getPosition(m_window))};
+
+            if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+                sf::Vector2i realPos = sf::Mouse::getPosition(m_window);
+                if(m_wasMousePressed) {
+                    m_deltaMousePos = realPos - m_prevMousePos;
+                }
+                m_prevMousePos = realPos;
+                m_wasMousePressed = true;
+            } else {
+                m_wasMousePressed = false;
+                m_prevMousePos = sf::Vector2i{};
+                m_deltaMousePos = sf::Vector2i{};
+            }
+
+            m_viewport.move(static_cast<float>(-m_deltaMousePos.x) * m_vpzoom,
+                static_cast<float>(-m_deltaMousePos.y) * m_vpzoom);
+            }
     }
 
     void App::render() {

@@ -4,6 +4,7 @@
 #include "fw/DashLine.hpp"
 #include "fw/ResourceManager.hpp"
 
+#include "Grid.hpp"
 #include "UI.hpp"
 
 #include <SFML/Graphics.hpp>
@@ -43,7 +44,8 @@ namespace cmt {
         float m_breakBetweenNotesV{0.5f * m_dpcm};
         float m_breakBetweenNotesH{0.9f * m_dpcm};
 
-        std::vector<DashLine> m_grid{};
+        Grid m_grid{m_workspace.getSize(), m_breakBetweenNotesV,
+            m_breakBetweenNotesH, m_firstNoteOffset};
 
         void update();
         void render();

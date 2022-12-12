@@ -2,9 +2,9 @@
 
 ✓ drawing grid
 ✓ moving ui stuff to separate class for clearance of code
-tidying app.cpp functions
+✓ separate class for grid
 handling active lines in grid
-maybe separate class for grid too
+separate class for workspace to save all project data there
 adding notes to the grid
 implement modes like normal(move), edit
 adding chords to notes

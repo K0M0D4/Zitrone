@@ -25,6 +25,7 @@ add_executable(${PROJECT_NAME}
     src/main.cpp
     src/App.cpp
     src/UI.cpp
+    src/Grid.cpp
     )
 
 target_compile_options(${PROJECT_NAME} PUBLIC -DSFML_STATIC)

@@ -70,10 +70,17 @@ namespace cmt {
                 }
             }
 
-            // for later - moving active lines with mouse
-            /*if(event.type == sf::Event::MouseButtonPressed) {
+            if(event.type == sf::Event::MouseButtonPressed) {
+                sf::Vector2i mousePos{sf::Mouse::getPosition(m_window)};
+                sf::Vector2f mouseMapped{m_window.mapPixelToCoords(
+                        mousePos, m_viewport)};
 
-            }*/
+                m_grid.setActiveLines(sf::Vector2i((mouseMapped.x
+                    - m_firstNoteOffset + m_breakBetweenNotesV / 2.0f)
+                    / m_breakBetweenNotesV,
+                    (mouseMapped.y - m_breakBetweenNotesH / 2.0f)
+                    / m_breakBetweenNotesH));
+            }
         }
         
         if(m_window.hasFocus()) {
@@ -85,15 +92,12 @@ namespace cmt {
                 m_vpzoom *= 1.01f;
             }
 
-            sf::Vector2f mousePos{m_window.mapPixelToCoords(
-                    sf::Mouse::getPosition(m_window))};
-
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-                sf::Vector2i realPos = sf::Mouse::getPosition(m_window);
+                sf::Vector2i mousePos = sf::Mouse::getPosition(m_window);
                 if(m_wasMousePressed) {
-                    m_deltaMousePos = realPos - m_prevMousePos;
+                    m_deltaMousePos = mousePos - m_prevMousePos;
                 }
-                m_prevMousePos = realPos;
+                m_prevMousePos = mousePos;
                 m_wasMousePressed = true;
             } else {
                 m_wasMousePressed = false;

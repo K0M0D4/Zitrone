@@ -5,7 +5,7 @@
 ✓ separate class for grid
 ✓ handling active lines in grid with keyboard
 ✓ handling active lines in grid with mouse
-separate class for workspace to save all project data there
+project class with data about notes and chords
 adding notes to the grid
 implement modes like normal(move), edit
 adding chords to notes

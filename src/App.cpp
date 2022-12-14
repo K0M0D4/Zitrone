@@ -117,6 +117,7 @@ namespace cmt {
             m_window.setView(m_viewport);
             m_window.draw(m_workspace);
             m_grid.render(m_window);
+            m_testNote.render(m_window);
 
             // UI
             m_window.setView(m_normalView);

@@ -5,6 +5,7 @@
 #include "fw/ResourceManager.hpp"
 
 #include "Grid.hpp"
+#include "Project.hpp"
 #include "UI.hpp"
 
 #include <SFML/Graphics.hpp>
@@ -24,6 +25,8 @@ namespace cmt {
         sf::RenderWindow m_window{};
 
         UI m_UI{};
+
+        Note m_testNote{};
 
         // viewport
         sf::View m_viewport{};

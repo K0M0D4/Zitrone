@@ -56,6 +56,10 @@ namespace cmt {
 
             if(event.type == sf::Event::KeyPressed) {
                 m_project.moveActiveLines(event.key.code);
+
+                if(event.key.code == sf::Keyboard::Space) {
+                    m_project.addNote();
+                }
             }
 
             if(event.type == sf::Event::MouseButtonPressed) {

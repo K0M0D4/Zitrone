@@ -9,7 +9,20 @@ namespace cmt {
         m_workspace.setOutlineColor(sf::Color::White);
     }
 
-
+    void Project::addNote() {
+        //if(m_notes.size > 0) {
+            //if(m_notes.at(m_notes.end().getCoords().y
+            //    < m_grid.getActiveLines().y)) {
+                
+                m_notes.emplace_back(Note{sf::Vector2f{
+                    m_grid.getActiveLines().x
+                    * m_breakBetweenNotesV + m_firstNoteOffset,
+                    (m_grid.getActiveLines().y + 1)
+                    * m_breakBetweenNotesH},
+                    m_grid.getActiveLines()});
+            //}
+        //}
+    }
 
     void Project::moveActiveLines(sf::Keyboard::Key keyCode) {
         if(keyCode == sf::Keyboard::Right) {
@@ -34,5 +47,9 @@ namespace cmt {
     void Project::render(sf::RenderWindow& target) {
         target.draw(m_workspace);
         m_grid.render(target);
+
+        for(auto& note : m_notes) {
+            note.render(target);
+        }
     }
 }

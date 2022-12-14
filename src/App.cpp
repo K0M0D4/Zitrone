@@ -10,10 +10,6 @@ namespace cmt {
 
         m_resources.loadFont("res/PlayfairDisplay.ttf");
 
-        m_workspace.setOutlineThickness(5);
-        m_workspace.setFillColor(sf::Color::Transparent);
-        m_workspace.setOutlineColor(sf::Color::White);
-
         m_UI.init(m_resources);
     }
 
@@ -59,27 +55,14 @@ namespace cmt {
             }
 
             if(event.type == sf::Event::KeyPressed) {
-                if(event.key.code == sf::Keyboard::Right) {
-                    m_grid.moveActiveLines(sf::Vector2i(1, 0));
-                } else if(event.key.code == sf::Keyboard::Left) {
-                    m_grid.moveActiveLines(sf::Vector2i(-1, 0));
-                } else if(event.key.code == sf::Keyboard::Up) {
-                    m_grid.moveActiveLines(sf::Vector2i(0, -1));
-                } else if(event.key.code == sf::Keyboard::Down) {
-                    m_grid.moveActiveLines(sf::Vector2i(0, 1));
-                }
+                m_project.moveActiveLines(event.key.code);
             }
 
             if(event.type == sf::Event::MouseButtonPressed) {
                 sf::Vector2i mousePos{sf::Mouse::getPosition(m_window)};
-                sf::Vector2f mouseMapped{m_window.mapPixelToCoords(
-                        mousePos, m_viewport)};
 
-                m_grid.setActiveLines(sf::Vector2i((mouseMapped.x
-                    - m_firstNoteOffset + m_breakBetweenNotesV / 2.0f)
-                    / m_breakBetweenNotesV,
-                    (mouseMapped.y - m_breakBetweenNotesH / 2.0f)
-                    / m_breakBetweenNotesH));
+                m_project.setActiveLines(m_window.mapPixelToCoords(
+                        mousePos, m_viewport));
             }
         }
         
@@ -115,9 +98,7 @@ namespace cmt {
 
             // viewport
             m_window.setView(m_viewport);
-            m_window.draw(m_workspace);
-            m_grid.render(m_window);
-            m_testNote.render(m_window);
+            m_project.render(m_window);
 
             // UI
             m_window.setView(m_normalView);

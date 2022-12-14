@@ -4,7 +4,6 @@
 #include "fw/DashLine.hpp"
 #include "fw/ResourceManager.hpp"
 
-#include "Grid.hpp"
 #include "Project.hpp"
 #include "UI.hpp"
 
@@ -26,7 +25,7 @@ namespace cmt {
 
         UI m_UI{};
 
-        Note m_testNote{};
+        Project m_project{"test"};
 
         // viewport
         sf::View m_viewport{};
@@ -35,20 +34,6 @@ namespace cmt {
         sf::Vector2i m_deltaMousePos{};
         bool m_wasMousePressed{};
         float m_vpzoom{1.0f};
-
-        float m_dpcm{118.1102f};
-
-        // values have to be in pixels, not centimeters
-        // outline of the workspace
-        sf::RectangleShape m_workspace{sf::Vector2f{21.0f * m_dpcm,
-            29.7f * m_dpcm}};
-
-        float m_firstNoteOffset{0.9f * m_dpcm};
-        float m_breakBetweenNotesV{0.5f * m_dpcm};
-        float m_breakBetweenNotesH{0.9f * m_dpcm};
-
-        Grid m_grid{m_workspace.getSize(), m_breakBetweenNotesV,
-            m_breakBetweenNotesH, m_firstNoteOffset};
 
         void update();
         void render();

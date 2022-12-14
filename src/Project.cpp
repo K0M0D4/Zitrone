@@ -10,18 +10,28 @@ namespace cmt {
     }
 
     void Project::addNote() {
-        //if(m_notes.size > 0) {
-            //if(m_notes.at(m_notes.end().getCoords().y
-            //    < m_grid.getActiveLines().y)) {
-                
+        sf::Vector2i al{m_grid.getActiveLines()};
+        if(m_notes.size() > 0) {
+            if(m_notes.back().getCoords().y < al.y) {
                 m_notes.emplace_back(Note{sf::Vector2f{
-                    m_grid.getActiveLines().x
-                    * m_breakBetweenNotesV + m_firstNoteOffset,
-                    (m_grid.getActiveLines().y + 1)
-                    * m_breakBetweenNotesH},
-                    m_grid.getActiveLines()});
-            //}
-        //}
+                    al.x * m_breakBetweenNotesV + m_firstNoteOffset,
+                    (al.y + 1) * m_breakBetweenNotesH}, al});
+            } else {
+                for(uint16_t i{}; i < m_notes.size(); ++i) {
+                    if(m_notes.at(i).getCoords().y < al.y) {
+                        m_notes.emplace(m_notes.begin() + i,
+                            Note{sf::Vector2f{
+                            al.x * m_breakBetweenNotesV + m_firstNoteOffset,
+                            (al.y + 1) * m_breakBetweenNotesH}, al});
+                        break;
+                    }
+                }
+            }
+        } else {
+            m_notes.emplace_back(Note{sf::Vector2f{
+                al.x * m_breakBetweenNotesV + m_firstNoteOffset,
+                (al.y + 1) * m_breakBetweenNotesH}, al});
+        }
     }
 
     void Project::moveActiveLines(sf::Keyboard::Key keyCode) {

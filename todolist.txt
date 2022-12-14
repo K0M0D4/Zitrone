@@ -7,6 +7,7 @@
 ✓ handling active lines in grid with mouse
 ✓ project class with data about notes and chords
 ✓ adding notes to the grid
+edit notes that already are on the grid
 implement modes like normal(move), edit
 adding chords to notes
 automatically connecting notes

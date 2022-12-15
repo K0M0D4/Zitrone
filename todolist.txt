@@ -11,6 +11,7 @@ edit notes that already are on the grid
 implement modes like normal(move), edit
 adding chords to notes
 automatically connecting notes
+display note name and horizontal line hint
 draw cut line
 
 make buttons actually usable
@@ -25,4 +26,4 @@ buttons working on sort of events instead of just isMouseClicked
 rounded rectangles for buttons
 try to inherit custom graphic classes from sf::Drawable
     and maybe some from sf::Transformable
-add boundries check with mouse position while moving viewport
+✓ add boundries check with mouse position while moving viewport

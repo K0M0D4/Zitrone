@@ -16,11 +16,11 @@ namespace cmt {
         m_settingsBtn.render(target);
 
         // vertical navbar
+        m_moveButton.render(target);
         m_noteBtn.render(target);
         for(auto btn : m_chBtn) {
             btn.render(target);
         }
-        m_moveButton.render(target);
     }
 
     void UI::recalculate(sf::RenderWindow& window) {
@@ -29,7 +29,10 @@ namespace cmt {
             static_cast<float>(window.getSize().x)
             - m_noteBtn.getBounds().width - 10;
 
-        m_noteBtn.setPos(sf::Vector2f(xVerBtnsPos, 40.0f));
+        m_moveButton.setPos(sf::Vector2f(xVerBtnsPos, 40.0f));
+
+        m_noteBtn.setPos(sf::Vector2f(xVerBtnsPos, m_moveButton.getPos().y
+            + m_moveButton.getBounds().height + 15.0f));
 
         m_chBtn.at(0).setPos(sf::Vector2f(xVerBtnsPos,
             m_noteBtn.getPos().y
@@ -40,10 +43,6 @@ namespace cmt {
                 10.0f + m_chBtn.at(c).getPos().y
                 + m_chBtn.at(c).getBounds().height));
         }
-
-        m_moveButton.setPos(sf::Vector2f(xVerBtnsPos, 15.0f
-            + m_chBtn.back().getPos().y
-            + m_chBtn.back().getBounds().height));
     }
 
     void UI::initHNavBar(ResourceManager& resources) {

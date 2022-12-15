@@ -24,6 +24,9 @@ namespace cmt {
     }
 
     void App::update() {
+        sf::Vector2i winMousePos{sf::Mouse::getPosition(m_window)};
+        sf::Vector2f vpMousePos{m_window.mapPixelToCoords(winMousePos, m_viewport)};
+
         sf::Event event;
         while(m_window.pollEvent(event)) {
             if(event.type == sf::Event::Closed)
@@ -63,10 +66,13 @@ namespace cmt {
             }
 
             if(event.type == sf::Event::MouseButtonPressed) {
-                sf::Vector2i mousePos{sf::Mouse::getPosition(m_window)};
 
-                m_project.setActiveLines(m_window.mapPixelToCoords(
-                        mousePos, m_viewport));
+                if(winMousePos.y > m_UI.m_saveBtn.getSize().y * 1.5f
+                    && winMousePos.x < m_window.getSize().x
+                    - m_UI.m_noteBtn.getSize().x * 1.5f) {
+                    
+                    m_project.setActiveLines(vpMousePos);
+                }
             }
         }
         
@@ -79,12 +85,15 @@ namespace cmt {
                 m_vpzoom *= 1.01f;
             }
 
-            if(sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-                sf::Vector2i mousePos = sf::Mouse::getPosition(m_window);
+            if(sf::Mouse::isButtonPressed(sf::Mouse::Left) 
+                && winMousePos.y > m_UI.m_saveBtn.getSize().y * 1.5f
+                    && winMousePos.x < m_window.getSize().x
+                    - m_UI.m_noteBtn.getSize().x * 1.5f && winMousePos.x > 0.0f
+                    && winMousePos.y < m_window.getSize().y) {
                 if(m_wasMousePressed) {
-                    m_deltaMousePos = mousePos - m_prevMousePos;
+                    m_deltaMousePos = winMousePos - m_prevMousePos;
                 }
-                m_prevMousePos = mousePos;
+                m_prevMousePos = winMousePos;
                 m_wasMousePressed = true;
             } else {
                 m_wasMousePressed = false;
@@ -94,6 +103,10 @@ namespace cmt {
 
             m_viewport.move(static_cast<float>(-m_deltaMousePos.x) * m_vpzoom,
                 static_cast<float>(-m_deltaMousePos.y) * m_vpzoom);
+            }
+
+            if(m_UI.m_noteBtn.isPressed(m_window.mapPixelToCoords(winMousePos))) {
+                m_project.addNote();
             }
     }
 

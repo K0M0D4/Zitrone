@@ -9,11 +9,16 @@ namespace cmt {
 
     void Note::setPos(sf::Vector2f pos, sf::Vector2i coords) {
         m_circle.setPosition(pos);
+        m_pos = pos;
         m_coords = coords;
     }
 
     sf::Vector2i Note::getCoords() {
         return m_coords;
+    }
+
+    sf::Vector2f Note::getPos() {
+        return m_pos;
     }
 
     void Note::render(sf::RenderWindow& target) {

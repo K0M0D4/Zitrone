@@ -3,6 +3,8 @@
 #include "Grid.hpp"
 #include "Note.hpp"
 
+#include "fw/Line.hpp"
+
 #include <SFML/Graphics.hpp>
 
 #include <vector>
@@ -46,8 +48,11 @@ namespace cmt {
             m_breakBetweenNotesH, m_firstNoteOffset};
 
         std::vector<Note> m_notes{};
+        std::vector<Line> m_noteLines{};
 
         void sortNotes();
+
+        void calculateLines();
 
     };
 }

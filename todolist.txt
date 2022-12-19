@@ -10,10 +10,10 @@
 ✓ bugfix: adding note before the first one
 ✓ edit notes that already are on the grid
 ✓ zooming viewport with mouse wheel
-automatically connecting notes
+✓ automatically connecting notes
 implement modes like normal(move), edit
 adding chords to notes
-display note name and horizontal line hint
+display note hints and horizontal line hints
 draw cut line
 
 buttons working on sort of events instead of just isMouseClicked

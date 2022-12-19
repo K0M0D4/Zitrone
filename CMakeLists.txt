@@ -16,6 +16,7 @@ FetchContent_MakeAvailable(SFML)
 
 add_executable(${PROJECT_NAME}    
     src/fw/ResourceManager.cpp
+    src/fw/Line.cpp
     src/fw/DashLine.cpp
 
     src/fw/buttons/Button.cpp

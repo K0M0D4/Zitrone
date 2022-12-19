@@ -36,6 +36,7 @@ namespace cmt {
             }
 
             sortNotes();
+            calculateLines();
         }
     }
 
@@ -63,6 +64,10 @@ namespace cmt {
         target.draw(m_workspace);
         m_grid.render(target);
 
+        for(auto& line : m_noteLines) {
+            line.render(target);
+        }
+
         for(auto& note : m_notes) {
             note.render(target);
         }
@@ -78,6 +83,16 @@ namespace cmt {
                     m_notes.at(i) = m_notes.at(j);
                     m_notes.at(j) = temp;
                 }
+            }
+        }
+    }
+
+    void Project::calculateLines() {
+        if(m_notes.size() > 1) {
+            m_noteLines.clear();
+            for(uint16_t i{}; i < m_notes.size() - 1; ++i) {
+                m_noteLines.emplace_back(Line(m_notes.at(i).getPos(),
+                    m_notes.at(i + 1).getPos()));
             }
         }
     }

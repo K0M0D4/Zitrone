@@ -78,11 +78,11 @@ namespace cmt {
         
         if(m_window.hasFocus()) {
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Equal)) {
-                m_viewport.zoom(0.99f);
-                m_vpzoom *= 0.99f;
+                m_viewport.zoom(0.98f);
+                m_vpzoom *= 0.98f;
             } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Hyphen)) {
-                m_viewport.zoom(1.01f);
-                m_vpzoom *= 1.01f;
+                m_viewport.zoom(1.02f);
+                m_vpzoom *= 1.02f;
             }
 
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left) 

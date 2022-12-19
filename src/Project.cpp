@@ -1,5 +1,7 @@
 #include "Project.hpp"
 
+#include <iostream>
+
 namespace cmt {
     Project::Project() : Project("project_name") {}
 
@@ -11,36 +13,34 @@ namespace cmt {
 
     void Project::addNote() {
         sf::Vector2i al{m_grid.getActiveLines()};
-        bool pass{false};
-
-        if(m_notes.size() > 0) {
-            for(auto note : m_notes) {
-                if(note.getCoords().y != al.y) {
-                    pass = true;
-                } else {
-                    pass = false;
-                    break;
-                }
-            }
-            if(m_notes.back().getCoords().y < al.y && pass) {
-                m_notes.emplace_back(Note{sf::Vector2f{
-                    al.x * m_breakBetweenNotesV + m_firstNoteOffset,
-                    (al.y + 1) * m_breakBetweenNotesH}, al});
-            } else if(pass) {
-                for(uint16_t i{}; i < m_notes.size(); ++i) {
-                    if(m_notes.at(i).getCoords().y < al.y) {
-                        m_notes.emplace(m_notes.begin() + i,
-                            Note{sf::Vector2f{
-                            al.x * m_breakBetweenNotesV + m_firstNoteOffset,
-                            (al.y + 1) * m_breakBetweenNotesH}, al});
-                        break;
-                    }
-                }
-            }
-        } else {
+        
+        if(m_notes.size() == 0) {
             m_notes.emplace_back(Note{sf::Vector2f{
                 al.x * m_breakBetweenNotesV + m_firstNoteOffset,
                 (al.y + 1) * m_breakBetweenNotesH}, al});
+        } else {
+            if(al.y > m_notes.back().getCoords().y) {
+                m_notes.emplace_back(Note{sf::Vector2f{
+                    al.x * m_breakBetweenNotesV + m_firstNoteOffset,
+                    (al.y + 1) * m_breakBetweenNotesH}, al});
+            } else {
+                bool edit{false};
+                uint16_t i{};
+                for(; i < m_notes.size(); ++i) {
+                    if(m_notes.at(i).getCoords().y == al.y) {
+                        edit = true;
+                        break;
+                    }
+                }
+
+                if(edit) {
+
+                } else {
+                    m_notes.emplace(m_notes.begin() + i, Note{sf::Vector2f{
+                        al.x * m_breakBetweenNotesV + m_firstNoteOffset,
+                        (al.y + 1) * m_breakBetweenNotesH}, al});
+                }
+            }
         }
     }
 

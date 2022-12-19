@@ -27,6 +27,8 @@ namespace cmt {
 
         Project m_project{"test"};
 
+        bool isEditModeOn{false};
+
         // viewport
         sf::View m_viewport{};
         sf::View m_normalView{};

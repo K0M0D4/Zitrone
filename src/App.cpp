@@ -60,7 +60,13 @@ namespace cmt {
             if(event.type == sf::Event::KeyPressed) {
                 m_project.moveActiveLines(event.key.code);
 
-                if(event.key.code == sf::Keyboard::Space) {
+                if(event.key.code == sf::Keyboard::E) {
+                    isEditModeOn = true;
+                } else if(event.key.code == sf::Keyboard::M) {
+                    isEditModeOn = false;
+                }
+
+                if(event.key.code == sf::Keyboard::Space && isEditModeOn) {
                     m_project.addNote();
                 }
             }
@@ -118,7 +124,12 @@ namespace cmt {
             }
 
             if(m_UI.m_noteBtn.isPressed(m_window.mapPixelToCoords(winMousePos))) {
+                isEditModeOn = true;
                 m_project.addNote();
+            } else if(m_UI.m_moveButton.isPressed(m_window.mapPixelToCoords(
+                winMousePos))) {
+
+                isEditModeOn = false;
             }
     }
 

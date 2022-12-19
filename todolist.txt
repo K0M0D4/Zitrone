@@ -11,8 +11,9 @@
 ✓ edit notes that already are on the grid
 ✓ zooming viewport with mouse wheel
 ✓ automatically connecting notes
-implement modes like normal(move), edit
+✓ implement modes like normal(move), edit
 adding chords to notes
+bottom line displaying current mode
 display note hints and horizontal line hints
 draw cut line
 

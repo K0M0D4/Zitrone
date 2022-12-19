@@ -16,8 +16,8 @@ namespace cmt {
         m_settingsBtn.render(target);
 
         // vertical navbar
-        m_moveButton.render(target);
-        m_noteBtn.render(target);
+        m_editBtn.render(target);
+        m_deleteBtn.render(target);
         for(auto btn : m_chBtn) {
             btn.render(target);
         }
@@ -27,16 +27,16 @@ namespace cmt {
         // vertical buttons positions
         float xVerBtnsPos =
             static_cast<float>(window.getSize().x)
-            - m_noteBtn.getBounds().width - 10;
+            - m_editBtn.getBounds().width - 10;
 
-        m_moveButton.setPos(sf::Vector2f(xVerBtnsPos, 40.0f));
+        m_editBtn.setPos(sf::Vector2f(xVerBtnsPos, 40.0f));
 
-        m_noteBtn.setPos(sf::Vector2f(xVerBtnsPos, m_moveButton.getPos().y
-            + m_moveButton.getBounds().height + 15.0f));
+        m_deleteBtn.setPos(sf::Vector2f(xVerBtnsPos, m_editBtn.getPos().y
+            + m_deleteBtn.getBounds().height + 15.0f));
 
         m_chBtn.at(0).setPos(sf::Vector2f(xVerBtnsPos,
-            m_noteBtn.getPos().y
-            + m_noteBtn.getBounds().height + 15.0f));
+            m_deleteBtn.getPos().y
+            + m_deleteBtn.getBounds().height + 15.0f));
 
         for(uint16_t c{0}; c < m_chBtn.size() - 1; ++c) {
             m_chBtn.at(c + 1).setPos(sf::Vector2f(xVerBtnsPos,
@@ -63,7 +63,7 @@ namespace cmt {
     }
 
     void UI::initVNavBar(ResourceManager& resources) {
-        m_noteBtn = ImageButton(resources.getTexture(0),
+        m_editBtn = ImageButton(resources.getTexture(0),
             sf::Vector2f(40.0f, 40.0f), 4);
 
         for(uint16_t c{0}; c < m_chBtn.size() - 1; ++c) {
@@ -73,7 +73,7 @@ namespace cmt {
         m_chBtn.back() = TextButton(resources.getFont(0),
             std::to_string(0), 40);
 
-        m_moveButton = ImageButton(resources.getTexture(1),
+        m_deleteBtn = ImageButton(resources.getTexture(1),
             sf::Vector2f(40.0f, 40.0f), 4);
     }
 }

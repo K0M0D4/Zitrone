@@ -27,8 +27,6 @@ namespace cmt {
 
         Project m_project{};
 
-        bool isEditModeOn{false};
-
         // viewport
         sf::View m_viewport{};
         sf::View m_normalView{};
@@ -42,8 +40,8 @@ namespace cmt {
 
         /*
         Texture IDs:
-            0 -> dot
-            1 -> move
+            0 -> edit
+            1 -> delete
 
         Font IDs:
             0 -> PlayfairDisplay

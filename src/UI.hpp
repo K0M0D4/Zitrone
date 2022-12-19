@@ -23,8 +23,8 @@ namespace cmt {
         TextButton m_settingsBtn{};
 
         // vertical navbar
-        ImageButton m_moveButton{};
-        ImageButton m_noteBtn{};
+        ImageButton m_editBtn{};
+        ImageButton m_deleteBtn{};
         std::array<TextButton, 7> m_chBtn{};
 
     private:

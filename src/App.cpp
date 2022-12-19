@@ -5,8 +5,8 @@ namespace cmt {
         m_window.create(sf::VideoMode(1280, 720), "Zitrone");
         m_window.setVerticalSyncEnabled(true);
 
-        m_resources.loadTexture("res/dot.png");
-        m_resources.loadTexture("res/move.png");
+        m_resources.loadTexture("res/edit.png");
+        m_resources.loadTexture("res/delete.png");
 
         m_resources.loadFont("res/PlayfairDisplay.ttf");
 
@@ -38,7 +38,7 @@ namespace cmt {
             if(event.type == sf::Event::Resized) {
                 // viewport stuff
                 float navBarSize = m_UI.m_saveBtn.getSize().y * 1.5f;
-                float vertBarSize = m_UI.m_noteBtn.getSize().x * 1.5f;
+                float vertBarSize = m_UI.m_editBtn.getSize().x * 1.5f;
 
                 sf::Vector2f vpcenter = m_viewport.getCenter();
                 m_viewport = sf::View(sf::FloatRect(0.f, 0.f,
@@ -63,19 +63,11 @@ namespace cmt {
             if(event.type == sf::Event::KeyPressed) {
                 m_project.moveActiveLines(event.key.code);
 
-                if(event.key.code == sf::Keyboard::E) {
-                    isEditModeOn = true;
-                } else if(event.key.code == sf::Keyboard::M) {
-                    isEditModeOn = false;
-                }
-
-                if(isEditModeOn) {
-                    if(event.key.code == sf::Keyboard::Space) {
-                        m_project.addNote();
-                    } else if(event.key.code >= sf::Keyboard::Num0
-                        && event.key.code <= sf::Keyboard::Num6) {
-                        m_project.setChord(event.key.code - 26);
-                    }
+                if(event.key.code == sf::Keyboard::Space) {
+                    m_project.addNote();
+                } else if(event.key.code >= sf::Keyboard::Num0
+                    && event.key.code <= sf::Keyboard::Num6) {
+                    m_project.setChord(event.key.code - 26);
                 }
             }
 
@@ -83,7 +75,7 @@ namespace cmt {
 
                 if(winMousePos.y > m_UI.m_saveBtn.getSize().y * 1.5f
                     && winMousePos.x < m_window.getSize().x
-                    - m_UI.m_noteBtn.getSize().x * 1.5f) {
+                    - m_UI.m_editBtn.getSize().x * 1.5f) {
                     
                     m_project.setActiveLines(vpMousePos);
                 }
@@ -114,7 +106,7 @@ namespace cmt {
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left) 
                 && winMousePos.y > m_UI.m_saveBtn.getSize().y * 1.5f
                     && winMousePos.x < m_window.getSize().x
-                    - m_UI.m_noteBtn.getSize().x * 1.5f && winMousePos.x > 0.0f
+                    - m_UI.m_editBtn.getSize().x * 1.5f && winMousePos.x > 0.0f
                     && winMousePos.y < m_window.getSize().y) {
                 if(m_wasMousePressed) {
                     m_deltaMousePos = winMousePos - m_prevMousePos;
@@ -131,13 +123,10 @@ namespace cmt {
                 static_cast<float>(-m_deltaMousePos.y) * m_vpzoom);
             }
 
-            if(m_UI.m_noteBtn.isPressed(m_window.mapPixelToCoords(winMousePos))) {
-                isEditModeOn = true;
+            if(m_UI.m_editBtn.isPressed(m_window.mapPixelToCoords(winMousePos))) {
                 m_project.addNote();
-            } else if(m_UI.m_moveButton.isPressed(m_window.mapPixelToCoords(
+            } else if(m_UI.m_editBtn.isPressed(m_window.mapPixelToCoords(
                 winMousePos))) {
-
-                isEditModeOn = false;
             }
 
             for(uint16_t i{}; i < m_UI.m_chBtn.size(); ++i) {

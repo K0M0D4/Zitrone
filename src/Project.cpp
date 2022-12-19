@@ -1,7 +1,5 @@
 #include "Project.hpp"
 
-#include <iostream>
-
 namespace cmt {
     Project::Project() : Project("project_name") {}
 
@@ -38,11 +36,6 @@ namespace cmt {
             }
 
             sortNotes();
-
-            for(auto note : m_notes) {
-                std::cout << note.getCoords().y << ' ';
-            }
-            std::cout << '\n';
         }
     }
 

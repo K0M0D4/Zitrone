@@ -47,5 +47,7 @@ namespace cmt {
 
         std::vector<Note> m_notes{};
 
+        void sortNotes();
+
     };
 }

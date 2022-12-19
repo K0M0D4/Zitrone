@@ -8,7 +8,7 @@
 ✓ project class with data about notes and chords
 ✓ adding notes to the grid
 ✓ bugfix: adding note before the first one
-edit notes that already are on the grid
+✓ edit notes that already are on the grid
 zooming viewport with mouse wheel
 implement modes like normal(move), edit
 adding chords to notes

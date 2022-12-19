@@ -20,8 +20,8 @@ namespace cmt {
                 (al.y + 1) * m_breakBetweenNotesH}, al});
         } else {
             bool addNew{true};
-            uint16_t i{};
-            for(; i < m_notes.size(); ++i) {
+            
+            for(uint16_t i{}; i < m_notes.size(); ++i) {
                 if(m_notes.at(i).getCoords().y == al.y) {
                     addNew = false;
                     m_notes.at(i).setPos(sf::Vector2f{
@@ -32,10 +32,12 @@ namespace cmt {
             }
 
             if(addNew) {
-                m_notes.emplace(m_notes.begin() + i, Note{sf::Vector2f{
+                m_notes.emplace_back(Note{sf::Vector2f{
                     al.x * m_breakBetweenNotesV + m_firstNoteOffset,
                     (al.y + 1) * m_breakBetweenNotesH}, al});
             }
+
+            sortNotes();
 
             for(auto note : m_notes) {
                 std::cout << note.getCoords().y << ' ';
@@ -70,6 +72,20 @@ namespace cmt {
 
         for(auto& note : m_notes) {
             note.render(target);
+        }
+    }
+
+    void Project::sortNotes() {
+        for(uint32_t i{}; i < m_notes.size(); ++i) {
+            for(uint32_t j{i + 1}; j < m_notes.size(); ++j)
+            {
+                Note temp{sf::Vector2f{}, sf::Vector2i{}};
+                if(m_notes.at(j).getCoords().y < m_notes.at(i).getCoords().y) {
+                    temp = m_notes.at(i);
+                    m_notes.at(i) = m_notes.at(j);
+                    m_notes.at(j) = temp;
+                }
+            }
         }
     }
 }

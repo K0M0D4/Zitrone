@@ -2,15 +2,11 @@
 
 namespace cmt {
     DashLine::DashLine() {
-        m_verts = sf::VertexArray(sf::Lines, 0);
         m_verts.clear();
     }
 
     DashLine::DashLine(sf::Vector2f start, sf::Vector2f end,
-        float dashLength, sf::Color color) {
-
-        m_verts = sf::VertexArray(sf::Lines, 1);
-        m_verts.clear();
+        float dashLength, sf::Color color) : DashLine::DashLine() {
 
         float segmentWidth{};
         float segmentHeight{};

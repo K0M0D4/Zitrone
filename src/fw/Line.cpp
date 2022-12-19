@@ -2,13 +2,11 @@
 
 namespace cmt {
     Line::Line() {
-        m_verts = sf::VertexArray(sf::Lines, 0);
         m_verts.clear();
     }
 
-    Line::Line(sf::Vector2f start, sf::Vector2f end, sf::Color color) {
-
-        m_verts.clear();
+    Line::Line(sf::Vector2f start, sf::Vector2f end, sf::Color color) 
+        : Line::Line() {
 
         m_verts.append(sf::Vertex(start));
         m_verts.append(sf::Vertex(end));

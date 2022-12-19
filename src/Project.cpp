@@ -1,5 +1,7 @@
 #include "Project.hpp"
 
+#include <iostream>
+
 namespace cmt {
     Project::Project() : Project("project_name") {}
 
@@ -59,6 +61,26 @@ namespace cmt {
         if(an != sf::Vector2i{}) {
             m_notes.at(i).setChord(chord);
         }
+    }
+
+    void Project::deleteNote() {
+        sf::Vector2i al{m_grid.getActiveLines()};
+        uint16_t i{};
+        bool canDelete{false};
+
+        for(; i < m_notes.size(); ++i) {
+            if(m_notes.at(i).getCoords() == al) {
+                canDelete = true;
+                break;
+            }
+        }
+
+        if(canDelete) {
+            m_notes.erase(m_notes.begin() + i);
+            m_notes.shrink_to_fit();
+        }
+
+        calculateLines();
     }
 
     void Project::moveActiveLines(sf::Keyboard::Key keyCode) {

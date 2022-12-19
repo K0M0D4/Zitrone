@@ -125,9 +125,12 @@ namespace cmt {
 
             if(m_UI.m_editBtn.isPressed(m_window.mapPixelToCoords(winMousePos))) {
                 m_project.addNote();
-            } else if(m_UI.m_editBtn.isPressed(m_window.mapPixelToCoords(
+            } else if(m_UI.m_deleteBtn.isPressed(m_window.mapPixelToCoords(
                 winMousePos))) {
+
+                m_project.deleteNote();
             }
+
 
             for(uint16_t i{}; i < m_UI.m_chBtn.size(); ++i) {
                 if(m_UI.m_chBtn.at(i).isPressed(m_window.mapPixelToCoords(

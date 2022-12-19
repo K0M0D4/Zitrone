@@ -15,7 +15,7 @@
 ✓ adding chords to notes
 ✓ delete modes because they are useless
 ✓ update buttons due to previous todo
-deleting notes
+✓ deleting notes
 bottom line displaying current mode
 display note hints and horizontal line hints
 draw cut line

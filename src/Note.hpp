@@ -5,9 +5,10 @@
 namespace cmt {
     class Note {
     public:
-        Note(sf::Vector2f pos, sf::Vector2i coords);
+        Note(sf::Vector2f pos, sf::Vector2i coords, sf::Font& font);
 
         void setPos(sf::Vector2f pos, sf::Vector2i coords);
+        void setChord(uint16_t chord);
 
         sf::Vector2i getCoords();
         sf::Vector2f getPos();
@@ -16,11 +17,11 @@ namespace cmt {
 
     private:
         sf::CircleShape m_circle{15.0f};
+        sf::Text m_chordText{};
 
         sf::Vector2i m_coords{};
         sf::Vector2f m_pos{};
 
-        //for later
         uint16_t m_chord{};
 
     };

@@ -25,7 +25,7 @@ namespace cmt {
 
         UI m_UI{};
 
-        Project m_project{"test"};
+        Project m_project{};
 
         bool isEditModeOn{false};
 

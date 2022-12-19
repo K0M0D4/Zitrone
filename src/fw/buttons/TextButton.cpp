@@ -21,7 +21,7 @@ namespace cmt {
     void TextButton::setPos(sf::Vector2f pos) {
         Button::setPos(pos);
 
-        sf::FloatRect textRect = m_text.getLocalBounds();
+        sf::FloatRect textRect{m_text.getLocalBounds()};
 
         sf::Vector2f newPos{};
         newPos.x = m_rect.getPosition().x
@@ -44,8 +44,7 @@ namespace cmt {
         m_text.setCharacterSize(static_cast<uint32_t>(verticalSize
             - m_padding * 2));
         m_rect.setSize(sf::Vector2f(m_text.getLocalBounds().width
-            + m_padding * 2,
-            m_rect.getSize().y));
+            + m_padding * 2, m_rect.getSize().y));
     }
 
     void TextButton::setFont(const sf::Font& font) {

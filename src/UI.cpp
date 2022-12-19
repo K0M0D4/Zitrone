@@ -38,7 +38,7 @@ namespace cmt {
             m_noteBtn.getPos().y
             + m_noteBtn.getBounds().height + 15.0f));
 
-        for(uint16_t c{0}; c < 5; ++c) {
+        for(uint16_t c{0}; c < m_chBtn.size() - 1; ++c) {
             m_chBtn.at(c + 1).setPos(sf::Vector2f(xVerBtnsPos,
                 10.0f + m_chBtn.at(c).getPos().y
                 + m_chBtn.at(c).getBounds().height));
@@ -66,10 +66,12 @@ namespace cmt {
         m_noteBtn = ImageButton(resources.getTexture(0),
             sf::Vector2f(40.0f, 40.0f), 4);
 
-        for(uint16_t c{0}; c < 6; ++c) {
+        for(uint16_t c{0}; c < m_chBtn.size() - 1; ++c) {
             m_chBtn.at(c) = TextButton(resources.getFont(0),
                 std::to_string(c + 1), 40);
         }
+        m_chBtn.back() = TextButton(resources.getFont(0),
+            std::to_string(0), 40);
 
         m_moveButton = ImageButton(resources.getTexture(1),
             sf::Vector2f(40.0f, 40.0f), 4);

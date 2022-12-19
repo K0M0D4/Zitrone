@@ -12,8 +12,11 @@
 namespace cmt {
     class Project {
     public:
-        Project(const std::string& name);
         Project();
+        Project(const std::string& name);
+
+        // ABSOLUTELY NECESARRY
+        void setChordsFont(sf::Font& font);
 
         // for later
         /*bool load(const std::string& filename);
@@ -21,8 +24,7 @@ namespace cmt {
         bool saveAs();*/
 
         void addNote();
-        void emplaceNote();
-        void addChord();
+        void setChord(uint16_t chord);
         void deleteNote();
 
         void moveActiveLines(sf::Keyboard::Key keyCode);
@@ -46,6 +48,8 @@ namespace cmt {
 
         Grid m_grid{m_workspace.getSize(), m_breakBetweenNotesV,
             m_breakBetweenNotesH, m_firstNoteOffset};
+
+        sf::Font m_chordsFont{};
 
         std::vector<Note> m_notes{};
         std::vector<Line> m_noteLines{};

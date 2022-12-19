@@ -9,13 +9,17 @@ namespace cmt {
         m_workspace.setOutlineColor(sf::Color::White);
     }
 
+    void Project::setChordsFont(sf::Font& font) {
+        m_chordsFont = font;
+    }
+
     void Project::addNote() {
         sf::Vector2i al{m_grid.getActiveLines()};
         
         if(m_notes.size() == 0) {
             m_notes.emplace_back(Note{sf::Vector2f{
                 al.x * m_breakBetweenNotesV + m_firstNoteOffset,
-                (al.y + 1) * m_breakBetweenNotesH}, al});
+                (al.y + 1) * m_breakBetweenNotesH}, al, m_chordsFont});
         } else {
             bool addNew{true};
             
@@ -32,11 +36,28 @@ namespace cmt {
             if(addNew) {
                 m_notes.emplace_back(Note{sf::Vector2f{
                     al.x * m_breakBetweenNotesV + m_firstNoteOffset,
-                    (al.y + 1) * m_breakBetweenNotesH}, al});
+                    (al.y + 1) * m_breakBetweenNotesH}, al, m_chordsFont});
             }
 
             sortNotes();
             calculateLines();
+        }
+    }
+
+    void Project::setChord(uint16_t chord) {
+        sf::Vector2i al{m_grid.getActiveLines()};
+        sf::Vector2i an{};
+        uint16_t i{};
+
+        for(; i < m_notes.size(); ++i) {
+            if(m_notes.at(i).getCoords() == al) {
+                an = al;
+                break;
+            }
+        }
+
+        if(an != sf::Vector2i{}) {
+            m_notes.at(i).setChord(chord);
         }
     }
 
@@ -77,7 +98,7 @@ namespace cmt {
         for(uint32_t i{}; i < m_notes.size(); ++i) {
             for(uint32_t j{i + 1}; j < m_notes.size(); ++j)
             {
-                Note temp{sf::Vector2f{}, sf::Vector2i{}};
+                Note temp{sf::Vector2f{}, sf::Vector2i{}, m_chordsFont};
                 if(m_notes.at(j).getCoords().y < m_notes.at(i).getCoords().y) {
                     temp = m_notes.at(i);
                     m_notes.at(i) = m_notes.at(j);

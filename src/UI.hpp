@@ -25,7 +25,7 @@ namespace cmt {
         // vertical navbar
         ImageButton m_moveButton{};
         ImageButton m_noteBtn{};
-        std::array<TextButton, 6> m_chBtn{};
+        std::array<TextButton, 7> m_chBtn{};
 
     private:
         void initHNavBar(ResourceManager& resources);

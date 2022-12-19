@@ -11,6 +11,9 @@ namespace cmt {
         m_resources.loadFont("res/PlayfairDisplay.ttf");
 
         m_UI.init(m_resources);
+
+        m_project = Project("test");
+        m_project.setChordsFont(m_resources.getFont(0));
     }
 
     int32_t App::start() {
@@ -66,8 +69,13 @@ namespace cmt {
                     isEditModeOn = false;
                 }
 
-                if(event.key.code == sf::Keyboard::Space && isEditModeOn) {
-                    m_project.addNote();
+                if(isEditModeOn) {
+                    if(event.key.code == sf::Keyboard::Space) {
+                        m_project.addNote();
+                    } else if(event.key.code >= sf::Keyboard::Num0
+                        && event.key.code <= sf::Keyboard::Num6) {
+                        m_project.setChord(event.key.code - 26);
+                    }
                 }
             }
 
@@ -130,6 +138,15 @@ namespace cmt {
                 winMousePos))) {
 
                 isEditModeOn = false;
+            }
+
+            for(uint16_t i{}; i < m_UI.m_chBtn.size(); ++i) {
+                if(m_UI.m_chBtn.at(i).isPressed(m_window.mapPixelToCoords(
+                    winMousePos))) {
+
+                    m_project.setChord(i + 1);
+
+                }
             }
     }
 

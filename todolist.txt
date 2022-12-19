@@ -12,7 +12,8 @@
 ✓ zooming viewport with mouse wheel
 ✓ automatically connecting notes
 ✓ implement modes like normal(move), edit
-adding chords to notes
+✓ adding chords to notes
+deleting notes
 bottom line displaying current mode
 display note hints and horizontal line hints
 draw cut line

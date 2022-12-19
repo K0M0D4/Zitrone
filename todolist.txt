@@ -9,10 +9,10 @@
 ✓ adding notes to the grid
 ✓ bugfix: adding note before the first one
 ✓ edit notes that already are on the grid
-zooming viewport with mouse wheel
+✓ zooming viewport with mouse wheel
+automatically connecting notes
 implement modes like normal(move), edit
 adding chords to notes
-automatically connecting notes
 display note name and horizontal line hint
 draw cut line
 

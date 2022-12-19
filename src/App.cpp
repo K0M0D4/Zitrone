@@ -74,6 +74,18 @@ namespace cmt {
                     m_project.setActiveLines(vpMousePos);
                 }
             }
+
+            if(event.type == sf::Event::MouseWheelScrolled
+                && event.mouseWheelScroll.wheel == sf::Mouse::VerticalWheel) {
+                
+                if(event.mouseWheelScroll.delta > 0) {
+                    m_viewport.zoom(0.96f);
+                    m_vpzoom *= 0.96f;
+                } else {
+                    m_viewport.zoom(1.04f);
+                    m_vpzoom *= (1.04f);
+                }
+            }
         }
         
         if(m_window.hasFocus()) {
@@ -82,7 +94,7 @@ namespace cmt {
                 m_vpzoom *= 0.98f;
             } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Hyphen)) {
                 m_viewport.zoom(1.02f);
-                m_vpzoom *= 1.02f;
+                m_vpzoom *= (1.02f);
             }
 
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left) 

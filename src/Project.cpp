@@ -19,28 +19,28 @@ namespace cmt {
                 al.x * m_breakBetweenNotesV + m_firstNoteOffset,
                 (al.y + 1) * m_breakBetweenNotesH}, al});
         } else {
-            if(al.y > m_notes.back().getCoords().y) {
-                m_notes.emplace_back(Note{sf::Vector2f{
-                    al.x * m_breakBetweenNotesV + m_firstNoteOffset,
-                    (al.y + 1) * m_breakBetweenNotesH}, al});
-            } else {
-                bool edit{false};
-                uint16_t i{};
-                for(; i < m_notes.size(); ++i) {
-                    if(m_notes.at(i).getCoords().y == al.y) {
-                        edit = true;
-                        break;
-                    }
-                }
-
-                if(edit) {
-
-                } else {
-                    m_notes.emplace(m_notes.begin() + i, Note{sf::Vector2f{
+            bool addNew{true};
+            uint16_t i{};
+            for(; i < m_notes.size(); ++i) {
+                if(m_notes.at(i).getCoords().y == al.y) {
+                    addNew = false;
+                    m_notes.at(i).setPos(sf::Vector2f{
                         al.x * m_breakBetweenNotesV + m_firstNoteOffset,
-                        (al.y + 1) * m_breakBetweenNotesH}, al});
+                        (al.y + 1) * m_breakBetweenNotesH}, al);
+                    break;
                 }
             }
+
+            if(addNew) {
+                m_notes.emplace(m_notes.begin() + i, Note{sf::Vector2f{
+                    al.x * m_breakBetweenNotesV + m_firstNoteOffset,
+                    (al.y + 1) * m_breakBetweenNotesH}, al});
+            }
+
+            for(auto note : m_notes) {
+                std::cout << note.getCoords().y << ' ';
+            }
+            std::cout << '\n';
         }
     }
 

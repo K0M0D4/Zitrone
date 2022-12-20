@@ -25,7 +25,7 @@ namespace cmt {
 
         UI m_UI{};
 
-        Project m_project{};
+        Project m_project{"test", &m_resources};
 
         // viewport
         sf::View m_viewport{};

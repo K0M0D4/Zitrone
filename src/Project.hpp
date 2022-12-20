@@ -4,6 +4,7 @@
 #include "Note.hpp"
 
 #include "fw/Line.hpp"
+#include "fw/ResourceManager.hpp"
 
 #include <SFML/Graphics.hpp>
 
@@ -12,11 +13,7 @@
 namespace cmt {
     class Project {
     public:
-        Project();
-        Project(const std::string& name);
-
-        // ABSOLUTELY NECESARRY
-        void setChordsFont(sf::Font& font);
+        Project(const std::string& name, ResourceManager* resources);
 
         // for later
         /*bool load(const std::string& filename);
@@ -35,6 +32,7 @@ namespace cmt {
         void render(sf::RenderWindow& target);
 
     private:
+        ResourceManager* m_resources{};
         float m_dpcm{118.1102f};
 
         // values have to be in pixels, not centimeters
@@ -48,8 +46,6 @@ namespace cmt {
 
         Grid m_grid{m_workspace.getSize(), m_breakBetweenNotesV,
             m_breakBetweenNotesH, m_firstNoteOffset};
-
-        sf::Font m_chordsFont{};
 
         std::vector<Note> m_notes{};
         std::vector<Line> m_noteLines{};

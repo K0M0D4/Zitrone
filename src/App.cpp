@@ -11,9 +11,6 @@ namespace cmt {
         m_resources.loadFont("res/PlayfairDisplay.ttf");
 
         m_UI.init(m_resources);
-
-        m_project = Project("test");
-        m_project.setChordsFont(m_resources.getFont(0));
     }
 
     int32_t App::start() {
@@ -121,25 +118,24 @@ namespace cmt {
 
             m_viewport.move(static_cast<float>(-m_deltaMousePos.x) * m_vpzoom,
                 static_cast<float>(-m_deltaMousePos.y) * m_vpzoom);
-            }
+        }
 
-            if(m_UI.m_editBtn.isPressed(m_window.mapPixelToCoords(winMousePos))) {
-                m_project.addNote();
-            } else if(m_UI.m_deleteBtn.isPressed(m_window.mapPixelToCoords(
+        if(m_UI.m_editBtn.isPressed(m_window.mapPixelToCoords(winMousePos))) {
+            m_project.addNote();
+        } else if(m_UI.m_deleteBtn.isPressed(m_window.mapPixelToCoords(
+            winMousePos))) {
+
+            m_project.deleteNote();
+        }
+
+        for(uint16_t i{}; i < m_UI.m_chBtn.size(); ++i) {
+            if(m_UI.m_chBtn.at(i).isPressed(m_window.mapPixelToCoords(
                 winMousePos))) {
 
-                m_project.deleteNote();
+                m_project.setChord(i + 1);
+
             }
-
-
-            for(uint16_t i{}; i < m_UI.m_chBtn.size(); ++i) {
-                if(m_UI.m_chBtn.at(i).isPressed(m_window.mapPixelToCoords(
-                    winMousePos))) {
-
-                    m_project.setChord(i + 1);
-
-                }
-            }
+        }
     }
 
     void App::render() {

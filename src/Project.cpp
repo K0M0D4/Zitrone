@@ -3,16 +3,11 @@
 #include <iostream>
 
 namespace cmt {
-    Project::Project() : Project("project_name") {}
-
-    Project::Project(const std::string& name) {
+    Project::Project(const std::string& name, ResourceManager* resources) {
+        m_resources = resources;
         m_workspace.setOutlineThickness(5);
         m_workspace.setFillColor(sf::Color::Transparent);
         m_workspace.setOutlineColor(sf::Color::White);
-    }
-
-    void Project::setChordsFont(sf::Font& font) {
-        m_chordsFont = font;
     }
 
     void Project::addNote() {
@@ -21,7 +16,8 @@ namespace cmt {
         if(m_notes.size() == 0) {
             m_notes.emplace_back(Note{sf::Vector2f{
                 al.x * m_breakBetweenNotesV + m_firstNoteOffset,
-                (al.y + 1) * m_breakBetweenNotesH}, al, m_chordsFont});
+                (al.y + 1) * m_breakBetweenNotesH}, al,
+                m_resources->getFont(0)});
         } else {
             bool addNew{true};
             
@@ -38,7 +34,8 @@ namespace cmt {
             if(addNew) {
                 m_notes.emplace_back(Note{sf::Vector2f{
                     al.x * m_breakBetweenNotesV + m_firstNoteOffset,
-                    (al.y + 1) * m_breakBetweenNotesH}, al, m_chordsFont});
+                    (al.y + 1) * m_breakBetweenNotesH}, al,
+                    m_resources->getFont(0)});
             }
 
             sortNotes();
@@ -120,7 +117,8 @@ namespace cmt {
         for(uint32_t i{}; i < m_notes.size(); ++i) {
             for(uint32_t j{i + 1}; j < m_notes.size(); ++j)
             {
-                Note temp{sf::Vector2f{}, sf::Vector2i{}, m_chordsFont};
+                Note temp{sf::Vector2f{}, sf::Vector2i{},
+                    m_resources->getFont(0)};
                 if(m_notes.at(j).getCoords().y < m_notes.at(i).getCoords().y) {
                     temp = m_notes.at(i);
                     m_notes.at(i) = m_notes.at(j);

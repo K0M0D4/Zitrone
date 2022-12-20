@@ -1,7 +1,9 @@
 // important and key things
 
+// november
 ✓ drawing grid
 ✓ moving ui stuff to separate class for clearance of code
+// december
 ✓ separate class for grid
 ✓ handling active lines in grid with keyboard
 ✓ handling active lines in grid with mouse
@@ -16,6 +18,7 @@
 ✓ delete modes because they are useless
 ✓ update buttons due to previous todo
 ✓ deleting notes
+✓ code clarity changes
 display note hints and horizontal line hints
 draw cut line
 

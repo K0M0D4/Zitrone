@@ -2,6 +2,7 @@
 
 #include "Grid.hpp"
 #include "Note.hpp"
+#include "Theme.hpp"
 
 #include "fw/Line.hpp"
 #include "fw/ResourceManager.hpp"
@@ -13,7 +14,8 @@
 namespace cmt {
     class Project {
     public:
-        Project(const std::string& name, ResourceManager* resources);
+        Project(const std::string& name, ResourceManager* resources,
+            Theme* theme);
 
         // for later
         /*bool load(const std::string& filename);
@@ -33,6 +35,7 @@ namespace cmt {
 
     private:
         ResourceManager* m_resources{};
+        Theme* m_theme{};
         float m_dpcm{118.1102f};
 
         // values have to be in pixels, not centimeters
@@ -45,7 +48,7 @@ namespace cmt {
         float m_breakBetweenNotesH{0.9f * m_dpcm};
 
         Grid m_grid{m_workspace.getSize(), m_breakBetweenNotesV,
-            m_breakBetweenNotesH, m_firstNoteOffset};
+            m_breakBetweenNotesH, m_firstNoteOffset, m_theme};
 
         std::vector<Note> m_notes{};
         std::vector<Line> m_noteLines{};

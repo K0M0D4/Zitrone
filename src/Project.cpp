@@ -3,11 +3,14 @@
 #include <iostream>
 
 namespace cmt {
-    Project::Project(const std::string& name, ResourceManager* resources) {
+    Project::Project(const std::string& name, ResourceManager* resources,
+        Theme* theme) {
+
         m_resources = resources;
+        m_theme = theme;
         m_workspace.setOutlineThickness(5);
         m_workspace.setFillColor(sf::Color::Transparent);
-        m_workspace.setOutlineColor(sf::Color::White);
+        m_workspace.setOutlineColor(m_theme->getColor(4));
     }
 
     void Project::addNote() {

@@ -5,6 +5,7 @@
 #include "fw/ResourceManager.hpp"
 
 #include "Project.hpp"
+#include "Theme.hpp"
 #include "UI.hpp"
 
 #include <SFML/Graphics.hpp>
@@ -23,9 +24,11 @@ namespace cmt {
 
         sf::RenderWindow m_window{};
 
+        Theme m_theme{"res/themes/dark"};
+
         UI m_UI{};
 
-        Project m_project{"test", &m_resources};
+        Project m_project{"test", &m_resources, &m_theme};
 
         // viewport
         sf::View m_viewport{};

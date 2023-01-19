@@ -139,14 +139,14 @@ namespace cmt {
     }
 
     void App::render() {
-        m_window.clear(sf::Color(20, 20, 30));
+        m_window.clear(m_theme.getColor(1));
 
-            // viewport
-            m_window.setView(m_viewport);
-            m_project.render(m_window);
+        // viewport
+        m_window.setView(m_viewport);
+        m_project.render(m_window);
 
-            // UI
-            m_window.setView(m_normalView);
-            m_UI.render(m_window);
+        // UI
+        m_window.setView(m_normalView);
+        m_UI.render(m_window);
     }
 }

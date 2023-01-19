@@ -6,7 +6,9 @@ namespace cmt {
     }
 
     Grid::Grid(sf::Vector2f workspaceSize, float verticalBreak,
-        float horizontalBreak, float firstOffset) {
+        float horizontalBreak, float firstOffset, Theme* theme) {
+
+        m_theme = theme;
 
         uint32_t vLineOccurencies{static_cast<uint32_t>(
             (workspaceSize.x - firstOffset)
@@ -47,15 +49,15 @@ namespace cmt {
 
     void Grid::render(sf::RenderWindow& target) {
         for(uint32_t i{0}; i < m_vertLines.size(); ++i) {
-            m_vertLines.at(i).setColor(sf::Color(150.0f, 150.0f, 255.0f));
+            m_vertLines.at(i).setColor(m_theme->getColor(3));
             m_vertLines.at(i).render(target);
         }
         for(uint32_t i{0}; i < m_horLines.size(); ++i) {
-            m_horLines.at(i).setColor(sf::Color(255.0f, 150.0f, 150.0f));
+            m_horLines.at(i).setColor(m_theme->getColor(3));
             m_horLines.at(i).render(target);
         }
-        m_vertLines.at(m_activeLines.x).setColor(sf::Color::Yellow);
-        m_horLines.at(m_activeLines.y).setColor(sf::Color::Yellow);
+        m_vertLines.at(m_activeLines.x).setColor(m_theme->getColor(0));
+        m_horLines.at(m_activeLines.y).setColor(m_theme->getColor(0));
 
         m_vertLines.at(m_activeLines.x).render(target);
         m_horLines.at(m_activeLines.y).render(target);

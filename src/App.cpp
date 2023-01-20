@@ -71,6 +71,9 @@ namespace cmt {
                 } else if(event.key.code >= sf::Keyboard::Num0
                     && event.key.code <= sf::Keyboard::Num6) {
                     m_project.setChord(event.key.code - 26);
+                } else if(event.key.code == sf::Keyboard::Delete
+                    || event.key.code == sf::Keyboard::Backspace) {
+                    m_project.deleteNote();
                 }
             }
 

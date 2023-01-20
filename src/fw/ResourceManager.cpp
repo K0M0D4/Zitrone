@@ -19,6 +19,13 @@ namespace cmt {
         return m_fonts.size() - 1;
     }
 
+    int32_t ResourceManager::loadTheme(const std::string& filepath) {
+        Theme theme{filepath};
+        
+        m_themes.push_back(theme);
+        return m_themes.size() - 1;
+    }
+
     sf::Texture& ResourceManager::getTexture(uint32_t ID) {
         if(m_textures.size() <= ID)
             throw std::runtime_error(
@@ -35,5 +42,14 @@ namespace cmt {
                 + std::to_string(ID));
 
         return m_fonts.at(ID);
+    }
+
+    Theme& ResourceManager::getTheme(uint32_t ID) {
+        if(m_themes.size() <= ID)
+            throw std::runtime_error(
+                "Resource manager can't return theme with ID: "
+                + std::to_string(ID));
+
+        return m_themes.at(ID);
     }
 }

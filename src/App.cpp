@@ -1,5 +1,7 @@
 #include "App.hpp"
 
+#include <iostream>
+
 namespace cmt {
     App::App() {
         m_window.create(sf::VideoMode(1280, 720), "Zitrone");
@@ -10,7 +12,11 @@ namespace cmt {
 
         m_resources.loadFont("res/PlayfairDisplay.ttf");
 
+        m_resources.loadTheme("res/themes/dark");
+
         m_UI.init(m_resources);
+
+        m_project = Project{"test", &m_resources};
     }
 
     int32_t App::start() {
@@ -139,14 +145,18 @@ namespace cmt {
     }
 
     void App::render() {
-        m_window.clear(m_theme.getColor(1));
+        m_window.clear(m_resources.getTheme(0).getColor(1));
+        std::cout << "a\n";
 
         // viewport
         m_window.setView(m_viewport);
+        std::cout << "a\n";
         m_project.render(m_window);
+        std::cout << "a\n";
 
         // UI
         m_window.setView(m_normalView);
         m_UI.render(m_window);
+        throw std::exception();
     }
 }

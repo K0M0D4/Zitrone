@@ -1,7 +1,5 @@
 #include "Theme.hpp"
 
-#include <iostream>
-
 namespace cmt {
     Theme::Theme(const std::string& filepath) {
         load(filepath);

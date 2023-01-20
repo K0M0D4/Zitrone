@@ -3,14 +3,13 @@
 #include <iostream>
 
 namespace cmt {
-    Project::Project(const std::string& name, ResourceManager* resources,
-        Theme* theme) {
+    Project::Project() {}
 
+    Project::Project(const std::string& name, ResourceManager* resources) {
         m_resources = resources;
-        m_theme = theme;
         m_workspace.setOutlineThickness(5);
         m_workspace.setFillColor(sf::Color::Transparent);
-        m_workspace.setOutlineColor(m_theme->getColor(4));
+        m_workspace.setOutlineColor(m_resources->getTheme(0).getColor(4));
     }
 
     void Project::addNote() {
@@ -104,16 +103,22 @@ namespace cmt {
     }
 
     void Project::render(sf::RenderWindow& target) {
+        std::cout << "a\n";
         target.draw(m_workspace);
         m_grid.render(target);
+
+        std::cout << "a\n";
 
         for(auto& line : m_noteLines) {
             line.render(target);
         }
-
+        std::cout << "a\n";
         for(auto& note : m_notes) {
+            std::cout << "b\n";
             note.render(target);
         }
+        std::cout << "a\n";
+        throw std::exception();
     }
 
     void Project::sortNotes() {

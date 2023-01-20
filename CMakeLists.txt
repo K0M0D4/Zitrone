@@ -16,6 +16,7 @@ FetchContent_MakeAvailable(SFML)
 
 add_executable(${PROJECT_NAME}    
     src/fw/ResourceManager.cpp
+    src/fw/Theme.cpp
     src/fw/Line.cpp
     src/fw/DashLine.cpp
 
@@ -29,7 +30,6 @@ add_executable(${PROJECT_NAME}
     src/Grid.cpp
     src/Note.cpp
     src/Project.cpp
-    src/Theme.cpp
     )
 
 target_compile_options(${PROJECT_NAME} PUBLIC -DSFML_STATIC)

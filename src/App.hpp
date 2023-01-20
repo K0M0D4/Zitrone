@@ -1,12 +1,11 @@
 #pragma once
 
+#include "Project.hpp"
+#include "UI.hpp"
+
 #include "fw/Button.hpp"
 #include "fw/DashLine.hpp"
 #include "fw/ResourceManager.hpp"
-
-#include "Project.hpp"
-#include "Theme.hpp"
-#include "UI.hpp"
 
 #include <SFML/Graphics.hpp>
 
@@ -24,11 +23,9 @@ namespace cmt {
 
         sf::RenderWindow m_window{};
 
-        Theme m_theme{"res/themes/dark"};
-
         UI m_UI{};
 
-        Project m_project{"test", &m_resources, &m_theme};
+        Project m_project{};
 
         // viewport
         sf::View m_viewport{};
@@ -48,6 +45,9 @@ namespace cmt {
 
         Font IDs:
             0 -> PlayfairDisplay
+
+        Theme IDs:
+            0 -> dark
         */
     };
 }

@@ -1,8 +1,7 @@
 #pragma once
 
 #include "fw/DashLine.hpp"
-
-#include "Theme.hpp"
+#include "fw/ResourceManager.hpp"
 
 #include <SFML/Graphics.hpp>
 
@@ -13,7 +12,7 @@ namespace cmt {
     public:
         Grid();
         Grid(sf::Vector2f workspaceSize, float verticalBreak,
-            float horizontalBreak, float firstOffset, Theme* theme);
+            float horizontalBreak, float firstOffset, ResourceManager* resources);
 
         bool setActiveLines(sf::Vector2i lines);
         bool moveActiveLines(sf::Vector2i lines);
@@ -23,7 +22,7 @@ namespace cmt {
         void render(sf::RenderWindow& target);
 
     private:
-        Theme* m_theme;
+        ResourceManager* m_resources{};
 
         std::vector<DashLine> m_vertLines{};
         std::vector<DashLine> m_horLines{};

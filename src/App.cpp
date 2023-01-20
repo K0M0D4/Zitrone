@@ -146,17 +146,13 @@ namespace cmt {
 
     void App::render() {
         m_window.clear(m_resources.getTheme(0).getColor(1));
-        std::cout << "a\n";
 
         // viewport
         m_window.setView(m_viewport);
-        std::cout << "a\n";
         m_project.render(m_window);
-        std::cout << "a\n";
 
         // UI
         m_window.setView(m_normalView);
         m_UI.render(m_window);
-        throw std::exception();
     }
 }

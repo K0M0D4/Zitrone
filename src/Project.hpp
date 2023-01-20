@@ -45,8 +45,7 @@ namespace cmt {
         float m_breakBetweenNotesV{0.5f * m_dpcm};
         float m_breakBetweenNotesH{0.9f * m_dpcm};
 
-        Grid m_grid{m_workspace.getSize(), m_breakBetweenNotesV,
-            m_breakBetweenNotesH, m_firstNoteOffset, m_resources};
+        Grid m_grid{};
 
         std::vector<Note> m_notes{};
         std::vector<Line> m_noteLines{};

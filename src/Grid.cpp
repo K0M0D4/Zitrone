@@ -56,9 +56,8 @@ namespace cmt {
             m_horLines.at(i).setColor(m_resources->getTheme(0).getColor(3));
             m_horLines.at(i).render(target);
         }
-        m_vertLines.at(m_activeLines.x).setColor(m_resources->getTheme(0).getColor(0));
-        m_horLines.at(m_activeLines.y).setColor(m_resources->getTheme(0).getColor(0));
-
+        m_vertLines.at(m_activeLines.x).setColor(m_resources->getTheme(0).getColor(4));
+        m_horLines.at(m_activeLines.y).setColor(m_resources->getTheme(0).getColor(4));
         m_vertLines.at(m_activeLines.x).render(target);
         m_horLines.at(m_activeLines.y).render(target);
     }

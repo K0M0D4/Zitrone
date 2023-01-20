@@ -14,7 +14,7 @@ namespace cmt {
 
         m_resources.loadTheme("res/themes/dark");
 
-        m_UI.init(m_resources);
+        m_UI = UI{m_resources};
 
         m_project = Project{"test", &m_resources};
     }

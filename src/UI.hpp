@@ -9,8 +9,7 @@ namespace cmt {
     class UI {
     public:
         UI();
-
-        void init(ResourceManager& resources);
+        UI(ResourceManager& resources);
 
         void render(sf::RenderWindow& target);
 

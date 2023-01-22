@@ -75,26 +75,26 @@ namespace cmt {
     }
 
     void UI::initVNavBar(ResourceManager& resources) {
-        const sf::Color halfTransparentColor{resources.getTheme(0).getColor(4).r,
-            resources.getTheme(0).getColor(4).g, resources.getTheme(0).getColor(4).b, 140};
+        const sf::Color halfTransparentColor{resources.getTheme(0).getColor(1).r,
+            resources.getTheme(0).getColor(1).g, resources.getTheme(0).getColor(1).b, 140};
 
         m_editBtn = ImageButton(resources.getTexture(0),
             sf::Vector2f(40.0f, 40.0f), 4, sf::Vector2f{},
-            resources.getTheme(0).getColor(4), halfTransparentColor);
+            resources.getTheme(0).getColor(1), halfTransparentColor);
 
         for(uint16_t c{0}; c < m_chBtn.size() - 1; ++c) {
             m_chBtn.at(c) = TextButton(resources.getFont(0),
                 std::to_string(c + 1), 40, sf::Vector2f{}, 4,
-                resources.getTheme(0).getColor(0), resources.getTheme(0).getColor(4),
+                resources.getTheme(0).getColor(0), resources.getTheme(0).getColor(1),
                 halfTransparentColor);
         }
         m_chBtn.back() = TextButton(resources.getFont(0),
             std::to_string(0), 40, sf::Vector2f{}, 4,
-            resources.getTheme(0).getColor(0), resources.getTheme(0).getColor(4),
+            resources.getTheme(0).getColor(0), resources.getTheme(0).getColor(1),
             halfTransparentColor);
 
         m_deleteBtn = ImageButton(resources.getTexture(1),
             sf::Vector2f(40.0f, 40.0f), 4, sf::Vector2f{},
-            resources.getTheme(0).getColor(4), halfTransparentColor);
+            resources.getTheme(0).getColor(1), halfTransparentColor);
     }
 }

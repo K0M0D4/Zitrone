@@ -6,16 +6,16 @@ namespace cmt {
     App::App() {
         m_window.create(sf::VideoMode(1280, 720), "Zitrone");
         m_window.setVerticalSyncEnabled(true);
-
+        
         m_resources.loadTexture("res/edit.png");
         m_resources.loadTexture("res/delete.png");
-
+        
         m_resources.loadFont("res/PlayfairDisplay.ttf");
-
-        m_resources.loadTheme("res/themes/dark");
-
+        
+        m_resources.loadTheme("res/themes/light");
+        
         m_UI = UI{m_resources};
-
+        
         m_project = Project{"test", &m_resources};
     }
 
@@ -148,7 +148,7 @@ namespace cmt {
     }
 
     void App::render() {
-        m_window.clear(m_resources.getTheme(0).getColor(1));
+        m_window.clear(m_resources.getTheme(0).getColor(0));
 
         // viewport
         m_window.setView(m_viewport);

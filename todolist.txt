@@ -19,6 +19,8 @@
 ✓ update buttons due to previous todo
 ✓ deleting notes
 ✓ code clarity changes
+// january
+✓ themes
 display note hints and horizontal line hints
 draw cut line
 

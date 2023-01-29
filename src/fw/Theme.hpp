@@ -15,6 +15,7 @@ namespace cmt {
         sf::Color getColor(uint16_t which);
 
     private:
-        std::array<sf::Color, 5> m_colors{};
+        static const uint16_t m_colorsCount{8};
+        std::array<sf::Color, m_colorsCount> m_colors{};
     };
 }

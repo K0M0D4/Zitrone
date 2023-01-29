@@ -34,4 +34,4 @@ make buttons actually usable
 rounded rectangles for buttons
 try to inherit custom graphic classes from sf::Drawable
     and maybe some from sf::Transformable
-✓ add boundries check with mouse position while moving viewport
+✓ add boundaries check with mouse position while moving viewport

@@ -20,7 +20,7 @@ namespace cmt {
                 al.x * m_breakBetweenNotesV + m_firstNoteOffset,
                 (al.y + 1) * m_breakBetweenNotesH}, al,
                 m_resources->getFont(0),
-                m_resources->getTheme(0).getColor(4)});
+                m_resources->getTheme(0).getColor(6)});
         } else {
             bool addNew{true};
             
@@ -39,7 +39,7 @@ namespace cmt {
                     al.x * m_breakBetweenNotesV + m_firstNoteOffset,
                     (al.y + 1) * m_breakBetweenNotesH}, al,
                     m_resources->getFont(0),
-                    m_resources->getTheme(0).getColor(4)});
+                    m_resources->getTheme(0).getColor(6)});
             }
 
             sortNotes();
@@ -123,7 +123,7 @@ namespace cmt {
             {
                 Note temp{sf::Vector2f{}, sf::Vector2i{},
                     m_resources->getFont(0),
-                    m_resources->getTheme(0).getColor(4)};
+                    m_resources->getTheme(0).getColor(6)};
                 if(m_notes.at(j).getCoords().y < m_notes.at(i).getCoords().y) {
                     temp = m_notes.at(i);
                     m_notes.at(i) = m_notes.at(j);
@@ -139,7 +139,7 @@ namespace cmt {
             for(uint16_t i{}; i < m_notes.size() - 1; ++i) {
                 m_noteLines.emplace_back(Line(m_notes.at(i).getPos(),
                     m_notes.at(i + 1).getPos(),
-                    m_resources->getTheme(0).getColor(4)));
+                    m_resources->getTheme(0).getColor(7)));
             }
         }
     }

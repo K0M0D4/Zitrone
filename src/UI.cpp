@@ -52,25 +52,25 @@ namespace cmt {
         
         m_saveBtn = TextButton(resources.getFont(0), "Save", 25,
             sf::Vector2f(5.0f, 5.0f), padding,
-            resources.getTheme(0).getColor(0), resources.getTheme(0).getColor(4),
+            resources.getTheme(0).getColor(2), resources.getTheme(0).getColor(1),
             halfTransparentColor);
 
         m_exportBtn = TextButton(resources.getFont(0), "Export", 25,
             sf::Vector2f(m_saveBtn.getPos().x
             + m_saveBtn.getBounds().width + 5.0f, 5.0f), padding,
-            resources.getTheme(0).getColor(0), resources.getTheme(0).getColor(4),
+            resources.getTheme(0).getColor(2), resources.getTheme(0).getColor(1),
             halfTransparentColor);
 
         m_openBtn = TextButton(resources.getFont(0), "Open", 25,
             sf::Vector2f(m_exportBtn.getPos().x
             + m_exportBtn.getBounds().width + 5.0f, 5.0f), padding,
-            resources.getTheme(0).getColor(0), resources.getTheme(0).getColor(4),
+            resources.getTheme(0).getColor(2), resources.getTheme(0).getColor(1),
             halfTransparentColor);
 
         m_settingsBtn = TextButton(resources.getFont(0), "Settings", 25,
             sf::Vector2f(m_openBtn.getPos().x
             + m_openBtn.getBounds().width + 5.0f, 5.0f), padding,
-            resources.getTheme(0).getColor(0), resources.getTheme(0).getColor(4),
+            resources.getTheme(0).getColor(2), resources.getTheme(0).getColor(1),
             halfTransparentColor);
     }
 
@@ -85,12 +85,12 @@ namespace cmt {
         for(uint16_t c{0}; c < m_chBtn.size() - 1; ++c) {
             m_chBtn.at(c) = TextButton(resources.getFont(0),
                 std::to_string(c + 1), 40, sf::Vector2f{}, 4,
-                resources.getTheme(0).getColor(0), resources.getTheme(0).getColor(1),
+                resources.getTheme(0).getColor(2), resources.getTheme(0).getColor(1),
                 halfTransparentColor);
         }
         m_chBtn.back() = TextButton(resources.getFont(0),
             std::to_string(0), 40, sf::Vector2f{}, 4,
-            resources.getTheme(0).getColor(0), resources.getTheme(0).getColor(1),
+            resources.getTheme(0).getColor(2), resources.getTheme(0).getColor(1),
             halfTransparentColor);
 
         m_deleteBtn = ImageButton(resources.getTexture(1),

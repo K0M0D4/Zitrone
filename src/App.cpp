@@ -12,7 +12,7 @@ namespace cmt {
         
         m_resources.loadFont("res/PlayfairDisplay.ttf");
         
-        m_resources.loadTheme("res/themes/light");
+        m_resources.loadTheme("res/themes/dark");
         
         m_UI = UI{m_resources};
         

@@ -95,6 +95,8 @@ namespace cmt {
             note.render(target);
         }
 
+        m_cutLine.render(target);
+
         m_gridHints.setPos(sf::Vector2f(m_gridHints.getPos().x,
             target.mapPixelToCoords(sf::Vector2i{0, static_cast<int32_t>(
             target.getSize().y) - 30}).y));

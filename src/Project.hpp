@@ -46,6 +46,13 @@ namespace cmt {
         float m_breakBetweenNotesV{0.5f * m_dpcm};
         float m_breakBetweenNotesH{0.9f * m_dpcm};
 
+        float m_cutXPos{17.0f * m_dpcm};
+        float m_cutYPos{20.0f * m_dpcm};
+
+        Line m_cutLine{sf::Vector2f{m_cutXPos, 0.0f},
+            sf::Vector2f{m_workspace.getSize().x, m_workspace.getSize().y
+            - m_cutYPos}, sf::Color::Red};
+
         Grid m_grid{};
         GridHints m_gridHints{};
 

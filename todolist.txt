@@ -23,7 +23,7 @@
 ✓ themes
 ✓ code clarity changes
 ✓ display note hints
-draw cut line
+✓ draw cut line
 
 buttons working on sort of events instead of just isMouseClicked
 make buttons actually usable

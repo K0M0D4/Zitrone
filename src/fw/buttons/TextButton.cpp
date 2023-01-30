@@ -44,7 +44,7 @@ namespace cmt {
         m_text.setCharacterSize(static_cast<uint32_t>(verticalSize
             - m_padding * 2));
         m_rect.setSize(sf::Vector2f(m_text.getLocalBounds().width
-            + m_padding * 2, m_rect.getSize().y));
+            + m_padding * 2, verticalSize));
     }
 
     void TextButton::setFont(const sf::Font& font) {

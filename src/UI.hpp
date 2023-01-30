@@ -27,8 +27,17 @@ namespace cmt {
         std::array<TextButton, 7> m_chBtn{};
 
     private:
-        void initHNavBar(ResourceManager& resources);
-        void initVNavBar(ResourceManager& resources);
+        void initNavBars(ResourceManager& resources);
+
+        uint16_t m_padding{4};
+        sf::Color m_btnTextColor{};
+        sf::Color m_btnNormalColor{};
+        sf::Color m_btnPointColor{};
+        sf::Color m_btnPressColor{};
+
+        ImageButton createImageBtn(ResourceManager& resources, uint16_t textureID);
+        TextButton createTextBtn(ResourceManager& resources, const std::string& text,
+            sf::Vector2f pos);
 
     };
 }

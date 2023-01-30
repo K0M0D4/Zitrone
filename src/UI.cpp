@@ -4,8 +4,14 @@ namespace cmt {
     UI::UI() { }
 
     UI::UI(ResourceManager& resources) {
-        initHNavBar(resources);
-        initVNavBar(resources);
+        m_btnTextColor = resources.getTheme(0).getColor(2);
+        m_btnNormalColor = resources.getTheme(0).getColor(1);
+        m_btnPointColor = sf::Color{resources.getTheme(0).getColor(1).r,
+            resources.getTheme(0).getColor(1).g, resources.getTheme(0).getColor(1).b, 160};
+        m_btnPressColor = sf::Color{resources.getTheme(0).getColor(1).r,
+            resources.getTheme(0).getColor(1).g, resources.getTheme(0).getColor(1).b, 90};
+
+        initNavBars(resources);
     }
 
     void UI::render(sf::RenderWindow& target) {
@@ -45,56 +51,37 @@ namespace cmt {
         }
     }
 
-    void UI::initHNavBar(ResourceManager& resources) {
-        const uint16_t padding{4};
-        const sf::Color halfTransparentColor{resources.getTheme(0).getColor(4).r,
-            resources.getTheme(0).getColor(4).g, resources.getTheme(0).getColor(4).b, 140};
-        
-        m_saveBtn = TextButton(resources.getFont(0), "Save", 25,
-            sf::Vector2f(5.0f, 5.0f), padding,
-            resources.getTheme(0).getColor(2), resources.getTheme(0).getColor(1),
-            halfTransparentColor);
+    void UI::initNavBars(ResourceManager& resources) {
+        // horizontal
+        m_saveBtn = createTextBtn(resources, "Save", sf::Vector2f{5.0f, 5.0f}) ;
+        m_exportBtn = createTextBtn(resources, "Export",
+            sf::Vector2f(m_saveBtn.getPos().x + m_saveBtn.getBounds().width + 5.0f, 5.0f));
+        m_openBtn = createTextBtn(resources, "Open",
+            sf::Vector2f(m_exportBtn.getPos().x + m_exportBtn.getBounds().width
+            + 5.0f, 5.0f));
+        m_settingsBtn = createTextBtn(resources, "Settings",
+            sf::Vector2f(m_openBtn.getPos().x + m_openBtn.getBounds().width + 5.0f, 5.0f));
+    
+        // vertical
+        m_editBtn = createImageBtn(resources, 0);
+        m_deleteBtn = createImageBtn(resources, 1);
 
-        m_exportBtn = TextButton(resources.getFont(0), "Export", 25,
-            sf::Vector2f(m_saveBtn.getPos().x
-            + m_saveBtn.getBounds().width + 5.0f, 5.0f), padding,
-            resources.getTheme(0).getColor(2), resources.getTheme(0).getColor(1),
-            halfTransparentColor);
-
-        m_openBtn = TextButton(resources.getFont(0), "Open", 25,
-            sf::Vector2f(m_exportBtn.getPos().x
-            + m_exportBtn.getBounds().width + 5.0f, 5.0f), padding,
-            resources.getTheme(0).getColor(2), resources.getTheme(0).getColor(1),
-            halfTransparentColor);
-
-        m_settingsBtn = TextButton(resources.getFont(0), "Settings", 25,
-            sf::Vector2f(m_openBtn.getPos().x
-            + m_openBtn.getBounds().width + 5.0f, 5.0f), padding,
-            resources.getTheme(0).getColor(2), resources.getTheme(0).getColor(1),
-            halfTransparentColor);
+        for(uint16_t c{}; c < m_chBtn.size(); ++c) {
+            m_chBtn.at(c) = createTextBtn(resources, std::to_string(c), sf::Vector2f{});
+            m_chBtn.at(c).setSize(40);
+        }
     }
 
-    void UI::initVNavBar(ResourceManager& resources) {
-        const sf::Color halfTransparentColor{resources.getTheme(0).getColor(1).r,
-            resources.getTheme(0).getColor(1).g, resources.getTheme(0).getColor(1).b, 140};
+    TextButton UI::createTextBtn(ResourceManager& resources, const std::string& text,
+        sf::Vector2f pos) {
 
-        m_editBtn = ImageButton(resources.getTexture(0),
-            sf::Vector2f(40.0f, 40.0f), 4, sf::Vector2f{},
-            resources.getTheme(0).getColor(1), halfTransparentColor);
+        return TextButton{resources.getFont(0), text, 25, pos, m_padding,
+            m_btnTextColor, m_btnNormalColor, m_btnPointColor, m_btnPressColor};
+    }
 
-        for(uint16_t c{0}; c < m_chBtn.size() - 1; ++c) {
-            m_chBtn.at(c) = TextButton(resources.getFont(0),
-                std::to_string(c + 1), 40, sf::Vector2f{}, 4,
-                resources.getTheme(0).getColor(2), resources.getTheme(0).getColor(1),
-                halfTransparentColor);
-        }
-        m_chBtn.back() = TextButton(resources.getFont(0),
-            std::to_string(0), 40, sf::Vector2f{}, 4,
-            resources.getTheme(0).getColor(2), resources.getTheme(0).getColor(1),
-            halfTransparentColor);
-
-        m_deleteBtn = ImageButton(resources.getTexture(1),
-            sf::Vector2f(40.0f, 40.0f), 4, sf::Vector2f{},
-            resources.getTheme(0).getColor(1), halfTransparentColor);
+    ImageButton UI::createImageBtn(ResourceManager& resources, uint16_t textureID) {
+        return ImageButton{resources.getTexture(textureID),
+            sf::Vector2f(40.0f, 40.0f), m_padding, sf::Vector2f{},
+            m_btnNormalColor, m_btnPointColor, m_btnPressColor};
     }
 }

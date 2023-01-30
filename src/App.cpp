@@ -141,8 +141,7 @@ namespace cmt {
             if(m_UI.m_chBtn.at(i).isPressed(m_window.mapPixelToCoords(
                 winMousePos))) {
 
-                m_project.setChord(i + 1);
-
+                m_project.setChord(i);
             }
         }
     }

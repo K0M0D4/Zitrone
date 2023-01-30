@@ -1,7 +1,5 @@
 #include "App.hpp"
 
-#include <iostream>
-
 namespace cmt {
     App::App() {
         m_window.create(sf::VideoMode(1280, 720), "Zitrone");
@@ -91,8 +89,10 @@ namespace cmt {
                 && event.mouseWheelScroll.wheel == sf::Mouse::VerticalWheel) {
                 
                 if(event.mouseWheelScroll.delta > 0) {
-                    m_viewport.zoom(0.96f);
-                    m_vpzoom *= 0.96f;
+                    if(m_vpzoom > 0.782758) {
+                        m_viewport.zoom(0.96f);
+                        m_vpzoom *= 0.96f;
+                    }
                 } else {
                     m_viewport.zoom(1.04f);
                     m_vpzoom *= (1.04f);
@@ -102,8 +102,10 @@ namespace cmt {
         
         if(m_window.hasFocus()) {
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Equal)) {
-                m_viewport.zoom(0.98f);
-                m_vpzoom *= 0.98f;
+                if(m_vpzoom > 0.782758) {
+                    m_viewport.zoom(0.98f);
+                    m_vpzoom *= 0.98f;
+                }
             } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Hyphen)) {
                 m_viewport.zoom(1.02f);
                 m_vpzoom *= (1.02f);

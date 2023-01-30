@@ -28,6 +28,7 @@ add_executable(${PROJECT_NAME}
     src/App.cpp
     src/UI.cpp
     src/Grid.cpp
+    src/GridHints.cpp
     src/Note.cpp
     src/Project.cpp
     )

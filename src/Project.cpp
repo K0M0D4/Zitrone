@@ -10,6 +10,11 @@ namespace cmt {
         m_workspace.setOutlineThickness(5);
         m_workspace.setFillColor(sf::Color::Transparent);
         m_workspace.setOutlineColor(m_resources->getTheme(0).getColor(4));
+
+        m_gridHints = GridHints(m_resources);
+        m_gridHints.calculate(m_workspace.getSize(), m_breakBetweenNotesV,
+            m_firstNoteOffset);
+        m_gridHints.move(sf::Vector2f(m_firstNoteOffset, 0.0f));
     }
 
     void Project::addNote() {        
@@ -89,6 +94,11 @@ namespace cmt {
         for(auto& note : m_notes) {
             note.render(target);
         }
+
+        m_gridHints.setPos(sf::Vector2f(m_gridHints.getPos().x,
+            target.mapPixelToCoords(sf::Vector2i{0, static_cast<int32_t>(
+            target.getSize().y) - 30}).y));
+        m_gridHints.render(target);
     }
 
     void Project::sortNotes() {

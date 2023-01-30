@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Grid.hpp"
+#include "GridHints.hpp"
 #include "Note.hpp"
 
 #include "fw/Line.hpp"
@@ -29,7 +30,7 @@ namespace cmt {
 
         // pass already mapped from pixel to coords
         void setActiveLines(sf::Vector2f mousePos);
-
+        
         void render(sf::RenderWindow& target);
 
     private:
@@ -46,6 +47,7 @@ namespace cmt {
         float m_breakBetweenNotesH{0.9f * m_dpcm};
 
         Grid m_grid{};
+        GridHints m_gridHints{};
 
         std::vector<Note> m_notes{};
         std::vector<Line> m_noteLines{};

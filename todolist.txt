@@ -22,7 +22,7 @@
 // january
 ✓ themes
 ✓ code clarity changes
-display note hints and horizontal line hints
+✓ display note hints
 draw cut line
 
 buttons working on sort of events instead of just isMouseClicked
@@ -40,6 +40,9 @@ rounded rectangles for buttons / make imgui ui instead
 try to inherit custom graphic classes from sf::Drawable
     and maybe some from sf::Transformable
 ✓ add boundaries check with mouse position while moving viewport
+
+fix bug when resizing window on scale != 1 removes scale, but multiplier
+    on moving viewport stays
 
 move to sfml 3.0
 

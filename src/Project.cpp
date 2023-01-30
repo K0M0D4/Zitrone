@@ -12,35 +12,24 @@ namespace cmt {
         m_workspace.setOutlineColor(m_resources->getTheme(0).getColor(4));
     }
 
-    void Project::addNote() {
-        sf::Vector2i al{m_grid.getActiveLines()};
-        
+    void Project::addNote() {        
         if(m_notes.size() == 0) {
-            m_notes.emplace_back(Note{sf::Vector2f{
-                al.x * m_breakBetweenNotesV + m_firstNoteOffset,
-                (al.y + 1) * m_breakBetweenNotesH}, al,
-                m_resources->getFont(0),
-                m_resources->getTheme(0).getColor(6)});
+            addNewNote(m_grid.getActiveLines());
         } else {
             bool addNew{true};
             
+            sf::Vector2i al{m_grid.getActiveLines()};
             for(uint16_t i{}; i < m_notes.size(); ++i) {
                 if(m_notes.at(i).getCoords().y == al.y) {
                     addNew = false;
                     m_notes.at(i).setPos(sf::Vector2f{
                         al.x * m_breakBetweenNotesV + m_firstNoteOffset,
-                        (al.y + 1) * m_breakBetweenNotesH}, al);
+                        m_notes.at(i).getPos().y}, al);
                     break;
                 }
             }
 
-            if(addNew) {
-                m_notes.emplace_back(Note{sf::Vector2f{
-                    al.x * m_breakBetweenNotesV + m_firstNoteOffset,
-                    (al.y + 1) * m_breakBetweenNotesH}, al,
-                    m_resources->getFont(0),
-                    m_resources->getTheme(0).getColor(6)});
-            }
+            if(addNew) addNewNote(m_grid.getActiveLines());
 
             sortNotes();
             calculateLines();
@@ -49,36 +38,24 @@ namespace cmt {
 
     void Project::setChord(uint16_t chord) {
         sf::Vector2i al{m_grid.getActiveLines()};
-        sf::Vector2i an{};
-        uint16_t i{};
 
-        for(; i < m_notes.size(); ++i) {
+        for(uint16_t i{}; i < m_notes.size(); ++i) {
             if(m_notes.at(i).getCoords() == al) {
-                an = al;
+                m_notes.at(i).setChord(chord);
                 break;
             }
-        }
-
-        if(an != sf::Vector2i{}) {
-            m_notes.at(i).setChord(chord);
         }
     }
 
     void Project::deleteNote() {
         sf::Vector2i al{m_grid.getActiveLines()};
-        uint16_t i{};
-        bool canDelete{false};
 
-        for(; i < m_notes.size(); ++i) {
+        for(uint16_t i{}; i < m_notes.size(); ++i) {
             if(m_notes.at(i).getCoords() == al) {
-                canDelete = true;
+                m_notes.erase(m_notes.begin() + i);
+                m_notes.shrink_to_fit();
                 break;
             }
-        }
-
-        if(canDelete) {
-            m_notes.erase(m_notes.begin() + i);
-            m_notes.shrink_to_fit();
         }
 
         calculateLines();
@@ -98,10 +75,8 @@ namespace cmt {
 
     void Project::setActiveLines(sf::Vector2f mousePos) {
         m_grid.setActiveLines(sf::Vector2i((mousePos.x
-            - m_firstNoteOffset + m_breakBetweenNotesV / 2.0f)
-            / m_breakBetweenNotesV,
-            (mousePos.y - m_breakBetweenNotesH / 2.0f)
-            / m_breakBetweenNotesH));
+            - m_firstNoteOffset + m_breakBetweenNotesV / 2.0f) / m_breakBetweenNotesV,
+            (mousePos.y - m_breakBetweenNotesH / 2.0f) / m_breakBetweenNotesH));
     }
 
     void Project::render(sf::RenderWindow& target) {
@@ -111,7 +86,6 @@ namespace cmt {
         for(auto& line : m_noteLines) {
             line.render(target);
         }
-        
         for(auto& note : m_notes) {
             note.render(target);
         }
@@ -119,8 +93,7 @@ namespace cmt {
 
     void Project::sortNotes() {
         for(uint32_t i{}; i < m_notes.size(); ++i) {
-            for(uint32_t j{i + 1}; j < m_notes.size(); ++j)
-            {
+            for(uint32_t j{i + 1}; j < m_notes.size(); ++j) {
                 Note temp{sf::Vector2f{}, sf::Vector2i{},
                     m_resources->getFont(0),
                     m_resources->getTheme(0).getColor(6)};
@@ -136,11 +109,19 @@ namespace cmt {
     void Project::calculateLines() {
         if(m_notes.size() > 1) {
             m_noteLines.clear();
-            for(uint16_t i{}; i < m_notes.size() - 1; ++i) {
-                m_noteLines.emplace_back(Line(m_notes.at(i).getPos(),
-                    m_notes.at(i + 1).getPos(),
+            for(uint16_t i{1}; i < m_notes.size(); ++i) {
+                m_noteLines.emplace_back(Line(m_notes.at(i - 1).getPos(),
+                    m_notes.at(i).getPos(),
                     m_resources->getTheme(0).getColor(7)));
             }
         }
+    }
+
+    void Project::addNewNote(const sf::Vector2i& al) {
+        m_notes.emplace_back(Note{sf::Vector2f{
+            al.x * m_breakBetweenNotesV + m_firstNoteOffset,
+            (al.y + 1) * m_breakBetweenNotesH}, al,
+            m_resources->getFont(0),
+            m_resources->getTheme(0).getColor(6)});
     }
 }

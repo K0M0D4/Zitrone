@@ -36,7 +36,7 @@ namespace cmt {
         ResourceManager* m_resources{};
         float m_dpcm{118.1102f};
 
-        // values have to be in pixels, not centimeters
+        // values have to be in pixels, not centimeters, that's why it's multiplied by dpcm
         // outline of the workspace
         sf::RectangleShape m_workspace{sf::Vector2f{21.0f * m_dpcm,
             29.7f * m_dpcm}};
@@ -53,6 +53,8 @@ namespace cmt {
         void sortNotes();
 
         void calculateLines();
+
+        void addNewNote(const sf::Vector2i& al);
 
     };
 }

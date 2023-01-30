@@ -21,6 +21,7 @@
 ✓ code clarity changes
 // january
 ✓ themes
+✓ code clarity changes
 display note hints and horizontal line hints
 draw cut line
 
@@ -29,11 +30,19 @@ make buttons actually usable
     that means working exporting, saving, opening files
     also working settins
 
+undo and redo
+
 // stuff to polish:
 
 ✓ moving and resizing workspace only when window is focused
 ✓ moving workspace on resized window without offset
-rounded rectangles for buttons
+rounded rectangles for buttons / make imgui ui instead
 try to inherit custom graphic classes from sf::Drawable
     and maybe some from sf::Transformable
 ✓ add boundaries check with mouse position while moving viewport
+
+move to sfml 3.0
+
+for performance, store temp buttons as class members, and only 
+    change thier values, so they aren't created every time app
+    creates button

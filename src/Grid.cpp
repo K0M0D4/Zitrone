@@ -1,9 +1,7 @@
 #include "Grid.hpp"
 
 namespace cmt {
-    Grid::Grid() {
-
-    }
+    Grid::Grid() {}
 
     Grid::Grid(sf::Vector2f workspaceSize, float verticalBreak,
         float horizontalBreak, float firstOffset, ResourceManager* resources) {

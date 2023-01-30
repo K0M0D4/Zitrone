@@ -1,7 +1,7 @@
 #include "UI.hpp"
 
 namespace cmt {
-    UI::UI() { }
+    UI::UI() {}
 
     UI::UI(ResourceManager& resources) {
         m_btnTextColor = resources.getTheme(0).getColor(2);

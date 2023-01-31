@@ -40,6 +40,10 @@ namespace cmt {
         return m_pos;
     }
 
+    uint16_t Note::getChord() {
+        return m_chord;
+    }
+
     void Note::render(sf::RenderWindow& target) {
         target.draw(m_circle);
         if(m_chord >= 0 && m_chord <= 6) {

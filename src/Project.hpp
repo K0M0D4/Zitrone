@@ -18,9 +18,9 @@ namespace cmt {
         Project(const std::string& name, ResourceManager* resources);
 
         // for later
-        /*bool load(const std::string& filename);
-        bool save();
-        bool saveAs();*/
+        //bool load(const std::string& filename);
+        void save();
+        void saveAs(const std::string& filename);
 
         void addNote();
         void setChord(uint16_t chord);
@@ -30,12 +30,16 @@ namespace cmt {
 
         // pass already mapped from pixel to coords
         void setActiveLines(sf::Vector2f mousePos);
+
+        std::string getName();
         
         void render(sf::RenderWindow& target);
 
     private:
         ResourceManager* m_resources{};
         float m_dpcm{118.1102f};
+
+        std::string m_name{};
 
         // values have to be in pixels, not centimeters, that's why it's multiplied by dpcm
         // outline of the workspace

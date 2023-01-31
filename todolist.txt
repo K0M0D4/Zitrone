@@ -25,10 +25,10 @@
 ✓ display note hints
 ✓ draw cut line
 
-buttons working on sort of events instead of just isMouseClicked
 make buttons actually usable
     that means working exporting, saving, opening files
     also working settins
+buttons working on sort of events instead of just isMouseClicked
 
 undo and redo
 

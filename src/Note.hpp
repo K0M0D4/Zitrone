@@ -12,6 +12,7 @@ namespace cmt {
 
         sf::Vector2i getCoords();
         sf::Vector2f getPos();
+        uint16_t getChord();
 
         void render(sf::RenderWindow& target);
 

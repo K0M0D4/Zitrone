@@ -38,6 +38,8 @@ namespace cmt {
         void update();
         void render();
 
+        void saveAsDialog();
+
         /*
         Texture IDs:
             0 -> edit

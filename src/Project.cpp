@@ -1,5 +1,7 @@
 #include "Project.hpp"
 
+#include <fstream>
+
 namespace cmt {
     Project::Project() {}
 
@@ -15,6 +17,25 @@ namespace cmt {
         m_gridHints.calculate(m_workspace.getSize(), m_breakBetweenNotesV,
             m_firstNoteOffset);
         m_gridHints.move(sf::Vector2f(m_firstNoteOffset, 0.0f));
+    }
+
+    void Project::save() {
+        std::ofstream file(m_name);
+        if(!file.good()) 
+            throw std::runtime_error("Can't save to file: " + m_name);
+
+        for(auto& note : m_notes) {
+            file << note.getCoords().x << '.';
+            file << note.getCoords().y << '.';
+            file << note.getChord() << '\n';
+        }
+        
+        file.close();
+    }
+
+    void Project::saveAs(const std::string& filename) {
+        m_name = filename;
+        save();
     }
 
     void Project::addNote() {        
@@ -82,6 +103,10 @@ namespace cmt {
         m_grid.setActiveLines(sf::Vector2i((mousePos.x
             - m_firstNoteOffset + m_breakBetweenNotesV / 2.0f) / m_breakBetweenNotesV,
             (mousePos.y - m_breakBetweenNotesH / 2.0f) / m_breakBetweenNotesH));
+    }
+
+    std::string Project::getName() {
+        return m_name;
     }
 
     void Project::render(sf::RenderWindow& target) {

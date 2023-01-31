@@ -1,5 +1,7 @@
 #include "App.hpp"
 
+#include <nfd.h>
+
 namespace cmt {
     App::App() {
         m_window.create(sf::VideoMode(1280, 720), "Zitrone");
@@ -18,11 +20,15 @@ namespace cmt {
     }
 
     int32_t App::start() {
+        NFD_Init();
+
         while(m_window.isOpen()) {
             update();
             render();
             m_window.display();
         }
+
+        NFD_Quit();
 
         return 0;
     }
@@ -137,6 +143,14 @@ namespace cmt {
             winMousePos))) {
 
             m_project.deleteNote();
+        } else if(m_UI.m_saveBtn.isPressed(m_window.mapPixelToCoords(
+            winMousePos))) {
+
+            if(m_project.getName() == std::string{}) {
+                saveAsDialog();
+            } else {
+                m_project.save();
+            }
         }
 
         for(uint16_t i{}; i < m_UI.m_chBtn.size(); ++i) {
@@ -158,5 +172,21 @@ namespace cmt {
         // UI
         m_window.setView(m_normalView);
         m_UI.render(m_window);
+    }
+
+    void App::saveAsDialog() {
+        nfdchar_t* savePath{};
+
+        nfdfilteritem_t filterItem[1] {{"Project files", "ztp"}};
+
+        nfdresult_t result{NFD_SaveDialog(&savePath, filterItem, 1, NULL, "project.ztp")};
+        
+        if(result == NFD_OKAY) {
+            m_project.saveAs(savePath);
+            NFD_FreePath(savePath);
+        } else if(result != NFD_CANCEL) {
+            throw std::runtime_error("Internal error: "
+                + std::string{NFD_GetError()} + '\n');
+        }
     }
 }

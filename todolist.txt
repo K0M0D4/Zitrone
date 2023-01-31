@@ -24,10 +24,11 @@
 ✓ code clarity changes
 ✓ display note hints
 ✓ draw cut line
+✓ save project
+open project
+export project
 
-make buttons actually usable
-    that means working exporting, saving, opening files
-    also working settins
+working settings
 buttons working on sort of events instead of just isMouseClicked
 
 undo and redo

@@ -151,6 +151,10 @@ namespace cmt {
             } else {
                 m_project.save();
             }
+        } else if(m_UI.m_openBtn.isPressed(m_window.mapPixelToCoords(
+            winMousePos))) {
+
+            openDialog();
         }
 
         for(uint16_t i{}; i < m_UI.m_chBtn.size(); ++i) {
@@ -184,6 +188,22 @@ namespace cmt {
         if(result == NFD_OKAY) {
             m_project.saveAs(savePath);
             NFD_FreePath(savePath);
+        } else if(result != NFD_CANCEL) {
+            throw std::runtime_error("Internal error: "
+                + std::string{NFD_GetError()} + '\n');
+        }
+    }
+
+    void App::openDialog() {
+        nfdchar_t* openPath{};
+
+        nfdfilteritem_t filterItem[1] {{"Project files", "ztp"}};
+
+        nfdresult_t result{NFD_OpenDialog(&openPath, filterItem, 1, NULL)};
+        
+        if(result == NFD_OKAY) {
+            m_project.open(openPath);
+            NFD_FreePath(openPath);
         } else if(result != NFD_CANCEL) {
             throw std::runtime_error("Internal error: "
                 + std::string{NFD_GetError()} + '\n');

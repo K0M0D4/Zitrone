@@ -17,10 +17,9 @@ namespace cmt {
         Project();
         Project(const std::string& name, ResourceManager* resources);
 
-        // for later
-        //bool load(const std::string& filename);
         void save();
         void saveAs(const std::string& filename);
+        void open(const std::string& filename);
 
         void addNote();
         void setChord(uint16_t chord);
@@ -68,6 +67,8 @@ namespace cmt {
         void calculateLines();
 
         void addNewNote(const sf::Vector2i& al);
+
+        void processOpenInput(const std::string& data);
 
     };
 }

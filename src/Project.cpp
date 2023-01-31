@@ -1,6 +1,7 @@
 #include "Project.hpp"
 
 #include <fstream>
+#include <sstream>
 
 namespace cmt {
     Project::Project() {}
@@ -36,6 +37,20 @@ namespace cmt {
     void Project::saveAs(const std::string& filename) {
         m_name = filename;
         save();
+    }
+
+    void Project::open(const std::string& filename) {
+        std::ifstream file(filename);
+        if(!file.good()) 
+            throw std::runtime_error("Can't load file: " + m_name);
+
+        std::string buffer{};
+
+        while(getline(file, buffer)) {
+            processOpenInput(buffer);
+        }
+        
+        file.close();
     }
 
     void Project::addNote() {        
@@ -160,5 +175,21 @@ namespace cmt {
             (al.y + 1) * m_breakBetweenNotesH}, al,
             m_resources->getFont(0),
             m_resources->getTheme(0).getColor(6)});
+    }
+
+    void Project::processOpenInput(const std::string& data) {
+        std::stringstream ss(data);
+        std::string word;
+        std::vector<std::string> tokens;
+
+        while (!ss.eof()) {
+            getline(ss, word, '.');
+            tokens.push_back(word);
+        }
+
+        m_grid.setActiveLines(sf::Vector2i{std::stoi(tokens.at(0)),
+            std::stoi(tokens.at(1))});
+        addNote();
+        setChord(std::stoi(tokens.at(2)));
     }
 }

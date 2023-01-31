@@ -25,7 +25,9 @@
 ✓ display note hints
 ✓ draw cut line
 ✓ save project
-open project
+✓ open project
+explicitly save as project
+saving and opening with keyboard
 export project
 
 working settings

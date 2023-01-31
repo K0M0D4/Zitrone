@@ -39,6 +39,7 @@ namespace cmt {
         void render();
 
         void saveAsDialog();
+        void openDialog();
 
         /*
         Texture IDs:

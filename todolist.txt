@@ -28,6 +28,7 @@
 ✓ open project
 ✓ explicitly save as project
 ✓ saving and opening with keyboard
+fix not clearing old notes after opening project
 change input checking to use commands pattern and code clarity changes
 export project
 

@@ -91,6 +91,10 @@ namespace cmt {
                     } else {
                         m_project.save();
                     }
+                } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)
+                    && event.key.code == sf::Keyboard::O) {
+
+                    openDialog();
                 }
             }
 

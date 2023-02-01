@@ -46,6 +46,8 @@ undo and redo
     rounded rectangles for buttons / make imgui ui instead
 try to inherit custom graphic classes from sf::Drawable
     and maybe some from sf::Transformable
+warning popup when opening project but current is not saved
+move active line to next vertical after added note
 
 bugfix: resizing window on scale != 1 removes scale, but multiplier
     on moving viewport stays

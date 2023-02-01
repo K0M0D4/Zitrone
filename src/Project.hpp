@@ -15,7 +15,8 @@ namespace cmt {
     class Project {
     public:
         Project();
-        Project(const std::string& name, ResourceManager* resources);
+        Project(sf::Vector2f workspaceSize,
+            ResourceManager* resources);
 
         void save();
         void saveAs(const std::string& filename);
@@ -31,6 +32,8 @@ namespace cmt {
         // pass already mapped from pixel to coords
         void setActiveLines(sf::Vector2f mousePos);
 
+        void setCutLine(sf::Vector2f values);
+
         std::string getName();
         
         void render(sf::RenderWindow& target);
@@ -43,8 +46,7 @@ namespace cmt {
 
         // values have to be in pixels, not centimeters, that's why it's multiplied by dpcm
         // outline of the workspace
-        sf::RectangleShape m_workspace{sf::Vector2f{21.0f * m_dpcm,
-            29.7f * m_dpcm}};
+        sf::RectangleShape m_workspace{};
 
         float m_firstNoteOffset{1.3f * m_dpcm};
         float m_breakBetweenNotesV{0.5f * m_dpcm};
@@ -53,9 +55,7 @@ namespace cmt {
         float m_cutXPos{12.8f * m_dpcm};
         float m_cutYPos{16.7f * m_dpcm};
 
-        Line m_cutLine{sf::Vector2f{m_cutXPos, 0.0f},
-            sf::Vector2f{m_workspace.getSize().x, m_workspace.getSize().y
-            - m_cutYPos}, sf::Color::Red};
+        Line m_cutLine{};
 
         Grid m_grid{};
         GridHints m_gridHints{};

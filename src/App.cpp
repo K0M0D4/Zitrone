@@ -2,6 +2,8 @@
 
 #include <nfd.h>
 
+#include <fstream>
+
 namespace cmt {
     App::App() {
         m_window.create(sf::VideoMode(1280, 720), "Zitrone");
@@ -11,12 +13,10 @@ namespace cmt {
         m_resources.loadTexture("res/delete.png");
         
         m_resources.loadFont("res/PlayfairDisplay.ttf");
+
+        loadConfig();
         
-        m_resources.loadTheme("res/themes/dark");
-        
-        m_UI = UI{m_resources};
-        
-        m_project = Project{"test", &m_resources};
+        m_UI = UI{m_resources, m_lang};
     }
 
     int32_t App::start() {
@@ -258,5 +258,34 @@ namespace cmt {
             throw std::runtime_error("Internal error: "
                 + std::string{NFD_GetError()} + '\n');
         }
+    }
+
+    void App::loadConfig() {
+        std::ifstream config("config");
+        if(!config.good())
+            throw std::runtime_error("Error: Can't load config file\n");
+
+        sf::Vector2f buffer{};
+
+        std::string line{};
+
+        getline(config, line);
+        m_lang = line;
+        getline(config, line);
+        m_resources.loadTheme("res/themes/" + line);
+
+        getline(config, line);
+        buffer.x = std::stof(line);
+        getline(config, line);
+        buffer.y = std::stof(line);
+        m_project = Project{buffer, &m_resources};
+
+        getline(config, line);
+        buffer.x = std::stof(line);
+        getline(config, line);
+        buffer.y = std::stof(line);
+        m_project.setCutLine(buffer);
+
+        config.close();
     }
 }

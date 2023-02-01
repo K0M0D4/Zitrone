@@ -6,8 +6,13 @@
 namespace cmt {
     Project::Project() {}
 
-    Project::Project(const std::string& name, ResourceManager* resources) {
+    Project::Project(sf::Vector2f workspaceSize,
+        ResourceManager* resources) {
+
         m_resources = resources;
+
+        m_workspace.setSize(workspaceSize * m_dpcm);
+
         m_grid = Grid{m_workspace.getSize(), m_breakBetweenNotesV,
             m_breakBetweenNotesH, m_firstNoteOffset, m_resources};
         m_workspace.setOutlineThickness(5);
@@ -142,6 +147,12 @@ namespace cmt {
         m_grid.setActiveLines(sf::Vector2i((mousePos.x
             - m_firstNoteOffset + m_breakBetweenNotesV / 2.0f) / m_breakBetweenNotesV,
             (mousePos.y - m_breakBetweenNotesH / 2.0f) / m_breakBetweenNotesH));
+    }
+
+    void Project::setCutLine(sf::Vector2f values) {
+        m_cutLine = Line{sf::Vector2f{values.x * m_dpcm, 0.0f},
+            sf::Vector2f{m_workspace.getSize().x, m_workspace.getSize().y
+            - values.y * m_dpcm}, sf::Color::Red};
     }
 
     std::string Project::getName() {

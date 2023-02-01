@@ -23,6 +23,8 @@ namespace cmt {
 
         sf::RenderWindow m_window{};
 
+        std::string m_lang{};
+
         UI m_UI{};
 
         Project m_project{};
@@ -41,6 +43,8 @@ namespace cmt {
         void saveAsDialog();
         void openDialog();
         void exportDialog();
+
+        void loadConfig();
 
         /*
         Texture IDs:

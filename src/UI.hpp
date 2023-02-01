@@ -5,11 +5,13 @@
 
 #include <SFML/Window.hpp>
 
+#include <array>
+
 namespace cmt {
     class UI {
     public:
         UI();
-        UI(ResourceManager& resources);
+        UI(ResourceManager& resources, const std::string& langFilepath);
 
         void render(sf::RenderWindow& target);
 
@@ -36,9 +38,13 @@ namespace cmt {
         sf::Color m_btnPointColor{};
         sf::Color m_btnPressColor{};
 
+        std::array<std::string, 5> m_textData{};
+
         ImageButton createImageBtn(ResourceManager& resources, uint16_t textureID);
         TextButton createTextBtn(ResourceManager& resources, const std::string& text,
             sf::Vector2f pos);
+
+        void loadLanguage(const std::string& filepath);
 
     };
 }

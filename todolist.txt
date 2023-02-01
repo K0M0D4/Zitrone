@@ -26,14 +26,14 @@
 ✓ draw cut line
 ✓ save project
 ✓ open project
+// february
 ✓ explicitly save as project
 ✓ saving and opening with keyboard
-fix not clearing old notes after opening project
+✓ bugfix: not clearing old notes after opening project
 change input checking to use commands pattern and code clarity changes
 export project
-
+hints under mouse cursor
 working settings
-buttons working on sort of events instead of just isMouseClicked
 
 undo and redo
 
@@ -41,15 +41,16 @@ undo and redo
 
 ✓ moving and resizing workspace only when window is focused
 ✓ moving workspace on resized window without offset
-rounded rectangles for buttons / make imgui ui instead
+✓ add boundaries check with mouse position while moving viewport
+[maybe] buttons working on sort of events instead of just isMouseClicked
+    rounded rectangles for buttons / make imgui ui instead
 try to inherit custom graphic classes from sf::Drawable
     and maybe some from sf::Transformable
-✓ add boundaries check with mouse position while moving viewport
 
-fix bug when resizing window on scale != 1 removes scale, but multiplier
+bugfix: resizing window on scale != 1 removes scale, but multiplier
     on moving viewport stays
 
-move to sfml 3.0
+[maybe] move to sfml 3.0
 
 for performance, store temp buttons as class members, and only 
     change thier values, so they aren't created every time app

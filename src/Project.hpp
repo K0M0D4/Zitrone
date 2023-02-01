@@ -46,12 +46,12 @@ namespace cmt {
         sf::RectangleShape m_workspace{sf::Vector2f{21.0f * m_dpcm,
             29.7f * m_dpcm}};
 
-        float m_firstNoteOffset{0.9f * m_dpcm};
+        float m_firstNoteOffset{1.3f * m_dpcm};
         float m_breakBetweenNotesV{0.5f * m_dpcm};
         float m_breakBetweenNotesH{0.9f * m_dpcm};
 
-        float m_cutXPos{17.0f * m_dpcm};
-        float m_cutYPos{20.0f * m_dpcm};
+        float m_cutXPos{12.8f * m_dpcm};
+        float m_cutYPos{16.7f * m_dpcm};
 
         Line m_cutLine{sf::Vector2f{m_cutXPos, 0.0f},
             sf::Vector2f{m_workspace.getSize().x, m_workspace.getSize().y

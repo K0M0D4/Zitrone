@@ -40,6 +40,7 @@ namespace cmt {
     }
 
     void Project::open(const std::string& filename) {
+        m_name = filename;
         std::ifstream file(filename);
         if(!file.good()) 
             throw std::runtime_error("Can't load file: " + m_name);

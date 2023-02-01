@@ -78,6 +78,19 @@ namespace cmt {
                 } else if(event.key.code == sf::Keyboard::Delete
                     || event.key.code == sf::Keyboard::Backspace) {
                     m_project.deleteNote();
+                } else if((sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)
+                    && sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+                    && event.key.code == sf::Keyboard::S) {
+
+                    saveAsDialog();
+                } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)
+                    && event.key.code == sf::Keyboard::S) {
+
+                    if(m_project.getName() == std::string{}) {
+                        saveAsDialog();
+                    } else {
+                        m_project.save();
+                    }
                 }
             }
 
@@ -151,6 +164,10 @@ namespace cmt {
             } else {
                 m_project.save();
             }
+        } else if(m_UI.m_saveAsBtn.isPressed(m_window.mapPixelToCoords(
+            winMousePos))) {
+
+            saveAsDialog();
         } else if(m_UI.m_openBtn.isPressed(m_window.mapPixelToCoords(
             winMousePos))) {
 

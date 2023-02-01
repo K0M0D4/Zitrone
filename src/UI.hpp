@@ -17,6 +17,7 @@ namespace cmt {
 
         // horizontal navbar
         TextButton m_saveBtn{};
+        TextButton m_saveAsBtn{};
         TextButton m_exportBtn{};
         TextButton m_openBtn{};
         TextButton m_settingsBtn{};

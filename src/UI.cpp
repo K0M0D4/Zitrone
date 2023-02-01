@@ -17,6 +17,7 @@ namespace cmt {
     void UI::render(sf::RenderWindow& target) {
         // horizontal navbar
         m_saveBtn.render(target);
+        m_saveAsBtn.render(target);
         m_exportBtn.render(target);
         m_openBtn.render(target);
         m_settingsBtn.render(target);
@@ -54,8 +55,10 @@ namespace cmt {
     void UI::initNavBars(ResourceManager& resources) {
         // horizontal
         m_saveBtn = createTextBtn(resources, "Save", sf::Vector2f{5.0f, 5.0f}) ;
-        m_exportBtn = createTextBtn(resources, "Export",
+        m_saveAsBtn = createTextBtn(resources, "Save as",
             sf::Vector2f(m_saveBtn.getPos().x + m_saveBtn.getBounds().width + 5.0f, 5.0f));
+        m_exportBtn = createTextBtn(resources, "Export",
+            sf::Vector2f(m_saveAsBtn.getPos().x + m_saveAsBtn.getBounds().width + 5.0f, 5.0f));
         m_openBtn = createTextBtn(resources, "Open",
             sf::Vector2f(m_exportBtn.getPos().x + m_exportBtn.getBounds().width
             + 5.0f, 5.0f));

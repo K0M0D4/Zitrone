@@ -23,7 +23,7 @@ namespace cmt {
         m_settingsBtn.render(target);
 
         // vertical navbar
-        m_editBtn.render(target);
+        m_addNoteBtn.render(target);
         m_deleteBtn.render(target);
         for(auto btn : m_chBtn) {
             btn.render(target);
@@ -34,11 +34,11 @@ namespace cmt {
         // vertical buttons positions
         float xVerBtnsPos =
             static_cast<float>(window.getSize().x)
-            - m_editBtn.getBounds().width - 10;
+            - m_addNoteBtn.getBounds().width - 10;
 
-        m_editBtn.setPos(sf::Vector2f(xVerBtnsPos, 40.0f));
+        m_addNoteBtn.setPos(sf::Vector2f(xVerBtnsPos, 40.0f));
 
-        m_deleteBtn.setPos(sf::Vector2f(xVerBtnsPos, m_editBtn.getPos().y
+        m_deleteBtn.setPos(sf::Vector2f(xVerBtnsPos, m_addNoteBtn.getPos().y
             + m_deleteBtn.getBounds().height + 15.0f));
 
         m_chBtn.at(0).setPos(sf::Vector2f(xVerBtnsPos,
@@ -66,7 +66,7 @@ namespace cmt {
             sf::Vector2f(m_openBtn.getPos().x + m_openBtn.getBounds().width + 5.0f, 5.0f));
     
         // vertical
-        m_editBtn = createImageBtn(resources, 0);
+        m_addNoteBtn = createImageBtn(resources, 0);
         m_deleteBtn = createImageBtn(resources, 1);
 
         for(uint16_t c{}; c < m_chBtn.size(); ++c) {

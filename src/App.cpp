@@ -39,13 +39,14 @@ namespace cmt {
 
         sf::Event event;
         while(m_window.pollEvent(event)) {
-            if(event.type == sf::Event::Closed)
+            if(event.type == sf::Event::Closed) {
                 m_window.close();
+            }
 
             if(event.type == sf::Event::Resized) {
                 // viewport stuff
                 float navBarSize = m_UI.m_saveBtn.getSize().y * 1.5f;
-                float vertBarSize = m_UI.m_editBtn.getSize().x * 1.5f;
+                float vertBarSize = m_UI.m_addNoteBtn.getSize().x * 1.5f;
 
                 sf::Vector2f vpcenter = m_viewport.getCenter();
                 m_viewport = sf::View(sf::FloatRect(0.f, 0.f,
@@ -63,72 +64,74 @@ namespace cmt {
                 
                 m_normalView = sf::View(sf::FloatRect(0.f, 0.f,
                     event.size.width, event.size.height));
+                
+                m_vpzoom = 1.0f;
 
                 m_UI.recalculate(m_window);
-            }
-
-            if(event.type == sf::Event::KeyPressed) {
-                m_project.moveActiveLines(event.key.code);
-
-                if(event.key.code == sf::Keyboard::Space) {
-                    m_project.addNote();
-                } else if(event.key.code >= sf::Keyboard::Num0
-                    && event.key.code <= sf::Keyboard::Num6) {
-                    m_project.setChord(event.key.code - 26);
-                } else if(event.key.code == sf::Keyboard::Delete
-                    || event.key.code == sf::Keyboard::Backspace) {
-                    m_project.deleteNote();
-                } else if((sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)
-                    && sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
-                    && event.key.code == sf::Keyboard::S) {
-
-                    saveAsDialog();
-                } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)
-                    && event.key.code == sf::Keyboard::S) {
-
-                    if(m_project.getName() == std::string{}) {
-                        saveAsDialog();
-                    } else {
-                        m_project.save();
-                    }
-                } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)
-                    && event.key.code == sf::Keyboard::O) {
-
-                    openDialog();
-                }
-            }
-
-            if(event.type == sf::Event::MouseButtonPressed) {
-
-                if(winMousePos.y > m_UI.m_saveBtn.getSize().y * 1.5f
-                    && winMousePos.x < m_window.getSize().x
-                    - m_UI.m_editBtn.getSize().x * 1.5f) {
-                    
-                    m_project.setActiveLines(vpMousePos);
-                }
             }
 
             if(event.type == sf::Event::MouseWheelScrolled
                 && event.mouseWheelScroll.wheel == sf::Mouse::VerticalWheel) {
                 
-                if(event.mouseWheelScroll.delta > 0) {
-                    if(m_vpzoom > 0.782758) {
-                        m_viewport.zoom(0.96f);
-                        m_vpzoom *= 0.96f;
-                    }
+                if(event.mouseWheelScroll.delta > 0 && m_vpzoom > 0.78f) {
+                    m_viewport.zoom(0.96f);
+                    m_vpzoom *= 0.96f;
                 } else {
                     m_viewport.zoom(1.04f);
                     m_vpzoom *= (1.04f);
                 }
             }
-        }
-        
-        if(m_window.hasFocus()) {
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Equal)) {
-                if(m_vpzoom > 0.782758) {
-                    m_viewport.zoom(0.98f);
-                    m_vpzoom *= 0.98f;
+
+            if(event.type == sf::Event::MouseButtonPressed) {
+                if(winMousePos.y > m_UI.m_saveBtn.getSize().y * 1.5f
+                    && winMousePos.x < m_window.getSize().x
+                    - m_UI.m_addNoteBtn.getSize().x * 1.5f) {
+                    
+                    m_project.setActiveLines(vpMousePos);
                 }
+            }
+
+            if(event.type == sf::Event::KeyPressed) {
+                m_project.moveActiveLines(event.key.code);
+
+                switch(event.key.code) {
+                case sf::Keyboard::Space:
+                    m_project.addNote(); break;
+                case sf::Keyboard::Backspace:
+                case sf::Keyboard::Delete:
+                    m_project.deleteNote(); break;
+                }
+                    
+                if(event.key.code >= sf::Keyboard::Num0
+                    && event.key.code <= sf::Keyboard::Num6) {
+
+                    m_project.setChord(event.key.code - 26);
+                }
+                
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)
+                    && event.key.code == sf::Keyboard::S) {
+
+                    if(m_project.getName() == std::string{}
+                        || sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)) {
+                            
+                        saveAsDialog();
+                    } else {
+                        m_project.save();
+                    }
+                }
+                
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)
+                    && event.key.code == sf::Keyboard::O) {
+
+                    openDialog();
+                }
+            }
+        }
+
+        if(m_window.hasFocus()) {
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Equal) && m_vpzoom > 0.78f) {
+                m_viewport.zoom(0.98f);
+                m_vpzoom *= 0.98f;
             } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Hyphen)) {
                 m_viewport.zoom(1.02f);
                 m_vpzoom *= (1.02f);
@@ -137,7 +140,7 @@ namespace cmt {
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left) 
                 && winMousePos.y > m_UI.m_saveBtn.getSize().y * 1.5f
                     && winMousePos.x < m_window.getSize().x
-                    - m_UI.m_editBtn.getSize().x * 1.5f && winMousePos.x > 0.0f
+                    - m_UI.m_addNoteBtn.getSize().x * 1.5f && winMousePos.x > 0.0f
                     && winMousePos.y < m_window.getSize().y) {
                 if(m_wasMousePressed) {
                     m_deltaMousePos = winMousePos - m_prevMousePos;
@@ -154,7 +157,7 @@ namespace cmt {
                 static_cast<float>(-m_deltaMousePos.y) * m_vpzoom);
         }
 
-        if(m_UI.m_editBtn.isPressed(m_window.mapPixelToCoords(winMousePos))) {
+        if(m_UI.m_addNoteBtn.isPressed(m_window.mapPixelToCoords(winMousePos))) {
             m_project.addNote();
         } else if(m_UI.m_deleteBtn.isPressed(m_window.mapPixelToCoords(
             winMousePos))) {

@@ -30,7 +30,8 @@
 ✓ explicitly save as project
 ✓ saving and opening with keyboard
 ✓ bugfix: not clearing old notes after opening project
-change input checking to use commands pattern and code clarity changes
+✓ bugfix: resizing window on scale != 1 removes scale, but multiplier
+    on moving viewport stays
 export project
 hints under mouse cursor
 working settings
@@ -48,9 +49,6 @@ try to inherit custom graphic classes from sf::Drawable
     and maybe some from sf::Transformable
 warning popup when opening project but current is not saved
 move active line to next vertical after added note
-
-bugfix: resizing window on scale != 1 removes scale, but multiplier
-    on moving viewport stays
 
 [maybe] move to sfml 3.0
 

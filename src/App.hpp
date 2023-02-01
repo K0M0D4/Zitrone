@@ -40,6 +40,7 @@ namespace cmt {
 
         void saveAsDialog();
         void openDialog();
+        void exportDialog();
 
         /*
         Texture IDs:

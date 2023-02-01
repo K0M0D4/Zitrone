@@ -15,7 +15,7 @@ namespace cmt {
 
         sf::Color getColor();
 
-        void render(sf::RenderWindow& target);
+        void render(sf::RenderTarget& target);
 
     private:
         sf::VertexArray m_verts{sf::Lines, 0};

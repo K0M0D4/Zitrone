@@ -125,6 +125,12 @@ namespace cmt {
 
                     openDialog();
                 }
+
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)
+                    && event.key.code == sf::Keyboard::E) {
+
+                    exportDialog();
+                }
             }
         }
 
@@ -179,6 +185,10 @@ namespace cmt {
             winMousePos))) {
 
             openDialog();
+        } else if(m_UI.m_exportBtn.isPressed(m_window.mapPixelToCoords(
+            winMousePos))) {
+
+            exportDialog();
         }
 
         for(uint16_t i{}; i < m_UI.m_chBtn.size(); ++i) {
@@ -228,6 +238,22 @@ namespace cmt {
         if(result == NFD_OKAY) {
             m_project.open(openPath);
             NFD_FreePath(openPath);
+        } else if(result != NFD_CANCEL) {
+            throw std::runtime_error("Internal error: "
+                + std::string{NFD_GetError()} + '\n');
+        }
+    }
+
+    void App::exportDialog() {
+        nfdchar_t* exportPath{};
+
+        nfdfilteritem_t filterItem[1] {{"Project files", "png"}};
+
+        nfdresult_t result{NFD_SaveDialog(&exportPath, filterItem, 1, NULL, "project.png")};
+        
+        if(result == NFD_OKAY) {
+            m_project.exportProj(exportPath);
+            NFD_FreePath(exportPath);
         } else if(result != NFD_CANCEL) {
             throw std::runtime_error("Internal error: "
                 + std::string{NFD_GetError()} + '\n');

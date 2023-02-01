@@ -32,7 +32,8 @@
 ✓ bugfix: not clearing old notes after opening project
 ✓ bugfix: resizing window on scale != 1 removes scale, but multiplier
     on moving viewport stays
-export project
+✓ export project
+windows support and release first beta
 hints under mouse cursor
 working settings
 

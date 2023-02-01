@@ -9,12 +9,14 @@ namespace cmt {
 
         void setPos(sf::Vector2f pos, sf::Vector2i coords);
         void setChord(uint16_t chord);
+        void setColor(sf::Color color);
 
         sf::Vector2i getCoords();
         sf::Vector2f getPos();
         uint16_t getChord();
+        sf::Color getColor();
 
-        void render(sf::RenderWindow& target);
+        void render(sf::RenderTarget& target);
 
     private:
 

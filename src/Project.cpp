@@ -42,7 +42,7 @@ namespace cmt {
     void Project::open(const std::string& filename) {
         m_name = filename;
         m_notes.clear();
-        
+
         std::ifstream file(filename);
         if(!file.good()) 
             throw std::runtime_error("Can't load file: " + m_name);
@@ -54,6 +54,27 @@ namespace cmt {
         }
         
         file.close();
+    }
+
+    void Project::exportProj(const std::string& filename) {
+        sf::RenderTexture buffer{};
+        if(!buffer.create(m_workspace.getSize().x, m_workspace.getSize().y))
+            throw std::runtime_error("Error: Can't create buffer for exporting\n");
+
+        buffer.clear(sf::Color::White);
+
+        render(buffer);
+
+        buffer.display();
+
+        sf::Image image{};
+        image.create(m_workspace.getSize().x, m_workspace.getSize().y);
+
+        image = buffer.getTexture().copyToImage();
+
+        if(!image.saveToFile(filename))
+            throw std::runtime_error("Error: Can't export project\n");
+
     }
 
     void Project::addNote() {        
@@ -144,6 +165,24 @@ namespace cmt {
             target.mapPixelToCoords(sf::Vector2i{0, static_cast<int32_t>(
             target.getSize().y) - 30}).y));
         m_gridHints.render(target);
+    }
+
+    void Project::render(sf::RenderTexture& target) {
+        sf::Color tempLineColor = m_noteLines.at(0).getColor();
+        sf::Color tempNoteColor = m_notes.at(0).getColor();
+
+        for(auto& line : m_noteLines) {
+            line.setColor(sf::Color::Black);
+            line.render(target);
+            line.setColor(tempLineColor);
+        }
+        for(auto& note : m_notes) {
+            note.setColor(sf::Color::Black);
+            note.render(target);
+            note.setColor(tempNoteColor);
+        }
+
+        m_cutLine.render(target);
     }
 
     void Project::sortNotes() {

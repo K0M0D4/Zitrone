@@ -20,6 +20,7 @@ namespace cmt {
         void save();
         void saveAs(const std::string& filename);
         void open(const std::string& filename);
+        void exportProj(const std::string& filename); 
 
         void addNote();
         void setChord(uint16_t chord);
@@ -61,6 +62,9 @@ namespace cmt {
 
         std::vector<Note> m_notes{};
         std::vector<Line> m_noteLines{};
+
+        // for exporting
+        void render(sf::RenderTexture& target);
 
         void sortNotes();
 

@@ -7,8 +7,7 @@ namespace cmt {
 
         m_chordText.setFont(font);
         m_chordText.setCharacterSize(30);
-        m_circle.setFillColor(color);
-        m_chordText.setFillColor(color);
+        setColor(color);
         setPos(pos, coords);
     }
 
@@ -32,6 +31,11 @@ namespace cmt {
         }
     }
 
+    void Note::setColor(sf::Color color) {
+        m_circle.setFillColor(color);
+        m_chordText.setFillColor(color);
+    }
+
     sf::Vector2i Note::getCoords() {
         return m_coords;
     }
@@ -44,7 +48,11 @@ namespace cmt {
         return m_chord;
     }
 
-    void Note::render(sf::RenderWindow& target) {
+    sf::Color Note::getColor() {
+        return m_circle.getFillColor();
+    }
+
+    void Note::render(sf::RenderTarget& target) {
         target.draw(m_circle);
         if(m_chord >= 0 && m_chord <= 6) {
             target.draw(m_chordText);

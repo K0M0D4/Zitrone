@@ -25,7 +25,7 @@ namespace cmt {
         return m_color;
     }
 
-    void Line::render(sf::RenderWindow& target) {
+    void Line::render(sf::RenderTarget& target) {
         target.draw(m_verts);
     }
 }

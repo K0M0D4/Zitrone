@@ -44,7 +44,8 @@ add_executable(${PROJECT_NAME}
 
 target_compile_options(${PROJECT_NAME} PUBLIC -DSFML_STATIC)
 
-target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-system sfml-window nfd)
+target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-system sfml-window
+    nfd -static-libgcc -static-libstdc++ -lpthread)
 
 file(COPY res/ DESTINATION res/)
 file(COPY config DESTINATION .)

@@ -1,0 +1,7 @@
+v0.1.0 - beta
+Initial release
+
+- adding and removing notes and chords
+- saving and opening projects
+- exporting to png
+- page dimensions, language, theme and cut line are customizable with config file

@@ -14,12 +14,12 @@ In config file, you can customize:
     - first note offset - in cm, line 7
 
     - space between tones - in cm, line 8
-    
+
     - space between notes - in cm, line 9
 # Screenshots
-![Dark Windows](screenshots/dark.jpg)
-![Light Windows](screenshots/light.jpg)
-![Industrial Windows](screenshots/industrial.jpg)
+![Dark Windows](screenshots/dark.png)
+![Light Windows](screenshots/light.png)
+![Industrial Windows](screenshots/industrial.png)
 # Building
 If you want to build it yourself, you'll need git, cmake and some c++ compiler.
 Then, it's as simple as:

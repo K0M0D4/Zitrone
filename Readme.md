@@ -2,12 +2,19 @@
 It's an app for writing notes for musical instrument called zither.
 Should work on windows and linux.
 In config file, you can customize:
-    - language - english and polish are supported, if you want polish replace first line with polski\\
+
+    - language - english and polish are supported, if you want polish replace first line with polski
+
     - theme - dark, light or industrial
+
     - page dimensions - in cm, line 3 and 4
+
     - cut line position - in cm, line 5 and 6
+
     - first note offset - in cm, line 7
+
     - space between tones - in cm, line 8
+    
     - space between notes - in cm, line 9
 # Screenshots
 ![Dark Windows](screenshots/dark.jpg)

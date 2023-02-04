@@ -2,11 +2,10 @@
 
 namespace cmt {
     Note::Note(sf::Vector2f pos, sf::Vector2i coords, sf::Font& font, sf::Color color) {
-        m_circle.setOrigin(m_circle.getRadius(),
-            m_circle.getRadius());
+        m_circle.setOrigin(m_circle.getRadius(), m_circle.getRadius());
 
         m_chordText.setFont(font);
-        m_chordText.setCharacterSize(30);
+        m_chordText.setCharacterSize(90);
         setColor(color);
         setPos(pos, coords);
     }

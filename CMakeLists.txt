@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.24)
-project(Zitrone VERSION 0.1.0 LANGUAGES CXX)
+project(Zitrone VERSION 0.1.1 LANGUAGES CXX)
 
 set(CMAKE_BUILD_TYPE Release)
 
@@ -40,6 +40,7 @@ add_executable(${PROJECT_NAME}
     src/GridHints.cpp
     src/Note.cpp
     src/Project.cpp
+    src/Config.cpp
     )
 
 target_compile_options(${PROJECT_NAME} PUBLIC -DSFML_STATIC)

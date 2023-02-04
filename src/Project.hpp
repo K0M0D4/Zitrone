@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Config.hpp"
 #include "Grid.hpp"
 #include "GridHints.hpp"
 #include "Note.hpp"
@@ -15,8 +16,7 @@ namespace cmt {
     class Project {
     public:
         Project();
-        Project(sf::Vector2f workspaceSize,
-            ResourceManager* resources);
+        Project(Config* config, ResourceManager* resources);
 
         void save();
         void saveAs(const std::string& filename);
@@ -32,8 +32,6 @@ namespace cmt {
         // pass already mapped from pixel to coords
         void setActiveLines(sf::Vector2f mousePos);
 
-        void setCutLine(sf::Vector2f values);
-
         std::string getName();
         
         void render(sf::RenderWindow& target);
@@ -44,16 +42,12 @@ namespace cmt {
 
         std::string m_name{};
 
-        // values have to be in pixels, not centimeters, that's why it's multiplied by dpcm
         // outline of the workspace
         sf::RectangleShape m_workspace{};
 
-        float m_firstNoteOffset{1.3f * m_dpcm};
-        float m_breakBetweenNotesV{0.5f * m_dpcm};
-        float m_breakBetweenNotesH{0.9f * m_dpcm};
-
-        float m_cutXPos{12.8f * m_dpcm};
-        float m_cutYPos{16.7f * m_dpcm};
+        float m_firstNoteOffset{};
+        float m_breakBetweenNotesV{};
+        float m_breakBetweenNotesH{};
 
         Line m_cutLine{};
 

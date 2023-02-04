@@ -1,3 +1,8 @@
+v0.1.1 - beta
+- fixed UI bug on windows
+- now breaks between notes are customizable too
+- updated Readme.md
+
 v0.1.0 - beta
 Initial release
 

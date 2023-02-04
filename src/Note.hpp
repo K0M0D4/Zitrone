@@ -20,7 +20,7 @@ namespace cmt {
 
     private:
 
-        sf::CircleShape m_circle{15.0f};
+        sf::CircleShape m_circle{20.0f};
         sf::Text m_chordText{};
 
         sf::Vector2i m_coords{};

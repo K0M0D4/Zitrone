@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Config.hpp"
 #include "Project.hpp"
 #include "UI.hpp"
 
@@ -23,11 +24,11 @@ namespace cmt {
 
         sf::RenderWindow m_window{};
 
-        std::string m_lang{};
-
         UI m_UI{};
 
         Project m_project{};
+
+        Config m_config{};
 
         // viewport
         sf::View m_viewport{};
@@ -44,7 +45,7 @@ namespace cmt {
         void openDialog();
         void exportDialog();
 
-        void loadConfig();
+        void calculateViewport();
 
         /*
         Texture IDs:

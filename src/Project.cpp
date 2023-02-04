@@ -6,12 +6,15 @@
 namespace cmt {
     Project::Project() {}
 
-    Project::Project(sf::Vector2f workspaceSize,
-        ResourceManager* resources) {
+    Project::Project(Config* config, ResourceManager* resources) {
 
         m_resources = resources;
 
-        m_workspace.setSize(workspaceSize * m_dpcm);
+        m_workspace.setSize(config->getPageSize() * m_dpcm);
+
+        m_firstNoteOffset = config->getFirstNoteOffset() * m_dpcm;
+        m_breakBetweenNotesV = config->getBreaks().x * m_dpcm;
+        m_breakBetweenNotesH = config->getBreaks().y * m_dpcm;
 
         m_grid = Grid{m_workspace.getSize(), m_breakBetweenNotesV,
             m_breakBetweenNotesH, m_firstNoteOffset, m_resources};
@@ -22,7 +25,11 @@ namespace cmt {
         m_gridHints = GridHints(m_resources);
         m_gridHints.calculate(m_workspace.getSize(), m_breakBetweenNotesV,
             m_firstNoteOffset);
-        m_gridHints.move(sf::Vector2f(m_firstNoteOffset, 0.0f));
+        m_gridHints.move(sf::Vector2f{m_firstNoteOffset, 0.0f});
+
+        m_cutLine = Line{sf::Vector2f{config->getCutLine().x * m_dpcm, 0.0f},
+            sf::Vector2f{m_workspace.getSize().x, m_workspace.getSize().y
+            - config->getCutLine().y * m_dpcm}, sf::Color::Red};
     }
 
     void Project::save() {
@@ -149,12 +156,6 @@ namespace cmt {
             (mousePos.y - m_breakBetweenNotesH / 2.0f) / m_breakBetweenNotesH));
     }
 
-    void Project::setCutLine(sf::Vector2f values) {
-        m_cutLine = Line{sf::Vector2f{values.x * m_dpcm, 0.0f},
-            sf::Vector2f{m_workspace.getSize().x, m_workspace.getSize().y
-            - values.y * m_dpcm}, sf::Color::Red};
-    }
-
     std::string Project::getName() {
         return m_name;
     }
@@ -175,6 +176,7 @@ namespace cmt {
         m_gridHints.setPos(sf::Vector2f(m_gridHints.getPos().x,
             target.mapPixelToCoords(sf::Vector2i{0, static_cast<int32_t>(
             target.getSize().y) - 30}).y));
+
         m_gridHints.render(target);
     }
 

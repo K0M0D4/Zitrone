@@ -14,9 +14,12 @@ namespace cmt {
         
         m_resources.loadFont("res/PlayfairDisplay.ttf");
 
-        loadConfig();
+        m_resources.loadTheme("res/themes/" + m_config.getTheme());
+
+        m_project = Project(&m_config, &m_resources);
         
-        m_UI = UI{m_resources, m_lang};
+        m_UI = UI{m_resources, m_config.getLang()};
+        calculateViewport();
     }
 
     int32_t App::start() {
@@ -44,30 +47,7 @@ namespace cmt {
             }
 
             if(event.type == sf::Event::Resized) {
-                // viewport stuff
-                float navBarSize = m_UI.m_saveBtn.getSize().y * 1.5f;
-                float vertBarSize = m_UI.m_addNoteBtn.getSize().x * 1.5f;
-
-                sf::Vector2f vpcenter = m_viewport.getCenter();
-                m_viewport = sf::View(sf::FloatRect(0.f, 0.f,
-                    event.size.width - vertBarSize,
-                    event.size.height - navBarSize));
-                m_viewport.setCenter(vpcenter);
-
-                m_viewport.setViewport(sf::FloatRect(0.0f,
-                    1.0f - (m_window.getSize().y - navBarSize)
-                    / m_window.getSize().y,
-                    (m_window.getSize().x - vertBarSize)
-                    / m_window.getSize().x,
-                    (m_window.getSize().y - navBarSize)
-                    / m_window.getSize().y));
-                
-                m_normalView = sf::View(sf::FloatRect(0.f, 0.f,
-                    event.size.width, event.size.height));
-                
-                m_vpzoom = 1.0f;
-
-                m_UI.recalculate(m_window);
+                calculateViewport();
             }
 
             if(event.type == sf::Event::MouseWheelScrolled
@@ -260,32 +240,29 @@ namespace cmt {
         }
     }
 
-    void App::loadConfig() {
-        std::ifstream config("config");
-        if(!config.good())
-            throw std::runtime_error("Error: Can't load config file\n");
+    void App::calculateViewport() {
+        float navBarSize = m_UI.m_saveBtn.getSize().y * 1.5f;
+        float vertBarSize = m_UI.m_addNoteBtn.getSize().x * 1.5f;
 
-        sf::Vector2f buffer{};
+        sf::Vector2f vpcenter = m_viewport.getCenter();
+        m_viewport = sf::View(sf::FloatRect(0.f, 0.f,
+            m_window.getSize().x - vertBarSize,
+            m_window.getSize().y - navBarSize));
+        m_viewport.setCenter(vpcenter);
 
-        std::string line{};
+        m_viewport.setViewport(sf::FloatRect(0.0f,
+            1.0f - (m_window.getSize().y - navBarSize)
+            / m_window.getSize().y,
+            (m_window.getSize().x - vertBarSize)
+            / m_window.getSize().x,
+            (m_window.getSize().y - navBarSize)
+            / m_window.getSize().y));
+        
+        m_normalView = sf::View(sf::FloatRect(0.f, 0.f,
+            m_window.getSize().x, m_window.getSize().y));
+        
+        m_vpzoom = 1.0f;
 
-        getline(config, line);
-        m_lang = line;
-        getline(config, line);
-        m_resources.loadTheme("res/themes/" + line);
-
-        getline(config, line);
-        buffer.x = std::stof(line);
-        getline(config, line);
-        buffer.y = std::stof(line);
-        m_project = Project{buffer, &m_resources};
-
-        getline(config, line);
-        buffer.x = std::stof(line);
-        getline(config, line);
-        buffer.y = std::stof(line);
-        m_project.setCutLine(buffer);
-
-        config.close();
+        m_UI.recalculate(m_window);
     }
 }

@@ -69,6 +69,45 @@ namespace cmt {
                     
                     m_project.setActiveLines(vpMousePos);
                 }
+
+                if(event.mouseButton.button == sf::Mouse::Left) {
+                    if(m_UI.m_addNoteBtn.isPointed(m_window.mapPixelToCoords(winMousePos))) {
+                        m_project.addNote();
+                        m_project.moveActiveLines(sf::Vector2i(0, 1));
+                    } else if(m_UI.m_deleteBtn.isPointed(m_window.mapPixelToCoords(
+                        winMousePos))) {
+
+                        m_project.deleteNote();
+                    } else if(m_UI.m_saveBtn.isPointed(m_window.mapPixelToCoords(
+                        winMousePos))) {
+
+                        if(m_project.getName() == std::string{}) {
+                            saveAsDialog();
+                        } else {
+                            m_project.save();
+                        }
+                    } else if(m_UI.m_saveAsBtn.isPointed(m_window.mapPixelToCoords(
+                        winMousePos))) {
+
+                        saveAsDialog();
+                    } else if(m_UI.m_openBtn.isPointed(m_window.mapPixelToCoords(
+                        winMousePos))) {
+
+                        openDialog();
+                    } else if(m_UI.m_exportBtn.isPointed(m_window.mapPixelToCoords(
+                        winMousePos))) {
+
+                        exportDialog();
+                    }
+
+                    for(uint16_t i{}; i < m_UI.m_chBtn.size(); ++i) {
+                        if(m_UI.m_chBtn.at(i).isPointed(m_window.mapPixelToCoords(
+                            winMousePos))) {
+
+                            m_project.setChord(i);
+                        }
+                    }
+                }
             }
 
             if(event.type == sf::Event::KeyPressed) {
@@ -154,43 +193,6 @@ namespace cmt {
 
             m_viewport.move(static_cast<float>(-m_deltaMousePos.x) * m_vpzoom,
                 static_cast<float>(-m_deltaMousePos.y) * m_vpzoom);
-        }
-
-        if(m_UI.m_addNoteBtn.isPressed(m_window.mapPixelToCoords(winMousePos))) {
-            m_project.addNote();
-            m_project.moveActiveLines(sf::Vector2i(0, 1));
-        } else if(m_UI.m_deleteBtn.isPressed(m_window.mapPixelToCoords(
-            winMousePos))) {
-
-            m_project.deleteNote();
-        } else if(m_UI.m_saveBtn.isPressed(m_window.mapPixelToCoords(
-            winMousePos))) {
-
-            if(m_project.getName() == std::string{}) {
-                saveAsDialog();
-            } else {
-                m_project.save();
-            }
-        } else if(m_UI.m_saveAsBtn.isPressed(m_window.mapPixelToCoords(
-            winMousePos))) {
-
-            saveAsDialog();
-        } else if(m_UI.m_openBtn.isPressed(m_window.mapPixelToCoords(
-            winMousePos))) {
-
-            openDialog();
-        } else if(m_UI.m_exportBtn.isPressed(m_window.mapPixelToCoords(
-            winMousePos))) {
-
-            exportDialog();
-        }
-
-        for(uint16_t i{}; i < m_UI.m_chBtn.size(); ++i) {
-            if(m_UI.m_chBtn.at(i).isPressed(m_window.mapPixelToCoords(
-                winMousePos))) {
-
-                m_project.setChord(i);
-            }
         }
     }
 

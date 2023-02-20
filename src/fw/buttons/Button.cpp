@@ -11,12 +11,6 @@ namespace cmt {
         setColors(normal, point, press);
     }
 
-    bool Button::isPressed(sf::Vector2f mousePos) {
-        return (enable && isPointed(mousePos)
-            && sf::Mouse::isButtonPressed(sf::Mouse::Left))
-            ? true: false;
-    }
-
     bool Button::isPointed(sf::Vector2f mousePos) {
         return (m_rect.getGlobalBounds().contains(mousePos))
             ? true: false;
@@ -58,6 +52,12 @@ namespace cmt {
     void Button::render(sf::RenderWindow& target) {
         processColors(target);
         target.draw(m_rect);
+    }
+
+    bool Button::isPressed(sf::Vector2f mousePos) {
+        return (enable && isPointed(mousePos)
+            && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            ? true: false;
     }
 
     void Button::processColors(sf::RenderWindow& target) {

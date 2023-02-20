@@ -15,7 +15,7 @@ namespace cmt {
             sf::Color point = sf::Color(255, 255, 255, 140),
             sf::Color press = sf::Color::Transparent);
 
-        bool isPressed(sf::Vector2f mousePos);
+        bool isPointed(sf::Vector2f mousePos);
 
         bool enable{true};
 
@@ -35,8 +35,8 @@ namespace cmt {
 
         std::array<sf::Color, 3> m_colors{};
 
-        bool isPointed(sf::Vector2f mousePos);
-        void processColors(sf::RenderWindow& target);
+        bool isPressed(sf::Vector2f mousePos);
 
+        void processColors(sf::RenderWindow& target);
     };
 }

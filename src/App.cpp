@@ -7,7 +7,7 @@
 namespace cmt {
     App::App() {
         m_window.create(sf::VideoMode(1280, 720), "Zitrone");
-        m_window.setVerticalSyncEnabled(true);
+        //m_window.setVerticalSyncEnabled(true);
         
         m_resources.loadTexture("res/edit.png");
         m_resources.loadTexture("res/delete.png");
@@ -128,6 +128,35 @@ namespace cmt {
                     m_project.moveActiveLines(sf::Vector2i(0, -1)); break;
                 case sf::Keyboard::Down:
                     m_project.moveActiveLines(sf::Vector2i(0, 1)); break;
+                case sf::Keyboard::Equal:
+                    if(m_vpzoom > 0.78f) {
+                        m_viewport.zoom(0.98f);
+                        m_vpzoom *= 0.98f;
+                    } break;
+                case sf::Keyboard::Hyphen:
+                    m_viewport.zoom(1.02f);
+                    m_vpzoom *= (1.02f); break;
+                case sf::Keyboard::LControl:
+                    m_CTRLPressed = true; break;
+                case sf::Keyboard::LShift:
+                    m_ShiftPressed = true; break;
+                case sf::Keyboard::S:
+                    if(m_CTRLPressed) {
+                        if(m_ShiftPressed
+                            || m_project.getName() == std::string{}) {
+
+                            saveAsDialog();
+                            break;
+                        }
+
+                        m_project.save();
+                    }
+                case sf::Keyboard::O:
+                    if(m_CTRLPressed)
+                        openDialog(); break;
+                case sf::Keyboard::E:
+                    if(m_CTRLPressed)
+                        exportDialog(); break;
                 }
                     
                 if(key >= sf::Keyboard::Num0
@@ -139,42 +168,18 @@ namespace cmt {
 
                     m_project.setChord(key - 75);
                 }
-                
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)
-                    && key == sf::Keyboard::S) {
+            }
 
-                    if(m_project.getName() == std::string{}
-                        || sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)) {
-                            
-                        saveAsDialog();
-                    } else {
-                        m_project.save();
-                    }
-                }
-                
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)
-                    && key == sf::Keyboard::O) {
+            if(event.type == sf::Event::KeyReleased) {
+                if(event.key.code == sf::Keyboard::LControl)
+                    m_CTRLPressed = false;
 
-                    openDialog();
-                }
-
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)
-                    && key == sf::Keyboard::E) {
-
-                    exportDialog();
-                }
+                if(event.key.code == sf::Keyboard::LShift)
+                    m_ShiftPressed = false;
             }
         }
 
         if(m_window.hasFocus()) {
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Equal) && m_vpzoom > 0.78f) {
-                m_viewport.zoom(0.98f);
-                m_vpzoom *= 0.98f;
-            } else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Hyphen)) {
-                m_viewport.zoom(1.02f);
-                m_vpzoom *= (1.02f);
-            }
-
             if(sf::Mouse::isButtonPressed(sf::Mouse::Left) 
                 && winMousePos.y > m_UI.m_saveBtn.getSize().y * 1.5f
                     && winMousePos.x < m_window.getSize().x

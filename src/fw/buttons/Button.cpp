@@ -48,7 +48,6 @@ namespace cmt {
         return m_rect.getLocalBounds();
     }
 
-
     void Button::render(sf::RenderWindow& target) {
         processColors(target);
         target.draw(m_rect);

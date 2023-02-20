@@ -72,24 +72,37 @@ namespace cmt {
             }
 
             if(event.type == sf::Event::KeyPressed) {
-                m_project.moveActiveLines(event.key.code);
+                sf::Keyboard::Key key{event.key.code};
 
-                switch(event.key.code) {
+                switch(key) {
                 case sf::Keyboard::Space:
-                    m_project.addNote(); break;
+                    m_project.addNote(); 
+                    m_project.moveActiveLines(sf::Vector2i(0, 1)); break;
                 case sf::Keyboard::Backspace:
                 case sf::Keyboard::Delete:
                     m_project.deleteNote(); break;
+                case sf::Keyboard::Right:
+                    m_project.moveActiveLines(sf::Vector2i(1, 0)); break;
+                case sf::Keyboard::Left:
+                    m_project.moveActiveLines(sf::Vector2i(-1, 0)); break;
+                case sf::Keyboard::Up:
+                    m_project.moveActiveLines(sf::Vector2i(0, -1)); break;
+                case sf::Keyboard::Down:
+                    m_project.moveActiveLines(sf::Vector2i(0, 1)); break;
                 }
                     
-                if(event.key.code >= sf::Keyboard::Num0
-                    && event.key.code <= sf::Keyboard::Num6) {
+                if(key >= sf::Keyboard::Num0
+                    && key <= sf::Keyboard::Num6) {
 
-                    m_project.setChord(event.key.code - 26);
+                    m_project.setChord(key - 26);
+                } else if(key >= sf::Keyboard::Numpad0
+                    && key <= sf::Keyboard::Numpad6) {
+
+                    m_project.setChord(key - 75);
                 }
                 
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)
-                    && event.key.code == sf::Keyboard::S) {
+                    && key == sf::Keyboard::S) {
 
                     if(m_project.getName() == std::string{}
                         || sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)) {
@@ -101,13 +114,13 @@ namespace cmt {
                 }
                 
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)
-                    && event.key.code == sf::Keyboard::O) {
+                    && key == sf::Keyboard::O) {
 
                     openDialog();
                 }
 
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)
-                    && event.key.code == sf::Keyboard::E) {
+                    && key == sf::Keyboard::E) {
 
                     exportDialog();
                 }
@@ -145,6 +158,7 @@ namespace cmt {
 
         if(m_UI.m_addNoteBtn.isPressed(m_window.mapPixelToCoords(winMousePos))) {
             m_project.addNote();
+            m_project.moveActiveLines(sf::Vector2i(0, 1));
         } else if(m_UI.m_deleteBtn.isPressed(m_window.mapPixelToCoords(
             winMousePos))) {
 

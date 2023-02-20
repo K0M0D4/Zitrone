@@ -138,16 +138,8 @@ namespace cmt {
         calculateLines();
     }
 
-    void Project::moveActiveLines(sf::Keyboard::Key keyCode) {
-        if(keyCode == sf::Keyboard::Right) {
-            m_grid.moveActiveLines(sf::Vector2i(1, 0));
-        } else if(keyCode == sf::Keyboard::Left) {
-            m_grid.moveActiveLines(sf::Vector2i(-1, 0));
-        } else if(keyCode == sf::Keyboard::Up) {
-            m_grid.moveActiveLines(sf::Vector2i(0, -1));
-        } else if(keyCode == sf::Keyboard::Down) {
-            m_grid.moveActiveLines(sf::Vector2i(0, 1));
-        }
+    void Project::moveActiveLines(sf::Vector2i howMuch) {
+        m_grid.moveActiveLines(howMuch);
     }
 
     void Project::setActiveLines(sf::Vector2f mousePos) {

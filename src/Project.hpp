@@ -27,7 +27,7 @@ namespace cmt {
         void setChord(uint16_t chord);
         void deleteNote();
 
-        void moveActiveLines(sf::Keyboard::Key keyCode);
+        void moveActiveLines(sf::Vector2i howMuch);
 
         // pass already mapped from pixel to coords
         void setActiveLines(sf::Vector2f mousePos);

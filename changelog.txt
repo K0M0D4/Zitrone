@@ -1,3 +1,7 @@
+v0.1.2 - beta
+- now chords can be added with numpad keys
+- active line automatically moves down by 1 after note added
+
 v0.1.1 - beta
 - fixed UI bug on windows
 - now breaks between notes are customizable too

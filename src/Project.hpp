@@ -26,11 +26,13 @@ public:
     void setChord(uint16_t chord);
     void deleteNote();
 
-    void moveActiveLines(sf::Vector2i howMuch);
+    sf::Vector2i moveActiveLines(sf::Vector2i howMuch);
 
     // pass already mapped from pixel to coords
-    void setActiveLines(sf::Vector2f mousePos);
+    sf::Vector2i setActiveLines(sf::Vector2f mousePos);
+    void setActiveLines(sf::Vector2i lines);
 
+    sf::Vector2i getActiveLines();
     std::string getName();
     
     void render(sf::RenderWindow& target);

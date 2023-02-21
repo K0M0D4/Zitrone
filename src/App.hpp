@@ -31,6 +31,8 @@ private:
     bool m_CTRLPressed{false};
     bool m_ShiftPressed{false};
 
+    sf::Vector2i m_lastAL{};
+
     // viewport
     sf::View m_viewport{};
     sf::View m_normalView{};

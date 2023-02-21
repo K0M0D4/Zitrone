@@ -188,11 +188,13 @@ void App::processMouseInput(sf::Event& event) {
         - m_UI.m_addNoteBtn.getSize().x * 1.5f) {
         
         m_project.setActiveLines(vpMousePos);
+        m_lastAL = m_project.getActiveLines();
     }
 
     if(event.mouseButton.button == sf::Mouse::Left) {
         if(m_UI.m_addNoteBtn.isPointed(m_window.mapPixelToCoords(winMousePos))) {
             m_project.addNote();
+            m_lastAL = m_project.getActiveLines();
             m_project.moveActiveLines(sf::Vector2i(0, 1));
         } else if(m_UI.m_deleteBtn.isPointed(m_window.mapPixelToCoords(
             winMousePos))) {
@@ -220,7 +222,11 @@ void App::processMouseInput(sf::Event& event) {
             if(m_UI.m_chBtn.at(i).isPointed(m_window.mapPixelToCoords(
                 winMousePos))) {
 
+                sf::Vector2i ALbuf{m_project.getActiveLines()};
+
+                m_project.setActiveLines(m_lastAL);
                 m_project.setChord(i);
+                m_project.setActiveLines(ALbuf);
             }
         }
     }
@@ -231,19 +237,20 @@ void App::processKeyboardInput(sf::Event& event) {
 
     switch(key) {
     case sf::Keyboard::Space:
-        m_project.addNote(); 
+        m_project.addNote();
+        m_lastAL = m_project.getActiveLines();
         m_project.moveActiveLines(sf::Vector2i(0, 1)); break;
     case sf::Keyboard::Backspace:
     case sf::Keyboard::Delete:
         m_project.deleteNote(); break;
     case sf::Keyboard::Right:
-        m_project.moveActiveLines(sf::Vector2i(1, 0)); break;
+        m_lastAL = m_project.moveActiveLines(sf::Vector2i(1, 0)); break;
     case sf::Keyboard::Left:
-        m_project.moveActiveLines(sf::Vector2i(-1, 0)); break;
+        m_lastAL = m_project.moveActiveLines(sf::Vector2i(-1, 0)); break;
     case sf::Keyboard::Up:
-        m_project.moveActiveLines(sf::Vector2i(0, -1)); break;
+        m_lastAL = m_project.moveActiveLines(sf::Vector2i(0, -1)); break;
     case sf::Keyboard::Down:
-        m_project.moveActiveLines(sf::Vector2i(0, 1)); break;
+        m_lastAL = m_project.moveActiveLines(sf::Vector2i(0, 1)); break;
     case sf::Keyboard::Equal:
     case sf::Keyboard::Hyphen:
         processZoom(event);
@@ -272,12 +279,22 @@ void App::processKeyboardInput(sf::Event& event) {
         
     if(key >= sf::Keyboard::Num0
         && key <= sf::Keyboard::Num6) {
-
+        
+        sf::Vector2i ALbuf{m_project.getActiveLines()};
+        
+        m_project.setActiveLines(m_lastAL);
         m_project.setChord(key - 26);
+
+        m_project.setActiveLines(ALbuf);
     } else if(key >= sf::Keyboard::Numpad0
         && key <= sf::Keyboard::Numpad6) {
 
+        sf::Vector2i ALbuf{m_project.getActiveLines()};
+        
+        m_project.setActiveLines(m_lastAL);
         m_project.setChord(key - 75);
+
+        m_project.setActiveLines(ALbuf);
     }
 }
 

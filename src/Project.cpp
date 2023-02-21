@@ -137,14 +137,24 @@ void Project::deleteNote() {
     calculateLines();
 }
 
-void Project::moveActiveLines(sf::Vector2i howMuch) {
+sf::Vector2i Project::moveActiveLines(sf::Vector2i howMuch) {
     m_grid.moveActiveLines(howMuch);
+    return m_grid.getActiveLines();
 }
 
-void Project::setActiveLines(sf::Vector2f mousePos) {
+sf::Vector2i Project::setActiveLines(sf::Vector2f mousePos) {
     m_grid.setActiveLines(sf::Vector2i((mousePos.x
         - m_firstNoteOffset + m_breakBetweenNotesV / 2.0f) / m_breakBetweenNotesV,
         (mousePos.y - m_breakBetweenNotesH / 2.0f) / m_breakBetweenNotesH));
+    return m_grid.getActiveLines();
+}
+
+void Project::setActiveLines(sf::Vector2i lines) {
+    m_grid.setActiveLines(lines);
+}
+
+sf::Vector2i Project::getActiveLines() {
+    return m_grid.getActiveLines();
 }
 
 std::string Project::getName() {

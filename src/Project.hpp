@@ -12,61 +12,59 @@
 
 #include <vector>
 
-namespace cmt {
-    class Project {
-    public:
-        Project();
-        Project(Config* config, ResourceManager* resources);
+class Project {
+public:
+    Project();
+    Project(Config* config, cmt::ResourceManager* resources);
 
-        void save();
-        void saveAs(const std::string& filename);
-        void open(const std::string& filename);
-        void exportProj(const std::string& filename); 
+    void save();
+    void saveAs(const std::string& filename);
+    void open(const std::string& filename);
+    void exportProj(const std::string& filename); 
 
-        void addNote();
-        void setChord(uint16_t chord);
-        void deleteNote();
+    void addNote();
+    void setChord(uint16_t chord);
+    void deleteNote();
 
-        void moveActiveLines(sf::Vector2i howMuch);
+    void moveActiveLines(sf::Vector2i howMuch);
 
-        // pass already mapped from pixel to coords
-        void setActiveLines(sf::Vector2f mousePos);
+    // pass already mapped from pixel to coords
+    void setActiveLines(sf::Vector2f mousePos);
 
-        std::string getName();
-        
-        void render(sf::RenderWindow& target);
+    std::string getName();
+    
+    void render(sf::RenderWindow& target);
 
-    private:
-        ResourceManager* m_resources{};
-        float m_dpcm{118.1102f};
+private:
+    cmt::ResourceManager* m_resources{};
+    float m_dpcm{118.1102f};
 
-        std::string m_name{};
+    std::string m_name{};
 
-        // outline of the workspace
-        sf::RectangleShape m_workspace{};
+    // outline of the workspace
+    sf::RectangleShape m_workspace{};
 
-        float m_firstNoteOffset{};
-        float m_breakBetweenNotesV{};
-        float m_breakBetweenNotesH{};
+    float m_firstNoteOffset{};
+    float m_breakBetweenNotesV{};
+    float m_breakBetweenNotesH{};
 
-        Line m_cutLine{};
+    cmt::Line m_cutLine{};
 
-        Grid m_grid{};
-        GridHints m_gridHints{};
+    Grid m_grid{};
+    GridHints m_gridHints{};
 
-        std::vector<Note> m_notes{};
-        std::vector<Line> m_noteLines{};
+    std::vector<Note> m_notes{};
+    std::vector<cmt::Line> m_noteLines{};
 
-        // for exporting
-        void render(sf::RenderTexture& target);
+    // for exporting
+    void render(sf::RenderTexture& target);
 
-        void sortNotes();
+    void sortNotes();
 
-        void calculateLines();
+    void calculateLines();
 
-        void addNewNote(const sf::Vector2i& al);
+    void addNewNote(const sf::Vector2i& al);
 
-        void processOpenInput(const std::string& data);
+    void processOpenInput(const std::string& data);
 
-    };
-}
+};

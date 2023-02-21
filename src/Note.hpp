@@ -2,31 +2,29 @@
 
 #include <SFML/Graphics.hpp>
 
-namespace cmt {
-    class Note {
-    public:
-        Note(sf::Vector2f pos, sf::Vector2i coords, sf::Font& font, sf::Color color);
+class Note {
+public:
+    Note(sf::Vector2f pos, sf::Vector2i coords, sf::Font& font, sf::Color color);
 
-        void setPos(sf::Vector2f pos, sf::Vector2i coords);
-        void setChord(uint16_t chord);
-        void setColor(sf::Color color);
+    void setPos(sf::Vector2f pos, sf::Vector2i coords);
+    void setChord(uint16_t chord);
+    void setColor(sf::Color color);
 
-        sf::Vector2i getCoords();
-        sf::Vector2f getPos();
-        uint16_t getChord();
-        sf::Color getColor();
+    sf::Vector2i getCoords();
+    sf::Vector2f getPos();
+    uint16_t getChord();
+    sf::Color getColor();
 
-        void render(sf::RenderTarget& target);
+    void render(sf::RenderTarget& target);
 
-    private:
+private:
 
-        sf::CircleShape m_circle{20.0f};
-        sf::Text m_chordText{};
+    sf::CircleShape m_circle{20.0f};
+    sf::Text m_chordText{};
 
-        sf::Vector2i m_coords{};
-        sf::Vector2f m_pos{};
+    sf::Vector2i m_coords{};
+    sf::Vector2f m_pos{};
 
-        uint16_t m_chord{};
+    uint16_t m_chord{};
 
-    };
-}
+};

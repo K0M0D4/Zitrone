@@ -1,6 +1,8 @@
 v0.1.2 - beta
 - now chords can be added with numpad keys
 - active line automatically moves down by 1 after note added
+- ctrl + arrow moves all notes up or down
+- bugfix: now if there's 1 or no notes, there is also no lines
 
 v0.1.1 - beta
 - fixed UI bug on windows

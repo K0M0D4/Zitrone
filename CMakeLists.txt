@@ -41,6 +41,8 @@ add_executable(${PROJECT_NAME}
     src/Note.cpp
     src/Project.cpp
     src/Config.cpp
+    src/Editor.cpp
+    src/Settings.cpp
     )
 
 target_compile_options(${PROJECT_NAME} PUBLIC -DSFML_STATIC)

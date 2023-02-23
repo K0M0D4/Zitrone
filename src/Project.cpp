@@ -242,6 +242,8 @@ void Project::calculateLines() {
                 m_notes.at(i).getPos(),
                 m_resources->getTheme(0).getColor(7)));
         }
+    } else {
+        m_noteLines.clear();
     }
 }
 

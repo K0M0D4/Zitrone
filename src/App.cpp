@@ -276,7 +276,7 @@ void App::processKeyboardInput(sf::Event& event) {
             }
 
             m_project.save();
-        }
+        } break;
     case sf::Keyboard::O:
         if(m_CTRLPressed)
             openDialog(); break;

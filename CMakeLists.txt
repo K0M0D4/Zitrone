@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.22)
 project(Zitrone VERSION 0.1.1 LANGUAGES CXX)
 
 set(CMAKE_BUILD_TYPE Release)
@@ -46,7 +46,7 @@ add_executable(${PROJECT_NAME}
 target_compile_options(${PROJECT_NAME} PUBLIC -DSFML_STATIC)
 
 target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-system sfml-window
-    nfd -static)
+    nfd )
 
 file(COPY res/ DESTINATION res/)
 file(COPY config DESTINATION .)

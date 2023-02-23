@@ -26,6 +26,9 @@ public:
     void setChord(uint16_t chord);
     void deleteNote();
 
+    void moveNotesDown();
+    void moveNotesUp();
+
     sf::Vector2i moveActiveLines(sf::Vector2i howMuch);
 
     // pass already mapped from pixel to coords

@@ -137,6 +137,26 @@ void Project::deleteNote() {
     calculateLines();
 }
 
+void Project::moveNotesDown() {
+    for(auto& note : m_notes) {
+        note.setPos(sf::Vector2f{note.getPos().x, note.getPos().y
+            + m_breakBetweenNotesH}, sf::Vector2i{note.getCoords().x,
+            note.getCoords().y + 1});
+    }
+
+    calculateLines();
+}
+
+void Project::moveNotesUp() {
+    for(auto& note : m_notes) {
+        note.setPos(sf::Vector2f{note.getPos().x, note.getPos().y
+            - m_breakBetweenNotesH}, sf::Vector2i{note.getCoords().x,
+            note.getCoords().y - 1});
+    }
+
+    calculateLines();
+}
+
 sf::Vector2i Project::moveActiveLines(sf::Vector2i howMuch) {
     m_grid.moveActiveLines(howMuch);
     return m_grid.getActiveLines();

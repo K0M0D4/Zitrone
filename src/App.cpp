@@ -248,9 +248,17 @@ void App::processKeyboardInput(sf::Event& event) {
     case sf::Keyboard::Left:
         m_lastAL = m_project.moveActiveLines(sf::Vector2i(-1, 0)); break;
     case sf::Keyboard::Up:
-        m_lastAL = m_project.moveActiveLines(sf::Vector2i(0, -1)); break;
+        if(m_CTRLPressed) {
+            m_project.moveNotesUp();
+        } else {
+            m_lastAL = m_project.moveActiveLines(sf::Vector2i(0, -1));
+        } break;
     case sf::Keyboard::Down:
-        m_lastAL = m_project.moveActiveLines(sf::Vector2i(0, 1)); break;
+        if(m_CTRLPressed) {
+            m_project.moveNotesDown();
+        } else {
+            m_lastAL = m_project.moveActiveLines(sf::Vector2i(0, 1));
+        } break;
     case sf::Keyboard::Equal:
     case sf::Keyboard::Hyphen:
         processZoom(event);

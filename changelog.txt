@@ -3,6 +3,7 @@ v0.1.2 - beta
 - active line automatically moves down by 1 after note added
 - ctrl + arrow moves all notes up or down
 - bugfix: now if there's 1 or no notes, there is also no lines
+- bugfix: when exporting file type filter no longer shows project file
 
 v0.1.1 - beta
 - fixed UI bug on windows

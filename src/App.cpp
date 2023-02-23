@@ -6,7 +6,7 @@
 
 App::App() {
     m_window.create(sf::VideoMode(1280, 720), "Zitrone");
-    //m_window.setVerticalSyncEnabled(true);
+    m_window.setVerticalSyncEnabled(true);
     
     m_resources.loadTexture("res/edit.png");
     m_resources.loadTexture("res/delete.png");
@@ -140,7 +140,7 @@ void App::openDialog() {
 void App::exportDialog() {
     nfdchar_t* exportPath{};
 
-    nfdfilteritem_t filterItem[1] {{"Project files", "png"}};
+    nfdfilteritem_t filterItem[1] {{"Image", "png"}};
 
     nfdresult_t result{NFD_SaveDialog(&exportPath, filterItem, 1, NULL, "project.png")};
     
@@ -208,14 +208,14 @@ void App::processMouseInput(sf::Event& event) {
             winMousePos))) {
 
             saveAsDialog();
-        } else if(m_UI.m_openBtn.isPointed(m_window.mapPixelToCoords(
-            winMousePos))) {
-
-            openDialog();
         } else if(m_UI.m_exportBtn.isPointed(m_window.mapPixelToCoords(
             winMousePos))) {
 
             exportDialog();
+        } else if(m_UI.m_openBtn.isPointed(m_window.mapPixelToCoords(
+            winMousePos))) {
+
+            openDialog();
         }
 
         for(uint16_t i{}; i < m_UI.m_chBtn.size(); ++i) {

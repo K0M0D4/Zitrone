@@ -8,6 +8,8 @@ class Config {
 public:
     Config();
 
+    void load();
+
     std::string getLang();
     std::string getTheme();
     sf::Vector2f getPageSize();

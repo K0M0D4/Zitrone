@@ -216,6 +216,10 @@ void App::processMouseInput(sf::Event& event) {
             winMousePos))) {
 
             openDialog();
+        } else if(m_UI.m_settingsBtn.isPointed(m_window.mapPixelToCoords(
+            winMousePos))) {
+
+            Settings::start(m_window);
         }
 
         for(uint16_t i{}; i < m_UI.m_chBtn.size(); ++i) {

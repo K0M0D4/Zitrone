@@ -2,6 +2,7 @@
 
 #include "Config.hpp"
 #include "Project.hpp"
+#include "Settings.hpp"
 #include "UI.hpp"
 
 #include "fw/DashLine.hpp"

@@ -3,6 +3,10 @@
 #include <fstream>
 
 Config::Config() {
+    load();
+}
+
+void Config::load() {
     std::ifstream config{"config"};
     if(!config.good())
         throw std::runtime_error("Error: Can't load config file\n");

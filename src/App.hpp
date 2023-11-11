@@ -9,6 +9,7 @@
 #include "fw/ResourceManager.hpp"
 
 #include <SFML/Graphics.hpp>
+#include <TGUI/TGUI.hpp>
 
 #include <vector>
 
@@ -24,6 +25,10 @@ private:
     sf::RenderWindow m_window{};
 
     UI m_UI{};
+    tgui::GuiSFML m_GUI;
+
+    tgui::Button::Ptr m_saveBtn;
+    tgui::Button::Ptr m_saveAsBtn;
 
     Project m_project{};
 
@@ -54,6 +59,11 @@ private:
     void processMouseInput(sf::Event& event);
     void processKeyboardInput(sf::Event& event);
     void processZoom(sf::Event& event);
+
+    friend class UI;
+
+    void saveBtnPressed();
+    void saveAsBtnPressed();
 
     /*
     Texture IDs:

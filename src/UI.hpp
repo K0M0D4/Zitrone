@@ -3,14 +3,15 @@
 #include "fw/Buttons.hpp"
 #include "fw/ResourceManager.hpp"
 
-#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 
 #include <array>
 
 class UI {
 public:
     UI();
-    UI(cmt::ResourceManager& resources, const std::string& langFilepath);
+
+    void init(cmt::ResourceManager& resources, const std::string& langFilepath);
 
     void render(sf::RenderWindow& target);
 

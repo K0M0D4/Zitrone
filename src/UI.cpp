@@ -4,7 +4,7 @@
 
 UI::UI() {}
 
-UI::UI(cmt::ResourceManager& resources, const std::string& langFilepath) {
+void UI::init(cmt::ResourceManager& resources, const std::string& langFilepath) {
     m_btnTextColor = resources.getTheme(0).getColor(2);
     m_btnNormalColor = resources.getTheme(0).getColor(1);
     m_btnPointColor = sf::Color{resources.getTheme(0).getColor(1).r,
@@ -57,16 +57,16 @@ void UI::recalculate(sf::RenderWindow& window) {
 
 void UI::initNavBars(cmt::ResourceManager& resources) {
     // horizontal
-    m_saveBtn = createTextBtn(resources, m_textData.at(0), sf::Vector2f{5.0f, 5.0f}) ;
+    m_saveBtn = createTextBtn(resources, m_textData.at(0), sf::Vector2f{5.0f, 55.0f}) ;
     m_saveAsBtn = createTextBtn(resources, m_textData.at(1),
-        sf::Vector2f(m_saveBtn.getPos().x + m_saveBtn.getBounds().width + 5.0f, 5.0f));
+        sf::Vector2f(m_saveBtn.getPos().x + m_saveBtn.getBounds().width + 5.0f, 55.0f));
     m_exportBtn = createTextBtn(resources, m_textData.at(2),
-        sf::Vector2f(m_saveAsBtn.getPos().x + m_saveAsBtn.getBounds().width + 5.0f, 5.0f));
+        sf::Vector2f(m_saveAsBtn.getPos().x + m_saveAsBtn.getBounds().width + 5.0f, 55.0f));
     m_openBtn = createTextBtn(resources, m_textData.at(3),
         sf::Vector2f(m_exportBtn.getPos().x + m_exportBtn.getBounds().width
-        + 5.0f, 5.0f));
+        + 5.0f, 55.0f));
     m_settingsBtn = createTextBtn(resources, m_textData.at(4),
-        sf::Vector2f(m_openBtn.getPos().x + m_openBtn.getBounds().width + 5.0f, 5.0f));
+        sf::Vector2f(m_openBtn.getPos().x + m_openBtn.getBounds().width + 5.0f, 55.0f));
 
     // vertical
     m_addNoteBtn = createImageBtn(resources, 0);

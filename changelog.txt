@@ -2,6 +2,7 @@ v0.1.2 - beta
 - now chords can be added with numpad keys
 - active line automatically moves down by 1 after note added
 - ctrl + arrow moves all notes in the direction of an arrow
+- doing: tgui ui
 - bugfix: now if there's 1 or no notes, there is also no lines
 - bugfix: when exporting file type filter no longer shows project file
 

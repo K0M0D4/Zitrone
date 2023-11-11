@@ -7,6 +7,13 @@
 App::App() {
     m_window.create(sf::VideoMode(1280, 720), "Zitrone");
     m_window.setVerticalSyncEnabled(true);
+
+    m_GUI.setTarget(m_window);
+
+    tgui::Theme::setDefault("res/themes/tgui");
+
+    m_saveBtn = tgui::Button::create("Save");
+    m_saveAsBtn = tgui::Button::create("Save as");
     
     m_resources.loadTexture("res/edit.png");
     m_resources.loadTexture("res/delete.png");
@@ -17,7 +24,20 @@ App::App() {
 
     m_project = Project(&m_config, &m_resources);
     
-    m_UI = UI{m_resources, m_config.getLang()};
+    m_UI.init(m_resources, m_config.getLang());
+
+    m_saveBtn->onPress(&saveBtnPressed, this);
+    m_saveBtn->setPosition(5, 5);
+    m_saveBtn->setSize(80, 25);
+    m_saveBtn->setTextSize(17);
+    m_GUI.add(m_saveBtn);
+
+    m_saveAsBtn->onPress(&saveAsBtnPressed, this);
+    m_saveAsBtn->setPosition({bindRight(m_saveBtn) + 5.0f, bindTop(m_saveBtn)});
+    m_saveAsBtn->setSize(bindSize(m_saveBtn));
+    m_saveAsBtn->setTextSize(17);
+    m_GUI.add(m_saveAsBtn);
+
     calculateViewport();
 }
 
@@ -40,6 +60,8 @@ void App::update() {
 
     sf::Event event;
     while(m_window.pollEvent(event)) {
+        m_GUI.handleEvent(event);
+
         if(event.type == sf::Event::Closed) {
             m_window.close();
         }
@@ -103,6 +125,7 @@ void App::render() {
     // UI
     m_window.setView(m_normalView);
     m_UI.render(m_window);
+    m_GUI.draw();
 }
 
 void App::saveAsDialog() {
@@ -332,4 +355,12 @@ void App::processZoom(sf::Event& event) {
         m_viewport.zoom(1.04f);
         m_vpzoom *= (1.04f);
     }
+}
+
+void App::saveBtnPressed() {
+    m_project.getName() == std::string{} ? saveAsDialog() : m_project.save();
+}
+
+void App::saveAsBtnPressed() {
+    saveAsDialog();
 }

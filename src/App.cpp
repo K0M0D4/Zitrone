@@ -248,9 +248,17 @@ void App::processKeyboardInput(sf::Event& event) {
     case sf::Keyboard::Delete:
         m_project.deleteNote(); break;
     case sf::Keyboard::Right:
-        m_lastAL = m_project.moveActiveLines(sf::Vector2i(1, 0)); break;
+        if(m_CTRLPressed) {
+            m_project.moveNotesRight();
+        } else {
+            m_lastAL = m_project.moveActiveLines(sf::Vector2i(1, 0));
+        } break;
     case sf::Keyboard::Left:
-        m_lastAL = m_project.moveActiveLines(sf::Vector2i(-1, 0)); break;
+        if(m_CTRLPressed) {
+            m_project.moveNotesLeft();
+        } else {
+            m_lastAL = m_project.moveActiveLines(sf::Vector2i(-1, 0));
+        } break;
     case sf::Keyboard::Up:
         if(m_CTRLPressed) {
             m_project.moveNotesUp();

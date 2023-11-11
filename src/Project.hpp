@@ -26,8 +26,10 @@ public:
     void setChord(uint16_t chord);
     void deleteNote();
 
-    void moveNotesDown();
+    void moveNotesRight();
+    void moveNotesLeft();
     void moveNotesUp();
+    void moveNotesDown();
 
     sf::Vector2i moveActiveLines(sf::Vector2i howMuch);
 

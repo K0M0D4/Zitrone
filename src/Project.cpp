@@ -137,11 +137,21 @@ void Project::deleteNote() {
     calculateLines();
 }
 
-void Project::moveNotesDown() {
+void Project::moveNotesRight() {
     for(auto& note : m_notes) {
-        note.setPos(sf::Vector2f{note.getPos().x, note.getPos().y
-            + m_breakBetweenNotesH}, sf::Vector2i{note.getCoords().x,
-            note.getCoords().y + 1});
+        note.setPos(sf::Vector2f{note.getPos().x + m_breakBetweenNotesV,
+            note.getPos().y}, sf::Vector2i{note.getCoords().x + 1,
+            note.getCoords().y});
+    }
+
+    calculateLines();
+}
+
+void Project::moveNotesLeft() {
+    for(auto& note : m_notes) {
+        note.setPos(sf::Vector2f{note.getPos().x - m_breakBetweenNotesV,
+            note.getPos().y}, sf::Vector2i{note.getCoords().x - 1,
+            note.getCoords().y});
     }
 
     calculateLines();
@@ -152,6 +162,16 @@ void Project::moveNotesUp() {
         note.setPos(sf::Vector2f{note.getPos().x, note.getPos().y
             - m_breakBetweenNotesH}, sf::Vector2i{note.getCoords().x,
             note.getCoords().y - 1});
+    }
+
+    calculateLines();
+}
+
+void Project::moveNotesDown() {
+    for(auto& note : m_notes) {
+        note.setPos(sf::Vector2f{note.getPos().x, note.getPos().y
+            + m_breakBetweenNotesH}, sf::Vector2i{note.getCoords().x,
+            note.getCoords().y + 1});
     }
 
     calculateLines();

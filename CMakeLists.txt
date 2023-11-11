@@ -23,6 +23,16 @@ FetchContent_Declare(NFD
     GIT_TAG master)
 FetchContent_MakeAvailable(NFD)
 
+set(TGUI_SHARED_LIBS FALSE)
+set(TGUI_CXX_STANDARD 20)
+set(TGUI_BUILD_GUI_BUILDER FALSE)
+set(TGUI_USE_STATIC_STD_LIBS TRUE)
+
+FetchContent_Declare(TGUI
+    GIT_REPOSITORY https://github.com/texus/TGUI
+    GIT_TAG 0.9)
+FetchContent_MakeAvailable(TGUI)
+
 add_executable(${PROJECT_NAME}    
     src/fw/ResourceManager.cpp
     src/fw/Theme.cpp
@@ -47,7 +57,7 @@ add_executable(${PROJECT_NAME}
 target_compile_options(${PROJECT_NAME} PUBLIC -DSFML_STATIC)
 
 target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-system sfml-window
-    nfd )
+    nfd tgui)
 
 file(COPY res/ DESTINATION res/)
 file(COPY config DESTINATION .)

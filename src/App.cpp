@@ -204,50 +204,6 @@ void App::processMouseInput(sf::Event& event) {
         m_project.setActiveLines(vpMousePos);
         m_lastAL = m_project.getActiveLines();
     }
-
-    if(event.mouseButton.button == sf::Mouse::Left) {
-        if(m_UI.m_addNoteBtn.isPointed(m_window.mapPixelToCoords(winMousePos))) {
-            m_project.addNote();
-            m_lastAL = m_project.getActiveLines();
-            m_project.moveActiveLines(sf::Vector2i(0, 1));
-        } else if(m_UI.m_deleteBtn.isPointed(m_window.mapPixelToCoords(
-            winMousePos))) {
-
-            m_project.deleteNote();
-        } else if(m_UI.m_saveBtn.isPointed(m_window.mapPixelToCoords(
-            winMousePos))) {
-
-            m_project.getName() == std::string{} ? saveAsDialog() : m_project.save();
-        } else if(m_UI.m_saveAsBtn.isPointed(m_window.mapPixelToCoords(
-            winMousePos))) {
-
-            saveAsDialog();
-        } else if(m_UI.m_exportBtn.isPointed(m_window.mapPixelToCoords(
-            winMousePos))) {
-
-            exportDialog();
-        } else if(m_UI.m_openBtn.isPointed(m_window.mapPixelToCoords(
-            winMousePos))) {
-
-            openDialog();
-        } else if(m_UI.m_settingsBtn.isPointed(m_window.mapPixelToCoords(
-            winMousePos))) {
-
-            Settings::start(m_window);
-        }
-
-        for(uint16_t i{}; i < m_UI.m_chBtn.size(); ++i) {
-            if(m_UI.m_chBtn.at(i).isPointed(m_window.mapPixelToCoords(
-                winMousePos))) {
-
-                sf::Vector2i ALbuf{m_project.getActiveLines()};
-
-                m_project.setActiveLines(m_lastAL);
-                m_project.setChord(i);
-                m_project.setActiveLines(ALbuf);
-            }
-        }
-    }
 }
 
 void App::processKeyboardInput(sf::Event& event) {

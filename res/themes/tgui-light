@@ -1,0 +1,7 @@
+Button {
+    Font = ../PlayfairDisplay.ttf;
+    TextColor = #CECECE;
+    BackgroundColor = #272635;
+    BackgroundColorHover = #272635A0;
+    RoundedBorderRadius = 6;
+}

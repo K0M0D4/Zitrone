@@ -328,7 +328,7 @@ void App::openBtnPressed() {
 }
 
 void App::settingsBtnPressed() {
-    Settings::start(m_window);
+    //Settings::start(m_window);
 }
 
 void App::addNoteBtnPressed() {

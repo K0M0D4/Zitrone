@@ -13,7 +13,7 @@ App::App() {
     m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/edit.png");
     m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/delete.png");
     
-    m_resources.loadFont("res/PlayfairDisplay.ttf");
+    m_resources.loadFont("res/Manrope-Medium.ttf");
 
     m_resources.loadTheme("res/themes/" + m_config.getTheme() + "/app");
 

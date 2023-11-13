@@ -1,5 +1,5 @@
 Button {
-    Font = ../../PlayfairDisplay.ttf;
+    Font = ../../Manrope-Medium.ttf;
     TextColor = #CCC9DC;
     BackgroundColor = #1B2A41;
     BackgroundColorHover = #1B2A41A0;

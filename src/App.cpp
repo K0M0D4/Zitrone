@@ -9,11 +9,6 @@ App::App() {
     m_window.setVerticalSyncEnabled(true);
 
     m_GUI.setTarget(m_window);
-
-    tgui::Theme::setDefault("res/themes/tgui");
-
-    m_saveBtn = tgui::Button::create("Save");
-    m_saveAsBtn = tgui::Button::create("Save as");
     
     m_resources.loadTexture("res/edit.png");
     m_resources.loadTexture("res/delete.png");
@@ -22,21 +17,13 @@ App::App() {
 
     m_resources.loadTheme("res/themes/" + m_config.getTheme());
 
+    tgui::Theme::setDefault("res/themes/tgui-" + m_config.getTheme());
+
     m_project = Project(&m_config, &m_resources);
     
     m_UI.init(m_resources, m_config.getLang());
 
-    m_saveBtn->onPress(&saveBtnPressed, this);
-    m_saveBtn->setPosition(5, 5);
-    m_saveBtn->setSize(80, 25);
-    m_saveBtn->setTextSize(17);
-    m_GUI.add(m_saveBtn);
-
-    m_saveAsBtn->onPress(&saveAsBtnPressed, this);
-    m_saveAsBtn->setPosition({bindRight(m_saveBtn) + 5.0f, bindTop(m_saveBtn)});
-    m_saveAsBtn->setSize(bindSize(m_saveBtn));
-    m_saveAsBtn->setTextSize(17);
-    m_GUI.add(m_saveAsBtn);
+    initButtons();
 
     calculateViewport();
 }
@@ -296,7 +283,7 @@ void App::processKeyboardInput(sf::Event& event) {
         } break;
     case sf::Keyboard::Equal:
     case sf::Keyboard::Hyphen:
-        processZoom(event);
+        processZoom(event); break;
     case sf::Keyboard::LControl:
         m_CTRLPressed = true; break;
     case sf::Keyboard::LShift:
@@ -363,4 +350,65 @@ void App::saveBtnPressed() {
 
 void App::saveAsBtnPressed() {
     saveAsDialog();
+}
+
+void App::exportBtnPressed() {
+    exportDialog();
+}
+
+void App::openBtnPressed() {
+    openDialog();
+}
+
+void App::settingsBtnPressed() {
+    Settings::start(m_window);
+}
+
+void App::initButtons() {
+    setupBtnsNames();
+    setupBtnsBehaviour();
+    setupBtnsLook();
+}
+
+void App::setupBtnsNames() {
+    m_saveBtn = tgui::Button::create("Save");
+    m_saveAsBtn = tgui::Button::create("Save as");
+    m_exportBtn = tgui::Button::create("Export");
+    m_openBtn = tgui::Button::create("Open");
+    m_settingsBtn = tgui::Button::create("Settings");
+}
+
+void App::setupBtnsBehaviour() {
+    m_saveBtn->onPress(&saveBtnPressed, this);
+    m_saveAsBtn->onPress(&saveAsBtnPressed, this);
+    m_exportBtn->onPress(&exportBtnPressed, this);
+    m_openBtn->onPress(&openBtnPressed, this);
+    m_settingsBtn->onPress(&settingsBtnPressed, this);
+}
+
+void App::setupBtnsLook() {
+    m_saveBtn->setPosition(5, 5);
+    m_saveBtn->setSize(80, 25);
+    m_saveBtn->setTextSize(17);
+    m_GUI.add(m_saveBtn);
+
+    m_saveAsBtn->setPosition({bindRight(m_saveBtn) + 5.0f, bindTop(m_saveBtn)});
+    m_saveAsBtn->setSize(bindSize(m_saveBtn));
+    m_saveAsBtn->setTextSize(17);
+    m_GUI.add(m_saveAsBtn);
+
+    m_exportBtn->setPosition({bindRight(m_saveAsBtn) + 5.0f, bindTop(m_saveBtn)});
+    m_exportBtn->setSize(bindSize(m_saveBtn));
+    m_exportBtn->setTextSize(17);
+    m_GUI.add(m_exportBtn);
+
+    m_openBtn->setPosition({bindRight(m_exportBtn) + 5.0f, bindTop(m_saveBtn)});
+    m_openBtn->setSize(bindSize(m_saveBtn));
+    m_openBtn->setTextSize(17);
+    m_GUI.add(m_openBtn);
+
+    m_settingsBtn->setPosition({bindRight(m_openBtn) + 5.0f, bindTop(m_saveBtn)});
+    m_settingsBtn->setSize(bindSize(m_saveBtn));
+    m_settingsBtn->setTextSize(17);
+    m_GUI.add(m_settingsBtn);
 }

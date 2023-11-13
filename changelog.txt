@@ -5,6 +5,7 @@ v0.1.2 - beta
 - doing: tgui ui
 - bugfix: now if there's 1 or no notes, there is also no lines
 - bugfix: when exporting file type filter no longer shows project file
+- bugfix: hyphen and equal keys no longer works as ctrl, shift, s, o and e
 
 v0.1.1 - beta
 - fixed UI bug on windows

@@ -29,6 +29,9 @@ private:
 
     tgui::Button::Ptr m_saveBtn;
     tgui::Button::Ptr m_saveAsBtn;
+    tgui::Button::Ptr m_exportBtn;
+    tgui::Button::Ptr m_openBtn;
+    tgui::Button::Ptr m_settingsBtn;
 
     Project m_project{};
 
@@ -60,10 +63,16 @@ private:
     void processKeyboardInput(sf::Event& event);
     void processZoom(sf::Event& event);
 
-    friend class UI;
-
     void saveBtnPressed();
     void saveAsBtnPressed();
+    void exportBtnPressed();
+    void openBtnPressed();
+    void settingsBtnPressed();
+
+    void initButtons();
+    void setupBtnsNames();
+    void setupBtnsBehaviour();
+    void setupBtnsLook();
 
     /*
     Texture IDs:

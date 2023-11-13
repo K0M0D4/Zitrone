@@ -26,18 +26,18 @@ void UI::render(sf::RenderWindow& target) {
     // m_settingsBtn.render(target);
 
     // vertical navbar
-    m_addNoteBtn.render(target);
-    m_deleteBtn.render(target);
-    for(auto btn : m_chBtn) {
-        btn.render(target);
-    }
+    // m_addNoteBtn.render(target);
+    // m_deleteBtn.render(target);
+    // for(auto btn : m_chBtn) {
+    //     btn.render(target);
+    // }
 }
 
 void UI::recalculate(sf::RenderWindow& window) {
     // vertical buttons positions
     float xVerBtnsPos =
         static_cast<float>(window.getSize().x)
-        - m_addNoteBtn.getBounds().width - 10;
+        - m_addNoteBtn.getBounds().width - 100;
 
     m_addNoteBtn.setPos(sf::Vector2f(xVerBtnsPos, 40.0f));
 

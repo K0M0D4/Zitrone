@@ -189,6 +189,8 @@ void App::calculateViewport() {
     m_vpzoom = 1.0f;
 
     m_UI.recalculate(m_window);
+
+    recalculateVerticalBtns();
 }
 
 void App::processMouseInput(sf::Event& event) {
@@ -346,6 +348,23 @@ void App::processZoom(sf::Event& event) {
     }
 }
 
+void App::recalculateVerticalBtns() {
+    float xVerBtnsPos = static_cast<float>(m_window.getSize().x) - 50;
+
+    m_addNoteBtn->setPosition(xVerBtnsPos, 40);
+
+    m_deleteNoteBtn->setPosition({bindLeft(m_addNoteBtn),
+        bindBottom(m_addNoteBtn) + 15});
+
+    m_chordsBtns.at(0)->setPosition({bindLeft(m_addNoteBtn),
+        bindBottom(m_deleteNoteBtn) + 15});
+
+    for(uint16_t c{0}; c < m_chordsBtns.size() - 1; ++c) {
+        m_chordsBtns.at(c + 1)->setPosition({bindLeft(m_addNoteBtn),
+            bindBottom(m_chordsBtns.at(c)) + 10});
+    }
+}
+
 void App::saveBtnPressed() {
     m_project.getName() == std::string{} ? saveAsDialog() : m_project.save();
 }
@@ -366,10 +385,28 @@ void App::settingsBtnPressed() {
     Settings::start(m_window);
 }
 
+void App::addNoteBtnPressed() {
+    m_project.addNote();
+    m_lastAL = m_project.getActiveLines();
+    m_project.moveActiveLines(sf::Vector2i(0, 1));
+}
+
+void App::deleteNoteBtnPressed() {
+    m_project.deleteNote();
+}
+
+void App::chordBtnPressed(uint16_t chord) {
+    sf::Vector2i ALbuf{m_project.getActiveLines()};
+
+    m_project.setActiveLines(m_lastAL);
+    m_project.setChord(chord);
+    m_project.setActiveLines(ALbuf);
+}
+
 void App::initButtons() {
     setupBtnsNames();
-    setupBtnsBehaviour();
     setupBtnsLook();
+    setupBtnsBehaviour();
 }
 
 void App::setupBtnsNames() {
@@ -378,14 +415,9 @@ void App::setupBtnsNames() {
     m_exportBtn = tgui::Button::create(m_languageData.at(2));
     m_openBtn = tgui::Button::create(m_languageData.at(3));
     m_settingsBtn = tgui::Button::create(m_languageData.at(4));
-}
 
-void App::setupBtnsBehaviour() {
-    m_saveBtn->onPress(&saveBtnPressed, this);
-    m_saveAsBtn->onPress(&saveAsBtnPressed, this);
-    m_exportBtn->onPress(&exportBtnPressed, this);
-    m_openBtn->onPress(&openBtnPressed, this);
-    m_settingsBtn->onPress(&settingsBtnPressed, this);
+    m_addNoteBtn = tgui::Button::create();
+    m_deleteNoteBtn = tgui::Button::create();
 }
 
 void App::setupBtnsLook() {
@@ -413,6 +445,37 @@ void App::setupBtnsLook() {
     m_settingsBtn->setSize(bindSize(m_saveBtn));
     m_settingsBtn->setTextSize(17);
     m_GUI.add(m_settingsBtn);
+
+    m_addNoteBtn->getRenderer()->setTexture(m_resources.getTexture(0));
+    m_addNoteBtn->setSize(40, 40);
+    m_GUI.add(m_addNoteBtn);
+
+    m_deleteNoteBtn->getRenderer()->setTexture(m_resources.getTexture(1));
+    m_deleteNoteBtn->setSize(bindSize(m_addNoteBtn));
+    m_GUI.add(m_deleteNoteBtn);
+
+    for(uint16_t c{}; c < m_chordsBtns.size(); ++c) {
+        m_chordsBtns.at(c) = tgui::Button::create();
+        m_chordsBtns.at(c)->setSize(bindSize(m_addNoteBtn));
+        m_chordsBtns.at(c)->setTextSize(32);
+        m_GUI.add(m_chordsBtns.at(c));
+
+        // should not be here but it is here for a bit of optimization
+        //      the for loop is not repeated
+        m_chordsBtns.at(c)->setText(std::to_string(c));
+        m_chordsBtns.at(c)->onPress(&chordBtnPressed, this, c);
+    }
+}
+
+void App::setupBtnsBehaviour() {
+    m_saveBtn->onPress(&saveBtnPressed, this);
+    m_saveAsBtn->onPress(&saveAsBtnPressed, this);
+    m_exportBtn->onPress(&exportBtnPressed, this);
+    m_openBtn->onPress(&openBtnPressed, this);
+    m_settingsBtn->onPress(&settingsBtnPressed, this);
+
+    m_addNoteBtn->onPress(&addNoteBtnPressed, this);
+    m_deleteNoteBtn->onPress(&deleteNoteBtnPressed, this);
 }
 
 void App::loadLanguage(const std::string& filepath) {

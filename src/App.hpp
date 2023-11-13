@@ -34,6 +34,10 @@ private:
     tgui::Button::Ptr m_openBtn;
     tgui::Button::Ptr m_settingsBtn;
 
+    tgui::Button::Ptr m_addNoteBtn;
+    tgui::Button::Ptr m_deleteNoteBtn;
+    std::array<tgui::Button::Ptr, 7> m_chordsBtns{};
+
     Project m_project{};
 
     Config m_config{};
@@ -66,16 +70,22 @@ private:
     void processKeyboardInput(sf::Event& event);
     void processZoom(sf::Event& event);
 
+    void recalculateVerticalBtns();
+
     void saveBtnPressed();
     void saveAsBtnPressed();
     void exportBtnPressed();
     void openBtnPressed();
     void settingsBtnPressed();
 
+    void addNoteBtnPressed();
+    void deleteNoteBtnPressed();
+    void chordBtnPressed(uint16_t chord);
+
     void initButtons();
     void setupBtnsNames();
-    void setupBtnsBehaviour();
     void setupBtnsLook();
+    void setupBtnsBehaviour();
 
     void loadLanguage(const std::string& filepath);
 

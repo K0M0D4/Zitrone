@@ -3,7 +3,6 @@
 #include "Config.hpp"
 #include "Project.hpp"
 #include "Settings.hpp"
-#include "UI.hpp"
 
 #include "fw/DashLine.hpp"
 #include "fw/ResourceManager.hpp"
@@ -25,7 +24,9 @@ private:
 
     sf::RenderWindow m_window{};
 
-    UI m_UI{};
+    float m_HorBarSize{37};
+    float m_VerBarSize{60};
+
     tgui::GuiSFML m_GUI;
 
     tgui::Button::Ptr m_saveBtn;

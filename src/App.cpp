@@ -10,18 +10,16 @@ App::App() {
 
     m_GUI.setTarget(m_window);
     
-    m_resources.loadTexture("res/edit.png");
-    m_resources.loadTexture("res/delete.png");
+    m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/edit.png");
+    m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/delete.png");
     
     m_resources.loadFont("res/PlayfairDisplay.ttf");
 
-    m_resources.loadTheme("res/themes/" + m_config.getTheme());
+    m_resources.loadTheme("res/themes/" + m_config.getTheme() + "/app");
 
-    tgui::Theme::setDefault("res/themes/tgui-" + m_config.getTheme());
+    tgui::Theme::setDefault("res/themes/" + m_config.getTheme() + "/tgui");
 
     m_project = Project(&m_config, &m_resources);
-    
-    m_UI.init(m_resources, m_config.getLang());
 
     loadLanguage(m_config.getLang());
 
@@ -83,10 +81,9 @@ void App::update() {
 
     if(m_window.hasFocus()) {
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left) 
-            && winMousePos.y > m_UI.m_saveBtn.getSize().y * 1.5f
-            && winMousePos.x < m_window.getSize().x
-            - m_UI.m_addNoteBtn.getSize().x * 1.5f && winMousePos.x > 0.0f
-            && winMousePos.y < m_window.getSize().y) {
+            && winMousePos.y > m_HorBarSize
+            && winMousePos.x < m_window.getSize().x - m_VerBarSize
+            && winMousePos.x > 0.0f && winMousePos.y < m_window.getSize().y) {
             
             if(m_wasMousePressed) {
                 m_deltaMousePos = winMousePos - m_prevMousePos;
@@ -113,7 +110,6 @@ void App::render() {
 
     // UI
     m_window.setView(m_normalView);
-    m_UI.render(m_window);
     m_GUI.draw();
 }
 
@@ -166,29 +162,24 @@ void App::exportDialog() {
 }
 
 void App::calculateViewport() {
-    float navBarSize = m_UI.m_saveBtn.getSize().y * 1.5f;
-    float vertBarSize = m_UI.m_addNoteBtn.getSize().x * 1.5f;
-
     sf::Vector2f vpcenter = m_viewport.getCenter();
     m_viewport = sf::View(sf::FloatRect(0.f, 0.f,
-        m_window.getSize().x - vertBarSize,
-        m_window.getSize().y - navBarSize));
+        m_window.getSize().x - m_VerBarSize,
+        m_window.getSize().y - m_HorBarSize));
     m_viewport.setCenter(vpcenter);
 
     m_viewport.setViewport(sf::FloatRect(0.0f,
-        1.0f - (m_window.getSize().y - navBarSize)
+        1.0f - (m_window.getSize().y - m_HorBarSize)
         / m_window.getSize().y,
-        (m_window.getSize().x - vertBarSize)
+        (m_window.getSize().x - m_VerBarSize)
         / m_window.getSize().x,
-        (m_window.getSize().y - navBarSize)
+        (m_window.getSize().y - m_HorBarSize)
         / m_window.getSize().y));
     
     m_normalView = sf::View(sf::FloatRect(0.f, 0.f,
         m_window.getSize().x, m_window.getSize().y));
     
     m_vpzoom = 1.0f;
-
-    m_UI.recalculate(m_window);
 
     recalculateVerticalBtns();
 }
@@ -197,9 +188,8 @@ void App::processMouseInput(sf::Event& event) {
     sf::Vector2i winMousePos{sf::Mouse::getPosition(m_window)};
     sf::Vector2f vpMousePos{m_window.mapPixelToCoords(winMousePos, m_viewport)};
 
-    if(winMousePos.y > m_UI.m_saveBtn.getSize().y * 1.5f
-        && winMousePos.x < m_window.getSize().x
-        - m_UI.m_addNoteBtn.getSize().x * 1.5f) {
+    if(winMousePos.y > m_HorBarSize
+        && winMousePos.x < m_window.getSize().x - m_VerBarSize) {
         
         m_project.setActiveLines(vpMousePos);
         m_lastAL = m_project.getActiveLines();

@@ -39,13 +39,8 @@ add_executable(${PROJECT_NAME}
     src/fw/Line.cpp
     src/fw/DashLine.cpp
 
-    src/fw/buttons/Button.cpp
-    src/fw/buttons/ImageButton.cpp
-    src/fw/buttons/TextButton.cpp
-
     src/main.cpp
     src/App.cpp
-    src/UI.cpp
     src/Grid.cpp
     src/GridHints.cpp
     src/Note.cpp

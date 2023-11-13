@@ -23,6 +23,8 @@ App::App() {
     
     m_UI.init(m_resources, m_config.getLang());
 
+    loadLanguage(m_config.getLang());
+
     initButtons();
 
     calculateViewport();
@@ -371,11 +373,11 @@ void App::initButtons() {
 }
 
 void App::setupBtnsNames() {
-    m_saveBtn = tgui::Button::create("Save");
-    m_saveAsBtn = tgui::Button::create("Save as");
-    m_exportBtn = tgui::Button::create("Export");
-    m_openBtn = tgui::Button::create("Open");
-    m_settingsBtn = tgui::Button::create("Settings");
+    m_saveBtn = tgui::Button::create(m_languageData.at(0));
+    m_saveAsBtn = tgui::Button::create(m_languageData.at(1));
+    m_exportBtn = tgui::Button::create(m_languageData.at(2));
+    m_openBtn = tgui::Button::create(m_languageData.at(3));
+    m_settingsBtn = tgui::Button::create(m_languageData.at(4));
 }
 
 void App::setupBtnsBehaviour() {
@@ -388,7 +390,7 @@ void App::setupBtnsBehaviour() {
 
 void App::setupBtnsLook() {
     m_saveBtn->setPosition(5, 5);
-    m_saveBtn->setSize(80, 25);
+    m_saveBtn->setSize(100, 25);
     m_saveBtn->setTextSize(17);
     m_GUI.add(m_saveBtn);
 
@@ -411,4 +413,15 @@ void App::setupBtnsLook() {
     m_settingsBtn->setSize(bindSize(m_saveBtn));
     m_settingsBtn->setTextSize(17);
     m_GUI.add(m_settingsBtn);
+}
+
+void App::loadLanguage(const std::string& filepath) {
+    std::ifstream file("res/languages/" + filepath + ".txt");
+    if(!file.good())
+        throw std::runtime_error("Error: Can't read language: "
+            + filepath + '\n');
+
+    for(uint16_t i{}; i < m_languageData.size(); ++i) {
+        getline(file, m_languageData.at(i));
+    }
 }

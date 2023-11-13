@@ -19,11 +19,11 @@ void UI::init(cmt::ResourceManager& resources, const std::string& langFilepath) 
 
 void UI::render(sf::RenderWindow& target) {
     // horizontal navbar
-    m_saveBtn.render(target);
-    m_saveAsBtn.render(target);
-    m_exportBtn.render(target);
-    m_openBtn.render(target);
-    m_settingsBtn.render(target);
+    // m_saveBtn.render(target);
+    // m_saveAsBtn.render(target);
+    // m_exportBtn.render(target);
+    // m_openBtn.render(target);
+    // m_settingsBtn.render(target);
 
     // vertical navbar
     m_addNoteBtn.render(target);

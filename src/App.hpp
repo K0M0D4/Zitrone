@@ -11,6 +11,7 @@
 #include <SFML/Graphics.hpp>
 #include <TGUI/TGUI.hpp>
 
+#include <array>
 #include <vector>
 
 class App {
@@ -50,6 +51,8 @@ private:
     bool m_wasMousePressed{};
     float m_vpzoom{1.0f};
 
+    std::array<std::string, 5> m_languageData{};
+
     void update();
     void render();
 
@@ -73,6 +76,8 @@ private:
     void setupBtnsNames();
     void setupBtnsBehaviour();
     void setupBtnsLook();
+
+    void loadLanguage(const std::string& filepath);
 
     /*
     Texture IDs:

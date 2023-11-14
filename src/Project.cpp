@@ -123,6 +123,16 @@ void Project::setChord(uint16_t chord) {
     }
 }
 
+void Project::setChordPosition(int position) {
+    sf::Vector2i al{m_grid.getActiveLines()};
+
+    for(uint16_t i{}; i < m_notes.size(); ++i) {
+        if(m_notes.at(i).getCoords() == al && m_notes.at(i).getChord() != 0) {
+            m_notes.at(i).setChordPos(position);
+        }
+    }
+}
+
 void Project::deleteNote() {
     sf::Vector2i al{m_grid.getActiveLines()};
 

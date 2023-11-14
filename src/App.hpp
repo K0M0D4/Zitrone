@@ -37,6 +37,7 @@ private:
 
     tgui::Button::Ptr m_addNoteBtn;
     tgui::Button::Ptr m_deleteNoteBtn;
+    tgui::Button::Ptr m_chordPosBtn;
     std::array<tgui::Button::Ptr, 7> m_chordsBtns{};
 
     tgui::Label::Ptr m_saveBtnTT;
@@ -53,6 +54,8 @@ private:
 
     bool m_CTRLPressed{false};
     bool m_ShiftPressed{false};
+
+    bool m_isChordPosModeOn{false};
 
     sf::Vector2i m_lastAL{};
 
@@ -89,6 +92,7 @@ private:
 
     void addNoteBtnPressed();
     void deleteNoteBtnPressed();
+    void chordPosBtnPressed();
     void chordBtnPressed(uint16_t chord);
 
     void initButtons();
@@ -104,6 +108,7 @@ private:
     Texture IDs:
         0 -> edit
         1 -> delete
+        2 -> chord position
 
     Font IDs:
         0 -> PlayfairDisplay

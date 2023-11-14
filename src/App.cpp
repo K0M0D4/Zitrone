@@ -12,6 +12,7 @@ App::App() {
     
     m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/edit.png");
     m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/delete.png");
+    m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/chordPos.png");
     
     m_resources.loadFont("res/Manrope-Medium.ttf");
 
@@ -259,22 +260,34 @@ void App::processKeyboardInput(sf::Event& event) {
         
     if(key >= sf::Keyboard::Num0
         && key <= sf::Keyboard::Num6) {
-        
+
         sf::Vector2i ALbuf{m_project.getActiveLines()};
-        
+    
         m_project.setActiveLines(m_lastAL);
         m_project.setChord(key - 26);
 
         m_project.setActiveLines(ALbuf);
+        
     } else if(key >= sf::Keyboard::Numpad0
         && key <= sf::Keyboard::Numpad6) {
 
-        sf::Vector2i ALbuf{m_project.getActiveLines()};
+        if(!m_isChordPosModeOn) {
+            sf::Vector2i ALbuf{m_project.getActiveLines()};
         
-        m_project.setActiveLines(m_lastAL);
-        m_project.setChord(key - 75);
+            m_project.setActiveLines(m_lastAL);
+            m_project.setChord(key - 75);
 
-        m_project.setActiveLines(ALbuf);
+            m_project.setActiveLines(ALbuf);
+        } 
+
+    }
+    
+    if(key >= sf::Keyboard::Numpad0
+        && key <= sf::Keyboard::Numpad9) {
+        if(m_isChordPosModeOn) {
+            m_project.setChordPosition(key - 75);
+            m_isChordPosModeOn = false;
+        }
     }
 }
 
@@ -302,8 +315,11 @@ void App::recalculateVerticalBtns() {
     m_deleteNoteBtn->setPosition({bindLeft(m_addNoteBtn),
         bindBottom(m_addNoteBtn) + 15});
 
-    m_chordsBtns.at(0)->setPosition({bindLeft(m_addNoteBtn),
+    m_chordPosBtn->setPosition({bindLeft(m_addNoteBtn),
         bindBottom(m_deleteNoteBtn) + 15});
+
+    m_chordsBtns.at(0)->setPosition({bindLeft(m_addNoteBtn),
+        bindBottom(m_chordPosBtn) + 15});
 
     for(uint16_t c{0}; c < m_chordsBtns.size() - 1; ++c) {
         m_chordsBtns.at(c + 1)->setPosition({bindLeft(m_addNoteBtn),
@@ -341,6 +357,11 @@ void App::deleteNoteBtnPressed() {
     m_project.deleteNote();
 }
 
+void App::chordPosBtnPressed() {
+    m_isChordPosModeOn = !m_isChordPosModeOn;
+    // m_project.setChordPosition(4);
+}
+
 void App::chordBtnPressed(uint16_t chord) {
     sf::Vector2i ALbuf{m_project.getActiveLines()};
 
@@ -365,6 +386,7 @@ void App::setupBtnsNames() {
 
     m_addNoteBtn = tgui::Button::create();
     m_deleteNoteBtn = tgui::Button::create();
+    m_chordPosBtn = tgui::Button::create();
 }
 
 void App::setupBtnsLook() {
@@ -400,6 +422,10 @@ void App::setupBtnsLook() {
     m_deleteNoteBtn->getRenderer()->setTexture(m_resources.getTexture(1));
     m_deleteNoteBtn->setSize(bindSize(m_addNoteBtn));
     m_GUI.add(m_deleteNoteBtn);
+    
+    m_chordPosBtn->getRenderer()->setTexture(m_resources.getTexture(2));
+    m_chordPosBtn->setSize(bindSize(m_addNoteBtn));
+    m_GUI.add(m_chordPosBtn);
 
     for(uint16_t c{}; c < m_chordsBtns.size(); ++c) {
         m_chordsBtns.at(c) = tgui::Button::create();
@@ -423,6 +449,7 @@ void App::setupBtnsBehaviour() {
 
     m_addNoteBtn->onPress(&addNoteBtnPressed, this);
     m_deleteNoteBtn->onPress(&deleteNoteBtnPressed, this);
+    m_chordPosBtn->onPress(&chordPosBtnPressed, this);
 }
 
 void App::setupTooltips() {

@@ -24,6 +24,7 @@ public:
 
     void addNote();
     void setChord(uint16_t chord);
+    void setChordPosition(int position);
     void deleteNote();
 
     void moveNotesRight();

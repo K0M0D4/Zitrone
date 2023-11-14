@@ -8,11 +8,13 @@ public:
 
     void setPos(sf::Vector2f pos, sf::Vector2i coords);
     void setChord(uint16_t chord);
+    void setChordPos(int position);
     void setColor(sf::Color color);
 
     sf::Vector2i getCoords();
     sf::Vector2f getPos();
     uint16_t getChord();
+    int getChordPosition();
     sf::Color getColor();
 
     void render(sf::RenderTarget& target);
@@ -26,5 +28,8 @@ private:
     sf::Vector2f m_pos{};
 
     uint16_t m_chord{};
+    int m_chordPos{3};
+
+    void repositionChord();
 
 };

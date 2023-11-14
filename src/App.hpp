@@ -39,6 +39,14 @@ private:
     tgui::Button::Ptr m_deleteNoteBtn;
     std::array<tgui::Button::Ptr, 7> m_chordsBtns{};
 
+    tgui::Label::Ptr m_saveBtnTT;
+    tgui::Label::Ptr m_saveAsBtnTT;
+    tgui::Label::Ptr m_exportBtnTT;
+    tgui::Label::Ptr m_openBtnTT;
+
+    tgui::Label::Ptr m_addNoteBtnTT;
+    tgui::Label::Ptr m_deleteNoteBtnTT;
+
     Project m_project{};
 
     Config m_config{};
@@ -87,6 +95,8 @@ private:
     void setupBtnsNames();
     void setupBtnsLook();
     void setupBtnsBehaviour();
+
+    void setupTooltips();
 
     void loadLanguage(const std::string& filepath);
 

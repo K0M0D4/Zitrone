@@ -5,3 +5,11 @@ Button {
     BackgroundColorHover = #272635A0;
     RoundedBorderRadius = 6;
 }
+
+ToolTip {
+    Font = ../../Manrope-Medium.ttf;
+    TextColor = #CECECE;
+    BackgroundColor = #272635;
+    Borders  = (0, 0, 0, 0);
+    Padding = (2, 2, 2, 2);
+}

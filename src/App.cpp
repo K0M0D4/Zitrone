@@ -351,6 +351,7 @@ void App::chordBtnPressed(uint16_t chord) {
 
 void App::initButtons() {
     setupBtnsNames();
+    setupTooltips();
     setupBtnsLook();
     setupBtnsBehaviour();
 }
@@ -422,6 +423,32 @@ void App::setupBtnsBehaviour() {
 
     m_addNoteBtn->onPress(&addNoteBtnPressed, this);
     m_deleteNoteBtn->onPress(&deleteNoteBtnPressed, this);
+}
+
+void App::setupTooltips() {
+    m_saveBtnTT = tgui::Label::create("(Ctrl + S)");
+    m_saveBtnTT->setRenderer(tgui::Theme::getDefault()->getRenderer("ToolTip"));
+    m_saveBtn->setToolTip(m_saveBtnTT);
+
+    m_saveAsBtnTT = tgui::Label::create("(Ctrl + Shift + S)");
+    m_saveAsBtnTT->setRenderer(tgui::Theme::getDefault()->getRenderer("ToolTip"));
+    m_saveAsBtn->setToolTip(m_saveAsBtnTT);
+
+    m_exportBtnTT = tgui::Label::create("(Ctrl + E)");
+    m_exportBtnTT->setRenderer(tgui::Theme::getDefault()->getRenderer("ToolTip"));
+    m_exportBtn->setToolTip(m_exportBtnTT);
+
+    m_openBtnTT = tgui::Label::create("(Ctrl + O)");
+    m_openBtnTT->setRenderer(tgui::Theme::getDefault()->getRenderer("ToolTip"));
+    m_openBtn->setToolTip(m_openBtnTT);
+
+    m_addNoteBtnTT = tgui::Label::create("(Space)");
+    m_addNoteBtnTT->setRenderer(tgui::Theme::getDefault()->getRenderer("ToolTip"));
+    m_addNoteBtn->setToolTip(m_addNoteBtnTT);
+
+    m_deleteNoteBtnTT = tgui::Label::create("(Delete) (Backspace)");
+    m_deleteNoteBtnTT->setRenderer(tgui::Theme::getDefault()->getRenderer("ToolTip"));
+    m_deleteNoteBtn->setToolTip(m_deleteNoteBtnTT);
 }
 
 void App::loadLanguage(const std::string& filepath) {

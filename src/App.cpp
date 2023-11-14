@@ -539,8 +539,14 @@ void App::setupChordPosSetBtns() {
 }
 
 void App::enableChordPosSetBtns(bool enable) {
-    m_chordPosSetBtnsVerLayout->setPosition(m_project.getNotePosAtAL().x,
-        m_project.getNotePosAtAL().y);
+    float newX{m_project.getNotePosAtAL().x};
+    float newY{m_project.getNotePosAtAL().y};
+
+    sf::Vector2i newPos{m_window.mapCoordsToPixel(sf::Vector2f(newX, newY), m_viewport)};
+    newPos.x -= 120;
+    newPos.y -= 120;
+
+    m_chordPosSetBtnsVerLayout->setPosition(newPos.x, newPos.y);
 
     m_chordPosSetBtnsVerLayout->setEnabled(enable);
     m_chordPosSetBtnsVerLayout->setVisible(enable);

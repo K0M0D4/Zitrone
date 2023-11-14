@@ -13,6 +13,15 @@ App::App() {
     m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/edit.png");
     m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/delete.png");
     m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/chordPos.png");
+
+    m_resources.loadTexture("res/arrow-TL.png");
+    m_resources.loadTexture("res/arrow-T.png");
+    m_resources.loadTexture("res/arrow-TR.png");
+    m_resources.loadTexture("res/arrow-R.png");
+    m_resources.loadTexture("res/arrow-DR.png");
+    m_resources.loadTexture("res/arrow-D.png");
+    m_resources.loadTexture("res/arrow-DL.png");
+    m_resources.loadTexture("res/arrow-L.png");
     
     m_resources.loadFont("res/Manrope-Medium.ttf");
 
@@ -359,7 +368,6 @@ void App::deleteNoteBtnPressed() {
 
 void App::chordPosBtnPressed() {
     m_isChordPosModeOn = !m_isChordPosModeOn;
-    // m_project.setChordPosition(4);
 }
 
 void App::chordBtnPressed(uint16_t chord) {
@@ -375,21 +383,36 @@ void App::initButtons() {
     setupTooltips();
     setupBtnsLook();
     setupBtnsBehaviour();
+
+    setupChordsBtns();
+    setupChordPosSetBtns();
 }
 
 void App::setupBtnsNames() {
+    setupHorBtnsNames();
+    setupVerBtnsNames();
+}
+
+void App::setupHorBtnsNames() {
     m_saveBtn = tgui::Button::create(m_languageData.at(0));
     m_saveAsBtn = tgui::Button::create(m_languageData.at(1));
     m_exportBtn = tgui::Button::create(m_languageData.at(2));
     m_openBtn = tgui::Button::create(m_languageData.at(3));
     m_settingsBtn = tgui::Button::create(m_languageData.at(4));
+}
 
+void App::setupVerBtnsNames() {
     m_addNoteBtn = tgui::Button::create();
     m_deleteNoteBtn = tgui::Button::create();
     m_chordPosBtn = tgui::Button::create();
 }
 
 void App::setupBtnsLook() {
+    setupHorBtnsLook();
+    setupVerBtnsLook();
+}
+
+void App::setupHorBtnsLook() {
     m_saveBtn->setPosition(5, 5);
     m_saveBtn->setSize(100, 25);
     m_saveBtn->setTextSize(17);
@@ -414,7 +437,9 @@ void App::setupBtnsLook() {
     m_settingsBtn->setSize(bindSize(m_saveBtn));
     m_settingsBtn->setTextSize(17);
     m_GUI.add(m_settingsBtn);
+}
 
+void App::setupVerBtnsLook() {
     m_addNoteBtn->getRenderer()->setTexture(m_resources.getTexture(0));
     m_addNoteBtn->setSize(40, 40);
     m_GUI.add(m_addNoteBtn);
@@ -426,30 +451,68 @@ void App::setupBtnsLook() {
     m_chordPosBtn->getRenderer()->setTexture(m_resources.getTexture(2));
     m_chordPosBtn->setSize(bindSize(m_addNoteBtn));
     m_GUI.add(m_chordPosBtn);
+}
 
+void App::setupBtnsBehaviour() {
+    setupHorBtnsBehaviour();
+    setupVerBtnsBehaviour();
+}
+
+void App::setupHorBtnsBehaviour() {
+    m_saveBtn->onPress(&saveBtnPressed, this);
+    m_saveAsBtn->onPress(&saveAsBtnPressed, this);
+    m_exportBtn->onPress(&exportBtnPressed, this);
+    m_openBtn->onPress(&openBtnPressed, this);
+    m_settingsBtn->onPress(&settingsBtnPressed, this);
+}
+
+void App::setupVerBtnsBehaviour() {
+    m_addNoteBtn->onPress(&addNoteBtnPressed, this);
+    m_deleteNoteBtn->onPress(&deleteNoteBtnPressed, this);
+    m_chordPosBtn->onPress(&chordPosBtnPressed, this);
+}
+
+void App::setupChordsBtns() {
     for(uint16_t c{}; c < m_chordsBtns.size(); ++c) {
         m_chordsBtns.at(c) = tgui::Button::create();
         m_chordsBtns.at(c)->setSize(bindSize(m_addNoteBtn));
         m_chordsBtns.at(c)->setTextSize(32);
         m_GUI.add(m_chordsBtns.at(c));
 
-        // should not be here but it is here for a bit of optimization
-        //      the for loop is not repeated
         m_chordsBtns.at(c)->setText(std::to_string(c));
         m_chordsBtns.at(c)->onPress(&chordBtnPressed, this, c);
     }
 }
 
-void App::setupBtnsBehaviour() {
-    m_saveBtn->onPress(&saveBtnPressed, this);
-    m_saveAsBtn->onPress(&saveAsBtnPressed, this);
-    m_exportBtn->onPress(&exportBtnPressed, this);
-    m_openBtn->onPress(&openBtnPressed, this);
-    m_settingsBtn->onPress(&settingsBtnPressed, this);
+#include <iostream>
 
-    m_addNoteBtn->onPress(&addNoteBtnPressed, this);
-    m_deleteNoteBtn->onPress(&deleteNoteBtnPressed, this);
-    m_chordPosBtn->onPress(&chordPosBtnPressed, this);
+void App::setupChordPosSetBtns() {
+    m_chordPosSetBtnsVerLayout = tgui::VerticalLayout::create();
+    m_chordPosSetBtnsVerLayout->setSize(240, 240);
+    m_GUI.add(m_chordPosSetBtnsVerLayout);
+
+    m_chordPosSetBtnsVerLayout->setPosition(520, 240);
+
+    for(int i{}; i < 3; ++i) {
+        m_chordPosSetBtnsHorLayouts.at(i) = tgui::HorizontalLayout::create();
+        m_chordPosSetBtnsHorLayouts.at(i)->setSize(240, 80);
+        m_chordPosSetBtnsVerLayout->add(m_chordPosSetBtnsHorLayouts.at(i));
+    }
+
+    for(uint16_t c{}; c < m_chordPosSetBtns.size() + 1; ++c) {
+        if(c == 4) ++c;
+        if(c < 4) {
+            m_chordPosSetBtns.at(c) = tgui::Button::create();
+            m_chordPosSetBtnsHorLayouts.at(c / 3)->add(m_chordPosSetBtns.at(c));
+        } else if(c > 4) {
+            m_chordPosSetBtns.at(c - 1) = tgui::Button::create();
+            m_chordPosSetBtnsHorLayouts.at(c / 3)->add(m_chordPosSetBtns.at(c - 1));
+        }
+
+        // m_chordPosSetBtns.at(c)->onPress(&chordBtnPressed, this, c);
+    }
+
+    m_chordPosSetBtnsHorLayouts.at(1)->insertSpace(1, 1.0f);
 }
 
 void App::setupTooltips() {

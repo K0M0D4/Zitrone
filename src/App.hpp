@@ -20,6 +20,9 @@ public:
     int32_t start();
 
 private:
+
+    // members
+
     cmt::ResourceManager m_resources{};
 
     sf::RenderWindow m_window{};
@@ -27,8 +30,10 @@ private:
     float m_HorBarSize{37};
     float m_VerBarSize{60};
 
+    // GUI
     tgui::GuiSFML m_GUI;
 
+    // buttons
     tgui::Button::Ptr m_saveBtn;
     tgui::Button::Ptr m_saveAsBtn;
     tgui::Button::Ptr m_exportBtn;
@@ -40,6 +45,11 @@ private:
     tgui::Button::Ptr m_chordPosBtn;
     std::array<tgui::Button::Ptr, 7> m_chordsBtns{};
 
+    tgui::VerticalLayout::Ptr m_chordPosSetBtnsVerLayout;
+    std::array<tgui::HorizontalLayout::Ptr, 3> m_chordPosSetBtnsHorLayouts;
+    std::array<tgui::Button::Ptr, 8> m_chordPosSetBtns{};
+
+    // tooltips
     tgui::Label::Ptr m_saveBtnTT;
     tgui::Label::Ptr m_saveAsBtnTT;
     tgui::Label::Ptr m_exportBtnTT;
@@ -69,6 +79,8 @@ private:
 
     std::array<std::string, 5> m_languageData{};
 
+    // methods
+
     void update();
     void render();
 
@@ -96,9 +108,24 @@ private:
     void chordBtnPressed(uint16_t chord);
 
     void initButtons();
+
     void setupBtnsNames();
+
+    void setupHorBtnsNames();
+    void setupVerBtnsNames();
+
     void setupBtnsLook();
+
+    void setupHorBtnsLook();
+    void setupVerBtnsLook();
+
     void setupBtnsBehaviour();
+
+    void setupHorBtnsBehaviour();
+    void setupVerBtnsBehaviour();
+
+    void setupChordsBtns();
+    void setupChordPosSetBtns();
 
     void setupTooltips();
 
@@ -109,11 +136,10 @@ private:
         0 -> edit
         1 -> delete
         2 -> chord position
+        3 - 11 -> arrows counting from top left clockwise
 
     Font IDs:
-        0 -> PlayfairDisplay
-
-    Theme IDs:
-        0 -> dark
+        0 -> Manrope
     */
+
 };

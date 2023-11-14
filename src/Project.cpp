@@ -211,6 +211,16 @@ std::string Project::getName() {
     return m_name;
 }
 
+sf::Vector2f Project::getNotePosAtAL() {
+    for(auto& note : m_notes) {
+        if(note.getCoords() == m_grid.getActiveLines()) {
+            return note.getPos();
+        }
+    }
+
+    return sf::Vector2f{};
+}
+
 void Project::render(sf::RenderWindow& target) {
     target.draw(m_workspace);
     m_grid.render(target);

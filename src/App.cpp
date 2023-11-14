@@ -17,11 +17,11 @@ App::App() {
     m_resources.loadTexture("res/arrow-TL.png");
     m_resources.loadTexture("res/arrow-T.png");
     m_resources.loadTexture("res/arrow-TR.png");
-    m_resources.loadTexture("res/arrow-R.png");
-    m_resources.loadTexture("res/arrow-DR.png");
-    m_resources.loadTexture("res/arrow-D.png");
-    m_resources.loadTexture("res/arrow-DL.png");
     m_resources.loadTexture("res/arrow-L.png");
+    m_resources.loadTexture("res/arrow-R.png");
+    m_resources.loadTexture("res/arrow-DL.png");
+    m_resources.loadTexture("res/arrow-D.png");
+    m_resources.loadTexture("res/arrow-DR.png");
     
     m_resources.loadFont("res/Manrope-Medium.ttf");
 
@@ -67,14 +67,16 @@ void App::update() {
             calculateViewport();
         }
 
-        if(event.type == sf::Event::MouseWheelScrolled
-            && event.mouseWheelScroll.wheel == sf::Mouse::VerticalWheel) {
-            
-            processZoom(event);
-        }
+        if(!m_isChordPosModeOn) {
+            if(event.type == sf::Event::MouseWheelScrolled
+                && event.mouseWheelScroll.wheel == sf::Mouse::VerticalWheel) {
+                
+                processZoom(event);
+            }
 
-        if(event.type == sf::Event::MouseButtonPressed)
-            processMouseInput(event);
+            if(event.type == sf::Event::MouseButtonPressed)
+                processMouseInput(event);
+        }
 
         if(event.type == sf::Event::KeyPressed) {
             processKeyboardInput(event);
@@ -106,8 +108,10 @@ void App::update() {
             m_deltaMousePos = sf::Vector2i{};
         }
 
-        m_viewport.move(static_cast<float>(-m_deltaMousePos.x) * m_vpzoom,
-            static_cast<float>(-m_deltaMousePos.y) * m_vpzoom);
+        if(!m_isChordPosModeOn) {
+            m_viewport.move(static_cast<float>(-m_deltaMousePos.x) * m_vpzoom,
+                static_cast<float>(-m_deltaMousePos.y) * m_vpzoom);
+        }
     }
 }
 
@@ -209,62 +213,64 @@ void App::processMouseInput(sf::Event& event) {
 void App::processKeyboardInput(sf::Event& event) {
     sf::Keyboard::Key key{event.key.code};
 
-    switch(key) {
-    case sf::Keyboard::Space:
-        m_project.addNote();
-        m_lastAL = m_project.getActiveLines();
-        m_project.moveActiveLines(sf::Vector2i(0, 1)); break;
-    case sf::Keyboard::Backspace:
-    case sf::Keyboard::Delete:
-        m_project.deleteNote(); break;
-    case sf::Keyboard::Right:
-        if(m_CTRLPressed) {
-            m_project.moveNotesRight();
-        } else {
-            m_lastAL = m_project.moveActiveLines(sf::Vector2i(1, 0));
-        } break;
-    case sf::Keyboard::Left:
-        if(m_CTRLPressed) {
-            m_project.moveNotesLeft();
-        } else {
-            m_lastAL = m_project.moveActiveLines(sf::Vector2i(-1, 0));
-        } break;
-    case sf::Keyboard::Up:
-        if(m_CTRLPressed) {
-            m_project.moveNotesUp();
-        } else {
-            m_lastAL = m_project.moveActiveLines(sf::Vector2i(0, -1));
-        } break;
-    case sf::Keyboard::Down:
-        if(m_CTRLPressed) {
-            m_project.moveNotesDown();
-        } else {
-            m_lastAL = m_project.moveActiveLines(sf::Vector2i(0, 1));
-        } break;
-    case sf::Keyboard::Equal:
-    case sf::Keyboard::Hyphen:
-        processZoom(event); break;
-    case sf::Keyboard::LControl:
-        m_CTRLPressed = true; break;
-    case sf::Keyboard::LShift:
-        m_ShiftPressed = true; break;
-    case sf::Keyboard::S:
-        if(m_CTRLPressed) {
-            if(m_ShiftPressed
-                || m_project.getName() == std::string{}) {
+    if(!m_isChordPosModeOn) {
+        switch(key) {
+        case sf::Keyboard::Space:
+            m_project.addNote();
+            m_lastAL = m_project.getActiveLines();
+            m_project.moveActiveLines(sf::Vector2i(0, 1)); break;
+        case sf::Keyboard::Backspace:
+        case sf::Keyboard::Delete:
+            m_project.deleteNote(); break;
+        case sf::Keyboard::Right:
+            if(m_CTRLPressed) {
+                m_project.moveNotesRight();
+            } else {
+                m_lastAL = m_project.moveActiveLines(sf::Vector2i(1, 0));
+            } break;
+        case sf::Keyboard::Left:
+            if(m_CTRLPressed) {
+                m_project.moveNotesLeft();
+            } else {
+                m_lastAL = m_project.moveActiveLines(sf::Vector2i(-1, 0));
+            } break;
+        case sf::Keyboard::Up:
+            if(m_CTRLPressed) {
+                m_project.moveNotesUp();
+            } else {
+                m_lastAL = m_project.moveActiveLines(sf::Vector2i(0, -1));
+            } break;
+        case sf::Keyboard::Down:
+            if(m_CTRLPressed) {
+                m_project.moveNotesDown();
+            } else {
+                m_lastAL = m_project.moveActiveLines(sf::Vector2i(0, 1));
+            } break;
+        case sf::Keyboard::Equal:
+        case sf::Keyboard::Hyphen:
+            processZoom(event); break;
+        case sf::Keyboard::LControl:
+            m_CTRLPressed = true; break;
+        case sf::Keyboard::LShift:
+            m_ShiftPressed = true; break;
+        case sf::Keyboard::S:
+            if(m_CTRLPressed) {
+                if(m_ShiftPressed
+                    || m_project.getName() == std::string{}) {
 
-                saveAsDialog();
-                break;
-            }
+                    saveAsDialog();
+                    break;
+                }
 
-            m_project.save();
-        } break;
-    case sf::Keyboard::O:
-        if(m_CTRLPressed)
-            openDialog(); break;
-    case sf::Keyboard::E:
-        if(m_CTRLPressed)
-            exportDialog(); break;
+                m_project.save();
+            } break;
+        case sf::Keyboard::O:
+            if(m_CTRLPressed)
+                openDialog(); break;
+        case sf::Keyboard::E:
+            if(m_CTRLPressed)
+                exportDialog(); break;
+        }
     }
         
     if(key >= sf::Keyboard::Num0
@@ -295,6 +301,7 @@ void App::processKeyboardInput(sf::Event& event) {
         && key <= sf::Keyboard::Numpad9) {
         if(m_isChordPosModeOn) {
             m_project.setChordPosition(key - 75);
+            enableChordPosSetBtns(false);
             m_isChordPosModeOn = false;
         }
     }
@@ -368,6 +375,7 @@ void App::deleteNoteBtnPressed() {
 
 void App::chordPosBtnPressed() {
     m_isChordPosModeOn = !m_isChordPosModeOn;
+    enableChordPosSetBtns(m_isChordPosModeOn);
 }
 
 void App::chordBtnPressed(uint16_t chord) {
@@ -378,6 +386,12 @@ void App::chordBtnPressed(uint16_t chord) {
     m_project.setActiveLines(ALbuf);
 }
 
+void App::chordPosSetBtnPressed(uint16_t position) {
+    m_project.setChordPosition(position);
+    m_isChordPosModeOn = false;
+    enableChordPosSetBtns(false);
+}
+
 void App::initButtons() {
     setupBtnsNames();
     setupTooltips();
@@ -386,6 +400,8 @@ void App::initButtons() {
 
     setupChordsBtns();
     setupChordPosSetBtns();
+
+    enableChordPosSetBtns(false);
 }
 
 void App::setupBtnsNames() {
@@ -484,8 +500,6 @@ void App::setupChordsBtns() {
     }
 }
 
-#include <iostream>
-
 void App::setupChordPosSetBtns() {
     m_chordPosSetBtnsVerLayout = tgui::VerticalLayout::create();
     m_chordPosSetBtnsVerLayout->setSize(240, 240);
@@ -503,16 +517,33 @@ void App::setupChordPosSetBtns() {
         if(c == 4) ++c;
         if(c < 4) {
             m_chordPosSetBtns.at(c) = tgui::Button::create();
+            m_chordPosSetBtns.at(c)->getRenderer()->setTexture(m_resources.getTexture(c + 3));
             m_chordPosSetBtnsHorLayouts.at(c / 3)->add(m_chordPosSetBtns.at(c));
         } else if(c > 4) {
             m_chordPosSetBtns.at(c - 1) = tgui::Button::create();
+            m_chordPosSetBtns.at(c - 1)->getRenderer()->setTexture(m_resources.getTexture(c + 2));
             m_chordPosSetBtnsHorLayouts.at(c / 3)->add(m_chordPosSetBtns.at(c - 1));
         }
-
-        // m_chordPosSetBtns.at(c)->onPress(&chordBtnPressed, this, c);
     }
 
+    m_chordPosSetBtns.at(0)->onPress(&chordPosSetBtnPressed, this, 7);
+    m_chordPosSetBtns.at(1)->onPress(&chordPosSetBtnPressed, this, 8);
+    m_chordPosSetBtns.at(2)->onPress(&chordPosSetBtnPressed, this, 9);
+    m_chordPosSetBtns.at(3)->onPress(&chordPosSetBtnPressed, this, 4);
+    m_chordPosSetBtns.at(4)->onPress(&chordPosSetBtnPressed, this, 6);
+    m_chordPosSetBtns.at(5)->onPress(&chordPosSetBtnPressed, this, 1);
+    m_chordPosSetBtns.at(6)->onPress(&chordPosSetBtnPressed, this, 2);
+    m_chordPosSetBtns.at(7)->onPress(&chordPosSetBtnPressed, this, 3);
+
     m_chordPosSetBtnsHorLayouts.at(1)->insertSpace(1, 1.0f);
+}
+
+void App::enableChordPosSetBtns(bool enable) {
+    m_chordPosSetBtnsVerLayout->setPosition(m_project.getNotePosAtAL().x,
+        m_project.getNotePosAtAL().y);
+
+    m_chordPosSetBtnsVerLayout->setEnabled(enable);
+    m_chordPosSetBtnsVerLayout->setVisible(enable);
 }
 
 void App::setupTooltips() {

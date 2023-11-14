@@ -107,6 +107,8 @@ private:
     void chordPosBtnPressed();
     void chordBtnPressed(uint16_t chord);
 
+    void chordPosSetBtnPressed(uint16_t position);
+
     void initButtons();
 
     void setupBtnsNames();
@@ -125,7 +127,9 @@ private:
     void setupVerBtnsBehaviour();
 
     void setupChordsBtns();
+
     void setupChordPosSetBtns();
+    void enableChordPosSetBtns(bool enable);
 
     void setupTooltips();
 
@@ -136,7 +140,7 @@ private:
         0 -> edit
         1 -> delete
         2 -> chord position
-        3 - 11 -> arrows counting from top left clockwise
+        3 - 11 -> arrows counting from left to right by rows
 
     Font IDs:
         0 -> Manrope

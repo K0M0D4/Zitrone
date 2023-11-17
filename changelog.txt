@@ -1,6 +1,6 @@
 v0.1.3 - beta
 - when hovering over some buttons, tooltips with keyboard shortcuts are shown
-- changing position of a chord (saving still to implement)
+- changing position of a chord
 
 v0.1.2 - beta
 - now chords can be added with numpad keys

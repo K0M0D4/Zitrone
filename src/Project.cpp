@@ -39,7 +39,8 @@ void Project::save() {
     for(auto& note : m_notes) {
         file << note.getCoords().x << '.';
         file << note.getCoords().y << '.';
-        file << note.getChord() << '\n';
+        file << note.getChord() << '.';
+        file << note.getChordPosition() << '\n';
     }
     
     file.close();
@@ -307,6 +308,10 @@ void Project::addNewNote(const sf::Vector2i& al) {
         m_resources->getTheme(0).getColor(6)});
 }
 
+
+#include <iostream>
+
+
 void Project::processOpenInput(const std::string& data) {
     std::stringstream ss(data);
     std::string word;
@@ -321,4 +326,15 @@ void Project::processOpenInput(const std::string& data) {
         std::stoi(tokens.at(1))});
     addNote();
     setChord(std::stoi(tokens.at(2)));
+
+    // needs to be here because addNote() moves AL down by 1
+    m_grid.setActiveLines(sf::Vector2i{std::stoi(tokens.at(0)),
+        std::stoi(tokens.at(1))});
+
+    // checking this for compatibility with older project files
+    if(tokens.size() > 3) {
+        setChordPosition(std::stoi(tokens.at(3)));
+    } else {
+        setChordPosition(3);
+    }
 }

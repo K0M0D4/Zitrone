@@ -272,6 +272,16 @@ void App::processKeyboardInput(sf::Event& event) {
                 exportDialog(); break;
         }
     }
+
+    if(key == sf::Keyboard::C) {
+        if(m_isChordPosModeOn) {
+            m_isChordPosModeOn = false;
+            enableChordPosSetBtns(false);
+        } else if(m_project.isALValidforChordPos() && !m_isChordPosModeOn) {
+            m_isChordPosModeOn = true;
+            enableChordPosSetBtns(true);
+        }
+    }
         
     if(key >= sf::Keyboard::Num0
         && key <= sf::Keyboard::Num6) {
@@ -374,8 +384,13 @@ void App::deleteNoteBtnPressed() {
 }
 
 void App::chordPosBtnPressed() {
-    m_isChordPosModeOn = !m_isChordPosModeOn;
-    enableChordPosSetBtns(m_isChordPosModeOn);
+    if(m_isChordPosModeOn) {
+        m_isChordPosModeOn = false;
+        enableChordPosSetBtns(false);
+    } else if(m_project.isALValidforChordPos() && !m_isChordPosModeOn) {
+        m_isChordPosModeOn = true;
+        enableChordPosSetBtns(true);
+    }
 }
 
 void App::chordBtnPressed(uint16_t chord) {

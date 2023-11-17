@@ -221,6 +221,18 @@ sf::Vector2f Project::getNotePosAtAL() {
     return sf::Vector2f{};
 }
 
+bool Project::isALValidforChordPos() {
+    for(auto& note : m_notes) {
+        if(note.getCoords() == m_grid.getActiveLines()) {
+            if(note.getChord() != 0) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
 void Project::render(sf::RenderWindow& target) {
     target.draw(m_workspace);
     m_grid.render(target);

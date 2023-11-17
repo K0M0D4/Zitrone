@@ -41,6 +41,8 @@ public:
     sf::Vector2i getActiveLines();
     std::string getName();
     sf::Vector2f getNotePosAtAL();
+
+    bool isALValidforChordPos();
     
     void render(sf::RenderWindow& target);
 

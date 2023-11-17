@@ -33,6 +33,10 @@ FetchContent_Declare(TGUI
     GIT_TAG 0.9)
 FetchContent_MakeAvailable(TGUI)
 
+FetchContent_Declare(JSON
+    URL https://github.com/nlohmann/json/releases/download/v3.11.2/json.tar.xz)
+FetchContent_MakeAvailable(JSON)
+
 add_executable(${PROJECT_NAME}    
     src/fw/ResourceManager.cpp
     src/fw/Theme.cpp
@@ -52,7 +56,7 @@ add_executable(${PROJECT_NAME}
 target_compile_options(${PROJECT_NAME} PUBLIC -DSFML_STATIC)
 
 target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-system sfml-window
-    nfd tgui)
+    nfd tgui nlohmann_json::nlohmann_json)
 
-file(COPY res/ DESTINATION res/)
-file(COPY config DESTINATION .)
+file(COPY res/ DESTINATION res)
+file(COPY config.json DESTINATION .)

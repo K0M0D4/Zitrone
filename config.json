@@ -1,0 +1,11 @@
+{
+    "language": "english",
+    "theme": "dark",
+    "pageWidth": 21,
+    "pageHeight": 29.7,
+    "cutLineX": 12.8,
+    "cutLineY": 16.7,
+    "firstNoteOffset": 1.3,
+    "verticalBreak": 0.9,
+    "horizontalBreak": 0.5
+}

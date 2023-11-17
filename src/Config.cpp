@@ -7,60 +7,32 @@ Config::Config() {
 }
 
 void Config::load() {
-    std::ifstream config{"config"};
+    std::ifstream config{"config.json"};
     if(!config.good())
         throw std::runtime_error("Error: Can't load config file\n");
-
-    std::string buffer{};
-
-    getline(config, buffer);
-    m_language = buffer;
-    getline(config, buffer);
-    m_theme = buffer;
-
-    // page size
-    getline(config, buffer);
-    m_numbers.at(0) = std::stof(buffer);
-    getline(config, buffer);
-    m_numbers.at(1) = std::stof(buffer);
-
-    // cut line
-    getline(config, buffer);
-    m_numbers.at(2) = std::stof(buffer);
-    getline(config, buffer);
-    m_numbers.at(3) = std::stof(buffer);
-
-    // first note offset, v-break and h-break
-    getline(config, buffer);
-    m_numbers.at(4) = std::stof(buffer);
-    getline(config, buffer);
-    m_numbers.at(5) = std::stof(buffer);
-    getline(config, buffer);
-    m_numbers.at(6) = std::stof(buffer);
-
-    config.close();
+    m_config = json::parse(config);
 }
 
 std::string Config::getLang() {
-    return m_language;
+    return m_config.at("language");
 }
 
 std::string Config::getTheme() {
-    return m_theme;
+    return m_config.at("theme");
 }
 
 sf::Vector2f Config::getPageSize() {
-    return sf::Vector2f{m_numbers.at(0), m_numbers.at(1)};
+    return sf::Vector2f{m_config.at("pageWidth"), m_config.at("pageHeight")};
 }
 
 sf::Vector2f Config::getCutLine() {
-    return sf::Vector2f{m_numbers.at(2), m_numbers.at(3)};
+    return sf::Vector2f{m_config.at("cutLineX"), m_config.at("cutLineY")};
 }
 
 float Config::getFirstNoteOffset() {
-    return m_numbers.at(4);
+    return m_config.at("firstNoteOffset");
 }
 
 sf::Vector2f Config::getBreaks() {
-    return sf::Vector2f{m_numbers.at(5), m_numbers.at(6)};
+    return sf::Vector2f{m_config.at("verticalBreak"), m_config.at("horizontalBreak")};
 }

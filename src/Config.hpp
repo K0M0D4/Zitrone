@@ -1,8 +1,9 @@
 #pragma once
 
+#include <nlohmann/json.hpp>
 #include <SFML/Graphics.hpp>
 
-#include <array>
+using json = nlohmann::json;
 
 class Config {
 public:
@@ -18,7 +19,6 @@ public:
     sf::Vector2f getBreaks();
 
 private:
-    std::string m_language{};
-    std::string m_theme{};
-    std::array<float, 7> m_numbers{};
+    json m_config{};
+
 };

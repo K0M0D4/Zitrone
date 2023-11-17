@@ -308,10 +308,6 @@ void Project::addNewNote(const sf::Vector2i& al) {
         m_resources->getTheme(0).getColor(6)});
 }
 
-
-#include <iostream>
-
-
 void Project::processOpenInput(const std::string& data) {
     std::stringstream ss(data);
     std::string word;

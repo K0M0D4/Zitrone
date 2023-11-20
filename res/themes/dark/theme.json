@@ -1,0 +1,18 @@
+{
+    "_comment1": 0,
+    "backgroundColor": "#0C1821",
+    "_comment2": 4,
+    "outlineColor": "#CCC9DC",
+    "_comment3": 3,
+    "breaksColor": "#1B2A41",
+    "_comment4": 6,
+    "notesColor": "#CCC9DC",
+    "_comment5": 5,
+    "activeLineColor": "#324A5F",
+
+    "tguiFile": "tgui",
+
+    "addNoteBtnImg": "edit.png",
+    "deleteNoteBtnImg": "delete.png",
+    "changeChordPosBtnImg": "chordPos.png"
+}

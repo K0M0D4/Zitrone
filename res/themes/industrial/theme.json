@@ -1,0 +1,13 @@
+{
+    "backgroundColor": "#FFFFFC",
+    "outlineColor": "#000000",
+    "breaksColor": "#BEB7A4",
+    "notesColor": "#FF1B1C",
+    "activeLineColor": "#FF7F11",
+
+    "tguiFile": "tgui",
+
+    "addNoteBtnImg": "edit.png",
+    "deleteNoteBtnImg": "delete.png",
+    "changeChordPosBtnImg": "chordPos.png"
+}

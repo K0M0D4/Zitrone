@@ -9,10 +9,15 @@ App::App() {
     m_window.setVerticalSyncEnabled(true);
 
     m_GUI.setTarget(m_window);
+
+    m_resources.loadTheme("res/themes/" + m_config.getTheme() + "/theme.json");
     
-    m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/edit.png");
-    m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/delete.png");
-    m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/chordPos.png");
+    m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/"
+        + m_resources.getTheme(0).getAddNoteBtnImgFilepath());
+    m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/"
+        + m_resources.getTheme(0).getDeleteNoteBtnImgFilepath());
+    m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/"
+        + m_resources.getTheme(0).getChangeChordPosBtnImgFilepath());
 
     m_resources.loadTexture("res/arrow-TL.png");
     m_resources.loadTexture("res/arrow-T.png");
@@ -25,9 +30,8 @@ App::App() {
     
     m_resources.loadFont("res/Manrope-Medium.ttf");
 
-    m_resources.loadTheme("res/themes/" + m_config.getTheme() + "/app");
-
-    tgui::Theme::setDefault("res/themes/" + m_config.getTheme() + "/tgui");
+    tgui::Theme::setDefault("res/themes/" + m_config.getTheme() + "/"
+        + m_resources.getTheme(0).getTGUIFilepath());
 
     m_project = Project(&m_config, &m_resources);
 
@@ -116,7 +120,7 @@ void App::update() {
 }
 
 void App::render() {
-    m_window.clear(m_resources.getTheme(0).getColor(0));
+    m_window.clear(m_resources.getTheme(0).getBgColor());
 
     // viewport
     m_window.setView(m_viewport);

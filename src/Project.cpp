@@ -19,7 +19,7 @@ Project::Project(Config* config, cmt::ResourceManager* resources) {
         m_breakBetweenNotesH, m_firstNoteOffset, m_resources};
     m_workspace.setOutlineThickness(5);
     m_workspace.setFillColor(sf::Color::Transparent);
-    m_workspace.setOutlineColor(m_resources->getTheme(0).getColor(4));
+    m_workspace.setOutlineColor(m_resources->getTheme(0).getOutlineColor());
 
     m_gridHints = GridHints(m_resources);
     m_gridHints.calculate(m_workspace.getSize(), m_breakBetweenNotesV,
@@ -277,7 +277,7 @@ void Project::sortNotes() {
         for(uint32_t j{i + 1}; j < m_notes.size(); ++j) {
             Note temp{sf::Vector2f{}, sf::Vector2i{},
                 m_resources->getFont(0),
-                m_resources->getTheme(0).getColor(6)};
+                m_resources->getTheme(0).getNotesColor()};
             if(m_notes.at(j).getCoords().y < m_notes.at(i).getCoords().y) {
                 temp = m_notes.at(i);
                 m_notes.at(i) = m_notes.at(j);
@@ -293,7 +293,7 @@ void Project::calculateLines() {
         for(uint16_t i{1}; i < m_notes.size(); ++i) {
             m_noteLines.emplace_back(cmt::Line(m_notes.at(i - 1).getPos(),
                 m_notes.at(i).getPos(),
-                m_resources->getTheme(0).getColor(7)));
+                m_resources->getTheme(0).getNotesColor()));
         }
     } else {
         m_noteLines.clear();
@@ -305,7 +305,7 @@ void Project::addNewNote(const sf::Vector2i& al) {
         al.x * m_breakBetweenNotesV + m_firstNoteOffset,
         (al.y + 1) * m_breakBetweenNotesH}, al,
         m_resources->getFont(0),
-        m_resources->getTheme(0).getColor(6)});
+        m_resources->getTheme(0).getNotesColor()});
 }
 
 void Project::processOpenInput(const std::string& data) {

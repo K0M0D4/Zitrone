@@ -55,6 +55,6 @@ void GridHints::calculateHintsPos(sf::Vector2f pos) {
         m_notes.at(i).setPosition(sf::Vector2f(pos.x + vOffset,
             pos.y));
         
-        m_notes.at(i).setFillColor(m_resources->getTheme(0).getColor(6));
+        m_notes.at(i).setFillColor(m_resources->getTheme(0).getNotesColor());
     }
 }

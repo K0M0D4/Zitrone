@@ -46,15 +46,15 @@ sf::Vector2i Grid::getActiveLines() {
 
 void Grid::render(sf::RenderWindow& target) {
     for(uint32_t i{0}; i < m_vertLines.size(); ++i) {
-        m_vertLines.at(i).setColor(m_resources->getTheme(0).getColor(3));
+        m_vertLines.at(i).setColor(m_resources->getTheme(0).getBreaksColor());
         m_vertLines.at(i).render(target);
     }
     for(uint32_t i{0}; i < m_horLines.size(); ++i) {
-        m_horLines.at(i).setColor(m_resources->getTheme(0).getColor(3));
+        m_horLines.at(i).setColor(m_resources->getTheme(0).getBreaksColor());
         m_horLines.at(i).render(target);
     }
-    m_vertLines.at(m_activeLines.x).setColor(m_resources->getTheme(0).getColor(5));
-    m_horLines.at(m_activeLines.y).setColor(m_resources->getTheme(0).getColor(5));
+    m_vertLines.at(m_activeLines.x).setColor(m_resources->getTheme(0).getALColor());
+    m_horLines.at(m_activeLines.y).setColor(m_resources->getTheme(0).getALColor());
     m_vertLines.at(m_activeLines.x).render(target);
     m_horLines.at(m_activeLines.y).render(target);
 }

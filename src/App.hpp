@@ -57,6 +57,7 @@ private:
 
     tgui::Label::Ptr m_addNoteBtnTT;
     tgui::Label::Ptr m_deleteNoteBtnTT;
+    tgui::Label::Ptr m_chordPosBtnTT;
 
     Project m_project{};
 
@@ -77,7 +78,7 @@ private:
     bool m_wasMousePressed{};
     float m_vpzoom{1.0f};
 
-    std::array<std::string, 5> m_languageData{};
+    std::array<std::string, 8> m_languageData{};
 
     // methods
 

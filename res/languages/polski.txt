@@ -3,3 +3,6 @@ Zapisz jako
 Eksportuj
 Otwórz
 Ustawienia
+Dodaj nutę
+Usuń nutę
+Zmień pozycję akordu

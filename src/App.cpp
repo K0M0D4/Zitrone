@@ -584,13 +584,17 @@ void App::setupTooltips() {
     m_openBtnTT->setRenderer(tgui::Theme::getDefault()->getRenderer("ToolTip"));
     m_openBtn->setToolTip(m_openBtnTT);
 
-    m_addNoteBtnTT = tgui::Label::create("(Space)");
+    m_addNoteBtnTT = tgui::Label::create(m_languageData.at(5) + " (Space)");
     m_addNoteBtnTT->setRenderer(tgui::Theme::getDefault()->getRenderer("ToolTip"));
     m_addNoteBtn->setToolTip(m_addNoteBtnTT);
 
-    m_deleteNoteBtnTT = tgui::Label::create("(Delete) (Backspace)");
+    m_deleteNoteBtnTT = tgui::Label::create(m_languageData.at(6) + " (Delete) (Backspace)");
     m_deleteNoteBtnTT->setRenderer(tgui::Theme::getDefault()->getRenderer("ToolTip"));
     m_deleteNoteBtn->setToolTip(m_deleteNoteBtnTT);
+
+    m_chordPosBtnTT = tgui::Label::create(m_languageData.at(7) + " (C)");
+    m_chordPosBtnTT->setRenderer(tgui::Theme::getDefault()->getRenderer("ToolTip"));
+    m_chordPosBtn->setToolTip(m_chordPosBtnTT);
 }
 
 void App::loadLanguage(const std::string& filepath) {

@@ -1,9 +1,9 @@
 {
     "backgroundColor": "#E8E9F3",
-    "outlineColor": "#272635",
-    "breaksColor": "#A6A6A8",
-    "notesColor": "#272635",
-    "activeLineColor": "#272635",
+    "outlineColor": "#305180",
+    "breaksColor": "#90B0E0",
+    "notesColor": "#4A6FA5",
+    "activeLineColor": "#4A6FA5",
 
     "tguiFile": "tgui",
 

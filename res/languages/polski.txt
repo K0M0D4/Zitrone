@@ -6,3 +6,4 @@ Ustawienia
 Dodaj nutę
 Usuń nutę
 Zmień pozycję akordu
+Profil:

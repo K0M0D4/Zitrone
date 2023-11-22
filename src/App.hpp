@@ -27,8 +27,9 @@ private:
 
     sf::RenderWindow m_window{};
 
-    float m_HorBarSize{37};
+    float m_UpBarSize{37};
     float m_VerBarSize{60};
+    float m_DownBarSize{43};
 
     // GUI
     tgui::GuiSFML m_GUI;
@@ -48,6 +49,8 @@ private:
     tgui::VerticalLayout::Ptr m_chordPosSetBtnsVerLayout;
     std::array<tgui::HorizontalLayout::Ptr, 3> m_chordPosSetBtnsHorLayouts;
     std::array<tgui::Button::Ptr, 8> m_chordPosSetBtns{};
+
+    tgui::Button::Ptr m_profilesLabel;
 
     // tooltips
     tgui::Label::Ptr m_saveBtnTT;
@@ -78,7 +81,7 @@ private:
     bool m_wasMousePressed{};
     float m_vpzoom{1.0f};
 
-    std::array<std::string, 8> m_languageData{};
+    std::array<std::string, 9> m_languageData{};
 
     // methods
 
@@ -96,6 +99,7 @@ private:
     void processZoom(sf::Event& event);
 
     void recalculateVerticalBtns();
+    void recalculateDownBtns();
 
     void saveBtnPressed();
     void saveAsBtnPressed();
@@ -114,18 +118,21 @@ private:
 
     void setupBtnsNames();
 
-    void setupHorBtnsNames();
+    void setupUpBtnsNames();
     void setupVerBtnsNames();
+    void setupDownBtnsNames();
 
     void setupBtnsLook();
 
-    void setupHorBtnsLook();
+    void setupUpBtnsLook();
     void setupVerBtnsLook();
+    void setupDownBtnsLook();
 
     void setupBtnsBehaviour();
 
-    void setupHorBtnsBehaviour();
+    void setupUpBtnsBehaviour();
     void setupVerBtnsBehaviour();
+    void setupDownBtnsBehaviour();
 
     void setupChordsBtns();
 

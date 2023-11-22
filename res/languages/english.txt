@@ -6,3 +6,4 @@ Settings
 Add note
 Delete note
 Change chord position
+Profile:

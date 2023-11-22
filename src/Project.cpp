@@ -249,7 +249,7 @@ void Project::render(sf::RenderWindow& target) {
 
     m_gridHints.setPos(sf::Vector2f(m_gridHints.getPos().x,
         target.mapPixelToCoords(sf::Vector2i{0, static_cast<int32_t>(
-        target.getSize().y) - 30}).y));
+        target.getSize().y) - 72}).y));
 
     m_gridHints.render(target);
 }

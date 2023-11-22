@@ -3,6 +3,7 @@ v0.1.3 - beta
 - changing position of a chord
 - config and themes (partially) are now saved as .json file for easier editing
 - adjusted light theme so there is less contrast
+- doing: zyther profiles - editor and switching in app
 
 v0.1.2 - beta
 - now chords can be added with numpad keys

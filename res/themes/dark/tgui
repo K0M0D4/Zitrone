@@ -13,3 +13,9 @@ ToolTip {
     Borders  = (0, 0, 0, 0);
     Padding = (2, 2, 2, 2);
 }
+
+Label {
+    Font = ../../Manrope-Medium.ttf;
+    TextColor = #CCC9DC;
+    BackgroundColor = #00000000;
+}

@@ -97,8 +97,9 @@ void App::update() {
 
     if(m_window.hasFocus()) {
         if(sf::Mouse::isButtonPressed(sf::Mouse::Left) 
-            && winMousePos.y > m_HorBarSize
+            && winMousePos.y > m_UpBarSize
             && winMousePos.x < m_window.getSize().x - m_VerBarSize
+            && winMousePos.y < m_window.getSize().y - m_DownBarSize
             && winMousePos.x > 0.0f && winMousePos.y < m_window.getSize().y) {
             
             if(m_wasMousePressed) {
@@ -183,16 +184,13 @@ void App::calculateViewport() {
     sf::Vector2f vpcenter = m_viewport.getCenter();
     m_viewport = sf::View(sf::FloatRect(0.f, 0.f,
         m_window.getSize().x - m_VerBarSize,
-        m_window.getSize().y - m_HorBarSize));
+        m_window.getSize().y - m_UpBarSize - m_DownBarSize));
     m_viewport.setCenter(vpcenter);
 
     m_viewport.setViewport(sf::FloatRect(0.0f,
-        1.0f - (m_window.getSize().y - m_HorBarSize)
-        / m_window.getSize().y,
-        (m_window.getSize().x - m_VerBarSize)
-        / m_window.getSize().x,
-        (m_window.getSize().y - m_HorBarSize)
-        / m_window.getSize().y));
+        1.0f - (m_window.getSize().y - m_UpBarSize) / m_window.getSize().y,
+        (m_window.getSize().x - m_VerBarSize) / m_window.getSize().x,
+        (m_window.getSize().y - m_UpBarSize - m_DownBarSize) / m_window.getSize().y));
     
     m_normalView = sf::View(sf::FloatRect(0.f, 0.f,
         m_window.getSize().x, m_window.getSize().y));
@@ -200,14 +198,16 @@ void App::calculateViewport() {
     m_vpzoom = 1.0f;
 
     recalculateVerticalBtns();
+    recalculateDownBtns();
 }
 
 void App::processMouseInput(sf::Event& event) {
     sf::Vector2i winMousePos{sf::Mouse::getPosition(m_window)};
     sf::Vector2f vpMousePos{m_window.mapPixelToCoords(winMousePos, m_viewport)};
 
-    if(winMousePos.y > m_HorBarSize
-        && winMousePos.x < m_window.getSize().x - m_VerBarSize) {
+    if(winMousePos.y > m_UpBarSize
+        && winMousePos.x < m_window.getSize().x - m_VerBarSize
+        && winMousePos.y < m_window.getSize().y - m_DownBarSize) {
         
         m_project.setActiveLines(vpMousePos);
         m_lastAL = m_project.getActiveLines();
@@ -357,6 +357,10 @@ void App::recalculateVerticalBtns() {
     }
 }
 
+void App::recalculateDownBtns() {
+    m_profilesLabel->setPosition(0, m_window.getSize().y - 33);
+}
+
 void App::saveBtnPressed() {
     m_project.getName() == std::string{} ? saveAsDialog() : m_project.save();
 }
@@ -424,11 +428,12 @@ void App::initButtons() {
 }
 
 void App::setupBtnsNames() {
-    setupHorBtnsNames();
+    setupUpBtnsNames();
     setupVerBtnsNames();
+    setupDownBtnsNames();
 }
 
-void App::setupHorBtnsNames() {
+void App::setupUpBtnsNames() {
     m_saveBtn = tgui::Button::create(m_languageData.at(0));
     m_saveAsBtn = tgui::Button::create(m_languageData.at(1));
     m_exportBtn = tgui::Button::create(m_languageData.at(2));
@@ -442,12 +447,17 @@ void App::setupVerBtnsNames() {
     m_chordPosBtn = tgui::Button::create();
 }
 
-void App::setupBtnsLook() {
-    setupHorBtnsLook();
-    setupVerBtnsLook();
+void App::setupDownBtnsNames() {
+    m_profilesLabel = tgui::Button::create(m_languageData.at(8));
 }
 
-void App::setupHorBtnsLook() {
+void App::setupBtnsLook() {
+    setupUpBtnsLook();
+    setupVerBtnsLook();
+    setupDownBtnsLook();
+}
+
+void App::setupUpBtnsLook() {
     m_saveBtn->setPosition(5, 5);
     m_saveBtn->setSize(100, 25);
     m_saveBtn->setTextSize(17);
@@ -488,12 +498,19 @@ void App::setupVerBtnsLook() {
     m_GUI.add(m_chordPosBtn);
 }
 
+void App::setupDownBtnsLook() {
+    m_profilesLabel->setRenderer(tgui::Theme::getDefault()->getRenderer("Label"));
+    m_profilesLabel->setSize(80, 25);
+    m_profilesLabel->setTextSize(17);
+    m_GUI.add(m_profilesLabel);
+}
+
 void App::setupBtnsBehaviour() {
-    setupHorBtnsBehaviour();
+    setupUpBtnsBehaviour();
     setupVerBtnsBehaviour();
 }
 
-void App::setupHorBtnsBehaviour() {
+void App::setupUpBtnsBehaviour() {
     m_saveBtn->onPress(&saveBtnPressed, this);
     m_saveAsBtn->onPress(&saveAsBtnPressed, this);
     m_exportBtn->onPress(&exportBtnPressed, this);

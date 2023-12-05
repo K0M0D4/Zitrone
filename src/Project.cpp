@@ -9,11 +9,11 @@ Project::Project(Config* config, cmt::ResourceManager* resources) {
 
     m_resources = resources;
 
-    m_workspace.setSize(config->getPageSize() * m_dpcm);
+    // m_workspace.setSize(config->getPageSize() * m_dpcm);
 
-    m_firstNoteOffset = config->getFirstNoteOffset() * m_dpcm;
-    m_breakBetweenNotesV = config->getBreaks().x * m_dpcm;
-    m_breakBetweenNotesH = config->getBreaks().y * m_dpcm;
+    // m_firstNoteOffset = config->getFirstNoteOffset() * m_dpcm;
+    // m_breakBetweenNotesV = config->getBreaks().x * m_dpcm;
+    // m_breakBetweenNotesH = config->getBreaks().y * m_dpcm;
 
     m_grid = Grid{m_workspace.getSize(), m_breakBetweenNotesV,
         m_breakBetweenNotesH, m_firstNoteOffset, m_resources};
@@ -26,9 +26,9 @@ Project::Project(Config* config, cmt::ResourceManager* resources) {
         m_firstNoteOffset);
     m_gridHints.move(sf::Vector2f{m_firstNoteOffset, 0.0f});
 
-    m_cutLine = cmt::Line{sf::Vector2f{config->getCutLine().x * m_dpcm, 0.0f},
-        sf::Vector2f{m_workspace.getSize().x, m_workspace.getSize().y
-        - config->getCutLine().y * m_dpcm}, sf::Color::Red};
+    // m_cutLine = cmt::Line{sf::Vector2f{config->getCutLine().x * m_dpcm, 0.0f},
+    //     sf::Vector2f{m_workspace.getSize().x, m_workspace.getSize().y
+    //     - config->getCutLine().y * m_dpcm}, sf::Color::Red};
 }
 
 void Project::save() {

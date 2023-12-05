@@ -13,10 +13,6 @@ public:
 
     std::string getLang();
     std::string getTheme();
-    sf::Vector2f getPageSize();
-    sf::Vector2f getCutLine();
-    float getFirstNoteOffset();
-    sf::Vector2f getBreaks();
 
 private:
     json m_config{};

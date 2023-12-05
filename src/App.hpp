@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Config.hpp"
+#include "ProfileManager.hpp"
 #include "Project.hpp"
 #include "Settings.hpp"
 
@@ -22,6 +23,8 @@ public:
 private:
 
     // members
+
+    ProfileManager m_profiles{};
 
     cmt::ResourceManager m_resources{};
 
@@ -51,6 +54,7 @@ private:
     std::array<tgui::Button::Ptr, 8> m_chordPosSetBtns{};
 
     tgui::Button::Ptr m_profilesLabel;
+    tgui::Button::Ptr m_currentProfileLabel;
 
     // tooltips
     tgui::Label::Ptr m_saveBtnTT;

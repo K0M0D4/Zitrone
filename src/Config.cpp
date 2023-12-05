@@ -20,19 +20,3 @@ std::string Config::getLang() {
 std::string Config::getTheme() {
     return m_config.at("theme");
 }
-
-sf::Vector2f Config::getPageSize() {
-    return sf::Vector2f{m_config.at("pageWidth"), m_config.at("pageHeight")};
-}
-
-sf::Vector2f Config::getCutLine() {
-    return sf::Vector2f{m_config.at("cutLineX"), m_config.at("cutLineY")};
-}
-
-float Config::getFirstNoteOffset() {
-    return m_config.at("firstNoteOffset");
-}
-
-sf::Vector2f Config::getBreaks() {
-    return sf::Vector2f{m_config.at("verticalBreak"), m_config.at("horizontalBreak")};
-}

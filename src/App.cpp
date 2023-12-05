@@ -5,6 +5,8 @@
 #include <fstream>
 
 App::App() {
+    m_profiles.load();
+
     m_window.create(sf::VideoMode(1280, 720), "Zitrone");
     m_window.setVerticalSyncEnabled(true);
 
@@ -359,6 +361,7 @@ void App::recalculateVerticalBtns() {
 
 void App::recalculateDownBtns() {
     m_profilesLabel->setPosition(0, m_window.getSize().y - 33);
+    m_currentProfileLabel->setPosition({bindRight(m_profilesLabel) + 5}, m_window.getSize().y - 33);
 }
 
 void App::saveBtnPressed() {
@@ -449,6 +452,7 @@ void App::setupVerBtnsNames() {
 
 void App::setupDownBtnsNames() {
     m_profilesLabel = tgui::Button::create(m_languageData.at(8));
+    m_currentProfileLabel = tgui::Button::create("default");
 }
 
 void App::setupBtnsLook() {
@@ -503,6 +507,10 @@ void App::setupDownBtnsLook() {
     m_profilesLabel->setSize(80, 25);
     m_profilesLabel->setTextSize(17);
     m_GUI.add(m_profilesLabel);
+
+    m_currentProfileLabel->setSize(200, 25);
+    m_currentProfileLabel->setTextSize(17);
+    m_GUI.add(m_currentProfileLabel);
 }
 
 void App::setupBtnsBehaviour() {

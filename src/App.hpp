@@ -55,6 +55,7 @@ private:
 
     tgui::Button::Ptr m_profilesLabel;
     tgui::Button::Ptr m_currentProfileLabel;
+    tgui::Button::Ptr m_profileSwitcher;
 
     // tooltips
     tgui::Label::Ptr m_saveBtnTT;
@@ -152,7 +153,8 @@ private:
         0 -> edit
         1 -> delete
         2 -> chord position
-        3 - 11 -> arrows counting from left to right by rows
+        3 - 10 -> arrows counting from left to right by rows
+        11 -> up arrow
 
     Font IDs:
         0 -> Manrope

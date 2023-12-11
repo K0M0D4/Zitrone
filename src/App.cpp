@@ -6,6 +6,7 @@
 
 App::App() {
     m_profiles.load();
+    m_profiles.switchProfile("default.json");
 
     m_window.create(sf::VideoMode(1280, 720), "Zitrone");
     m_window.setVerticalSyncEnabled(true);
@@ -29,13 +30,16 @@ App::App() {
     m_resources.loadTexture("res/arrow-DL.png");
     m_resources.loadTexture("res/arrow-D.png");
     m_resources.loadTexture("res/arrow-DR.png");
+
+    m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/"
+        + m_resources.getTheme(0).getArrowUpImgFilepath());
     
     m_resources.loadFont("res/Manrope-Medium.ttf");
 
     tgui::Theme::setDefault("res/themes/" + m_config.getTheme() + "/"
         + m_resources.getTheme(0).getTGUIFilepath());
 
-    m_project = Project(&m_config, &m_resources);
+    m_project = Project(&m_profiles, &m_resources);
 
     loadLanguage(m_config.getLang());
 
@@ -362,6 +366,7 @@ void App::recalculateVerticalBtns() {
 void App::recalculateDownBtns() {
     m_profilesLabel->setPosition(0, m_window.getSize().y - 33);
     m_currentProfileLabel->setPosition({bindRight(m_profilesLabel) + 5}, m_window.getSize().y - 33);
+    m_profileSwitcher->setPosition({bindRight(m_currentProfileLabel) + 5}, m_window.getSize().y - 33);
 }
 
 void App::saveBtnPressed() {
@@ -453,6 +458,7 @@ void App::setupVerBtnsNames() {
 void App::setupDownBtnsNames() {
     m_profilesLabel = tgui::Button::create(m_languageData.at(8));
     m_currentProfileLabel = tgui::Button::create("default");
+    m_profileSwitcher = tgui::Button::create();
 }
 
 void App::setupBtnsLook() {
@@ -511,6 +517,10 @@ void App::setupDownBtnsLook() {
     m_currentProfileLabel->setSize(200, 25);
     m_currentProfileLabel->setTextSize(17);
     m_GUI.add(m_currentProfileLabel);
+
+    m_profileSwitcher->getRenderer()->setTexture(m_resources.getTexture(11));
+    m_profileSwitcher->setSize(40, 40);
+    m_GUI.add(m_profileSwitcher);
 }
 
 void App::setupBtnsBehaviour() {
@@ -530,6 +540,10 @@ void App::setupVerBtnsBehaviour() {
     m_addNoteBtn->onPress(&addNoteBtnPressed, this);
     m_deleteNoteBtn->onPress(&deleteNoteBtnPressed, this);
     m_chordPosBtn->onPress(&chordPosBtnPressed, this);
+}
+
+void App::setupDownBtnsBehaviour() {
+
 }
 
 void App::setupChordsBtns() {

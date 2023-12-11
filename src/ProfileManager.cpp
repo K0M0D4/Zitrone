@@ -2,12 +2,6 @@
 
 #include <fstream>
 
-
-
-#include <iostream>
-
-
-
 ProfileManager::ProfileManager() {
 
 }
@@ -18,27 +12,33 @@ void ProfileManager::load() {
         throw std::runtime_error("Error: Can't load profiles list file\n");
 
     json list{json::parse(profilesList)};
+    
+    for(int i{}; i < list.at(0).at("profiles").size(); ++i) {
+        std::ifstream currentBuffer{"res/profiles/"
+            + std::string{list[0]["profiles"][i]}};
 
-    std::cout << list << '\n';
-    std::cout << list[0]["profiles"][0] << '\n';
+        json profileBuf{json::parse(currentBuffer)};
 
-    // for(const auto& profile : list.array()["profiles"]) {
-    //     std::cout << profile << '\n';
-    // }
+        m_profiles[std::string{list[0]["profiles"][i]}] = profileBuf;
+    }
 }
 
-// sf::Vector2f ProfileManager::getPageSize() {
-//     return sf::Vector2f{m_config.at("pageWidth"), m_config.at("pageHeight")};
-// }
+void ProfileManager::switchProfile(const std::string& profile) {
+    m_currentProfile = profile;
+}
 
-// sf::Vector2f ProfileManager::getCutLine() {
-//     return sf::Vector2f{m_config.at("cutLineX"), m_config.at("cutLineY")};
-// }
+sf::Vector2f ProfileManager::getPageSize() {
+    return sf::Vector2f{m_profiles.at(m_currentProfile)[0]["pageWidth"], m_profiles.at(m_currentProfile)[0]["pageHeight"]};
+}
 
-// float ProfileManager::getFirstNoteOffset() {
-//     return m_config.at("firstNoteOffset");
-// }
+sf::Vector2f ProfileManager::getCutLine() {
+    return sf::Vector2f{m_profiles.at(m_currentProfile)[0]["cutLineX"], m_profiles.at(m_currentProfile)[0]["cutLineY"]};
+}
 
-// sf::Vector2f ProfileManager::getBreaks() {
-//     return sf::Vector2f{m_config.at("verticalBreak"), m_config.at("horizontalBreak")};
-// }
+float ProfileManager::getFirstNoteOffset() {
+    return m_profiles.at(m_currentProfile)[0]["firstNoteOffset"];
+}
+
+sf::Vector2f ProfileManager::getBreaks() {
+    return sf::Vector2f{m_profiles.at(m_currentProfile)[0]["verticalBreak"], m_profiles.at(m_currentProfile)[0]["horizontalBreak"]};
+}

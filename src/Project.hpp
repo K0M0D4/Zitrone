@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Config.hpp"
+#include "ProfileManager.hpp"
 #include "Grid.hpp"
 #include "GridHints.hpp"
 #include "Note.hpp"
@@ -15,12 +15,14 @@
 class Project {
 public:
     Project();
-    Project(Config* config, cmt::ResourceManager* resources);
+    Project(ProfileManager* profiles, cmt::ResourceManager* resources);
 
     void save();
     void saveAs(const std::string& filename);
     void open(const std::string& filename);
-    void exportProj(const std::string& filename); 
+    void exportProj(const std::string& filename);
+
+    void reloadProfile(ProfileManager* profiles);
 
     void addNote();
     void setChord(uint16_t chord);

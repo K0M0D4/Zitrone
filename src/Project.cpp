@@ -5,30 +5,11 @@
 
 Project::Project() {}
 
-Project::Project(Config* config, cmt::ResourceManager* resources) {
+Project::Project(ProfileManager* profiles, cmt::ResourceManager* resources) {
 
     m_resources = resources;
 
-    // m_workspace.setSize(config->getPageSize() * m_dpcm);
-
-    // m_firstNoteOffset = config->getFirstNoteOffset() * m_dpcm;
-    // m_breakBetweenNotesV = config->getBreaks().x * m_dpcm;
-    // m_breakBetweenNotesH = config->getBreaks().y * m_dpcm;
-
-    m_grid = Grid{m_workspace.getSize(), m_breakBetweenNotesV,
-        m_breakBetweenNotesH, m_firstNoteOffset, m_resources};
-    m_workspace.setOutlineThickness(5);
-    m_workspace.setFillColor(sf::Color::Transparent);
-    m_workspace.setOutlineColor(m_resources->getTheme(0).getOutlineColor());
-
-    m_gridHints = GridHints(m_resources);
-    m_gridHints.calculate(m_workspace.getSize(), m_breakBetweenNotesV,
-        m_firstNoteOffset);
-    m_gridHints.move(sf::Vector2f{m_firstNoteOffset, 0.0f});
-
-    // m_cutLine = cmt::Line{sf::Vector2f{config->getCutLine().x * m_dpcm, 0.0f},
-    //     sf::Vector2f{m_workspace.getSize().x, m_workspace.getSize().y
-    //     - config->getCutLine().y * m_dpcm}, sf::Color::Red};
+    reloadProfile(profiles);
 }
 
 void Project::save() {
@@ -87,6 +68,30 @@ void Project::exportProj(const std::string& filename) {
     if(!image.saveToFile(filename))
         throw std::runtime_error("Error: Can't export project\n");
 
+}
+
+void Project::reloadProfile(ProfileManager* profiles)
+{
+    m_workspace.setSize(profiles->getPageSize() * m_dpcm);
+
+    m_firstNoteOffset = profiles->getFirstNoteOffset() * m_dpcm;
+    m_breakBetweenNotesV = profiles->getBreaks().x * m_dpcm;
+    m_breakBetweenNotesH = profiles->getBreaks().y * m_dpcm;
+
+    m_grid = Grid{m_workspace.getSize(), m_breakBetweenNotesV,
+        m_breakBetweenNotesH, m_firstNoteOffset, m_resources};
+    m_workspace.setOutlineThickness(5);
+    m_workspace.setFillColor(sf::Color::Transparent);
+    m_workspace.setOutlineColor(m_resources->getTheme(0).getOutlineColor());
+
+    m_gridHints = GridHints(m_resources);
+    m_gridHints.calculate(m_workspace.getSize(), m_breakBetweenNotesV,
+        m_firstNoteOffset);
+    m_gridHints.move(sf::Vector2f{m_firstNoteOffset, 0.0f});
+
+    m_cutLine = cmt::Line{sf::Vector2f{profiles->getCutLine().x * m_dpcm, 0.0f},
+        sf::Vector2f{m_workspace.getSize().x, m_workspace.getSize().y
+        - profiles->getCutLine().y * m_dpcm}, sf::Color::Red};
 }
 
 void Project::addNote() {        

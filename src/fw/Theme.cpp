@@ -48,7 +48,11 @@ namespace cmt {
 
     std::string Theme::getChangeChordPosBtnImgFilepath() {
         return m_theme.at("changeChordPosBtnImg");
-    }   
+    }
+
+    std::string Theme::getArrowUpImgFilepath() {
+        return m_theme.at("arrowUpImg");
+    }
 
     sf::Color Theme::hexToSfColor(const std::string& hexColor) {
         std::string colorStr{hexColor};

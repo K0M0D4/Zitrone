@@ -14,5 +14,6 @@
 
     "addNoteBtnImg": "edit.png",
     "deleteNoteBtnImg": "delete.png",
-    "changeChordPosBtnImg": "chordPos.png"
+    "changeChordPosBtnImg": "chordPos.png",
+    "arrowUpImg": "arrowUp.png"
 }

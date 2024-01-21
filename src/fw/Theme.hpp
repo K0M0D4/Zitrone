@@ -27,6 +27,8 @@ namespace cmt {
         std::string getDeleteNoteBtnImgFilepath();
         std::string getChangeChordPosBtnImgFilepath();
         std::string getArrowUpImgFilepath();
+        std::string getEditImgFilepath();
+        std::string getSaveImgFilepath();
 
     private:
         static const uint16_t m_colorsCount{8};

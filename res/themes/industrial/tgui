@@ -13,3 +13,10 @@ ToolTip {
     Borders  = (0, 0, 0, 0);
     Padding = (2, 2, 2, 2);
 }
+
+ScrollablePanel {
+    BackgroundColor = #FF7F11A0;
+    Borders = (6, 6, 6, 6);
+    BorderColor = #FF7F11A0;
+    RoundedBorderRadius = 6;
+}

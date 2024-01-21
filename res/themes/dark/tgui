@@ -19,3 +19,10 @@ Label {
     TextColor = #CCC9DC;
     BackgroundColor = #00000000;
 }
+
+ScrollablePanel {
+    BackgroundColor = #1B2A41A0;
+    Borders = (6, 6, 6, 6);
+    BorderColor = #1B2A41A0;
+    RoundedBorderRadius = 6;
+}

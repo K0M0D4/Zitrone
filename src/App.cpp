@@ -6,7 +6,7 @@
 
 App::App() {
     m_profiles.load();
-    m_profiles.switchProfile("default.json");
+    m_profiles.switchProfile(m_currentProfileName);
 
     m_window.create(sf::VideoMode(1280, 720), "Zitrone");
     m_window.setVerticalSyncEnabled(true);
@@ -32,7 +32,10 @@ App::App() {
     m_resources.loadTexture("res/arrow-DR.png");
 
     m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/"
-        + m_resources.getTheme(0).getArrowUpImgFilepath());
+        + m_resources.getTheme(0).getEditImgFilepath());
+
+    m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/"
+        + m_resources.getTheme(0).getSaveImgFilepath());
     
     m_resources.loadFont("res/Manrope-Medium.ttf");
 
@@ -366,7 +369,6 @@ void App::recalculateVerticalBtns() {
 void App::recalculateDownBtns() {
     m_profilesLabel->setPosition(0, m_window.getSize().y - 33);
     m_currentProfileLabel->setPosition({bindRight(m_profilesLabel) + 5}, m_window.getSize().y - 33);
-    m_profileSwitcher->setPosition({bindRight(m_currentProfileLabel) + 5}, m_window.getSize().y - 33);
 }
 
 void App::saveBtnPressed() {
@@ -457,8 +459,10 @@ void App::setupVerBtnsNames() {
 
 void App::setupDownBtnsNames() {
     m_profilesLabel = tgui::Button::create(m_languageData.at(8));
-    m_currentProfileLabel = tgui::Button::create("default");
-    m_profileSwitcher = tgui::Button::create();
+    m_currentProfileLabel = tgui::Button::create(m_currentProfileName);
+    m_profilesList = tgui::ScrollablePanel::create();
+    m_editProfileBtn = tgui::Button::create();
+    m_saveProfileBtn = tgui::Button::create();
 }
 
 void App::setupBtnsLook() {
@@ -514,18 +518,53 @@ void App::setupDownBtnsLook() {
     m_profilesLabel->setTextSize(17);
     m_GUI.add(m_profilesLabel);
 
-    m_currentProfileLabel->setSize(200, 25);
+    m_currentProfileLabel->setSize(250, 25);
     m_currentProfileLabel->setTextSize(17);
     m_GUI.add(m_currentProfileLabel);
 
-    m_profileSwitcher->getRenderer()->setTexture(m_resources.getTexture(11));
-    m_profileSwitcher->setSize(40, 40);
-    m_GUI.add(m_profileSwitcher);
+    m_profilesList->setSize(250, 150);
+    m_profilesList->setPosition({bindLeft(m_currentProfileLabel)},
+        {bindTop(m_currentProfileLabel) - 156});
+    m_profilesList->setVisible(false);
+    m_profilesList->setEnabled(false);
+    m_GUI.add(m_profilesList);
+
+    for(int i{}; i < m_profiles.getProfilesCount(); ++i) {
+        auto element = tgui::Button::create();
+        element->setText(m_profiles.getName(i));
+        if(m_profileSwitchers.size() == 0) {
+            element->setPosition({bindLeft(m_profilesList) + 5},
+                {bindTop(m_profilesList) + 5});
+        } else {
+            element->setPosition({bindLeft(m_profilesList) + 5},
+                {bindBottom(m_profileSwitchers.back()) + 5});
+        }
+        element->setVisible(false);
+        element->setEnabled(false);
+        m_GUI.add(element);
+
+        element->onPress(&changeProfile, this, element->getText().toStdString());
+
+        m_profileSwitchers.push_back(element);
+    }
+
+    m_editProfileBtn->getRenderer()->setTexture(m_resources.getTexture(11));
+    m_editProfileBtn->setSize(25, 25);
+    m_editProfileBtn->setPosition({bindRight(m_currentProfileLabel) + 7},
+        {bindTop(m_currentProfileLabel)});
+    m_GUI.add(m_editProfileBtn);
+
+    m_saveProfileBtn->getRenderer()->setTexture(m_resources.getTexture(12));
+    m_saveProfileBtn->setSize(25, 25);
+    m_saveProfileBtn->setPosition({bindRight(m_editProfileBtn) + 7},
+        {bindTop(m_currentProfileLabel)});
+    m_GUI.add(m_saveProfileBtn);
 }
 
 void App::setupBtnsBehaviour() {
     setupUpBtnsBehaviour();
     setupVerBtnsBehaviour();
+    setupDownBtnsBehaviour();
 }
 
 void App::setupUpBtnsBehaviour() {
@@ -543,7 +582,38 @@ void App::setupVerBtnsBehaviour() {
 }
 
 void App::setupDownBtnsBehaviour() {
+    m_currentProfileLabel->onPress([&]{
+        if(m_profilesList->isEnabled()) {
+            m_profilesList->setVisible(false);
+            m_profilesList->setEnabled(false);
 
+            for(const auto& profileLabel : m_profileSwitchers) {
+                profileLabel->setVisible(false);
+                profileLabel->setEnabled(false);
+            }
+        } else {
+            m_profilesList->setVisible(true);
+            m_profilesList->setEnabled(true);
+
+            for(const auto& profileLabel : m_profileSwitchers) {
+                profileLabel->setVisible(true);
+                profileLabel->setEnabled(true);
+            }
+        }
+    });
+}
+
+void App::changeProfile(const std::string& profile) {
+    m_profiles.switchProfile(profile);
+    m_project.reloadProfile(&m_profiles);
+
+    m_profilesList->setVisible(false);
+    m_profilesList->setEnabled(false);
+
+    for(const auto& profileLabel : m_profileSwitchers) {
+        profileLabel->setVisible(false);
+        profileLabel->setEnabled(false);
+    }
 }
 
 void App::setupChordsBtns() {

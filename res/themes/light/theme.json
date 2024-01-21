@@ -7,8 +7,10 @@
 
     "tguiFile": "tgui",
 
-    "addNoteBtnImg": "edit.png",
+    "addNoteBtnImg": "addNote.png",
     "deleteNoteBtnImg": "delete.png",
     "changeChordPosBtnImg": "chordPos.png",
-    "arrowUpImg": "arrowUpBlack.png"
+    "arrowUpImg": "arrowUpBlack.png",
+    "editImg": "edit.png",
+    "saveImg": "save.png"
 }

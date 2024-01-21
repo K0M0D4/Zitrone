@@ -54,6 +54,14 @@ namespace cmt {
         return m_theme.at("arrowUpImg");
     }
 
+    std::string Theme::getEditImgFilepath() {
+        return m_theme.at("editImg");
+    }
+
+    std::string Theme::getSaveImgFilepath() {
+        return m_theme.at("saveImg");
+    }
+
     sf::Color Theme::hexToSfColor(const std::string& hexColor) {
         std::string colorStr{hexColor};
 

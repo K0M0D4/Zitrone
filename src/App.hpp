@@ -25,6 +25,7 @@ private:
     // members
 
     ProfileManager m_profiles{};
+    std::string m_currentProfileName{"default"};
 
     cmt::ResourceManager m_resources{};
 
@@ -50,12 +51,17 @@ private:
     std::array<tgui::Button::Ptr, 7> m_chordsBtns{};
 
     tgui::VerticalLayout::Ptr m_chordPosSetBtnsVerLayout;
-    std::array<tgui::HorizontalLayout::Ptr, 3> m_chordPosSetBtnsHorLayouts;
+    std::array<tgui::HorizontalLayout::Ptr, 3> m_chordPosSetBtnsHorLayouts{};
     std::array<tgui::Button::Ptr, 8> m_chordPosSetBtns{};
 
     tgui::Button::Ptr m_profilesLabel;
     tgui::Button::Ptr m_currentProfileLabel;
-    tgui::Button::Ptr m_profileSwitcher;
+
+    tgui::ScrollablePanel::Ptr m_profilesList;
+    std::vector<tgui::Button::Ptr> m_profileSwitchers{};
+
+    tgui::Button::Ptr m_editProfileBtn;
+    tgui::Button::Ptr m_saveProfileBtn;
 
     // tooltips
     tgui::Label::Ptr m_saveBtnTT;
@@ -66,6 +72,9 @@ private:
     tgui::Label::Ptr m_addNoteBtnTT;
     tgui::Label::Ptr m_deleteNoteBtnTT;
     tgui::Label::Ptr m_chordPosBtnTT;
+
+    tgui::Label::Ptr m_editProfileBtnTT;
+    tgui::Label::Ptr m_saveProfileBtnTT;
 
     Project m_project{};
 
@@ -139,6 +148,8 @@ private:
     void setupVerBtnsBehaviour();
     void setupDownBtnsBehaviour();
 
+    void changeProfile(const std::string& profile);
+
     void setupChordsBtns();
 
     void setupChordPosSetBtns();
@@ -150,11 +161,12 @@ private:
 
     /*
     Texture IDs:
-        0 -> edit
+        0 -> add note
         1 -> delete
         2 -> chord position
         3 - 10 -> arrows counting from left to right by rows
-        11 -> up arrow
+        11 -> edit
+        12 -> save
 
     Font IDs:
         0 -> Manrope

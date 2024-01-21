@@ -12,10 +12,13 @@ void ProfileManager::load() {
         throw std::runtime_error("Error: Can't load profiles list file\n");
 
     json list{json::parse(profilesList)};
+
+    m_profilesCount = list.at(0).at("profiles").size();
     
     for(int i{}; i < list.at(0).at("profiles").size(); ++i) {
         std::ifstream currentBuffer{"res/profiles/"
-            + std::string{list[0]["profiles"][i]}};
+            + std::string{list[0]["profiles"][i]} + ".json"};
+        m_profileNames[i] = std::string{list[0]["profiles"][i]};
 
         json profileBuf{json::parse(currentBuffer)};
 
@@ -25,6 +28,14 @@ void ProfileManager::load() {
 
 void ProfileManager::switchProfile(const std::string& profile) {
     m_currentProfile = profile;
+}
+
+int ProfileManager::getProfilesCount() {
+    return m_profilesCount;
+}
+
+std::string ProfileManager::getName(int id) {
+    return m_profileNames.at(id);
 }
 
 sf::Vector2f ProfileManager::getPageSize() {

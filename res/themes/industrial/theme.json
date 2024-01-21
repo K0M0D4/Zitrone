@@ -7,7 +7,7 @@
 
     "tguiFile": "tgui",
 
-    "addNoteBtnImg": "edit.png",
+    "addNoteBtnImg": "addNote.png",
     "deleteNoteBtnImg": "delete.png",
     "changeChordPosBtnImg": "chordPos.png",
     "arrowUpImg": "arrowUp.png",

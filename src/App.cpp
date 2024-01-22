@@ -46,6 +46,8 @@ App::App() {
 
     loadLanguage(m_config.getLang());
 
+    m_profileEditor = new ProfileEditor{};
+
     initButtons();
 
     calculateViewport();
@@ -61,6 +63,8 @@ int32_t App::start() {
     }
 
     NFD_Quit();
+
+    delete m_profileEditor;
 
     return 0;
 }
@@ -601,6 +605,10 @@ void App::setupDownBtnsBehaviour() {
             }
         }
     });
+
+    m_editProfileBtn->onPress([&]{
+        m_profileEditor->start();
+    });
 }
 
 void App::changeProfile(const std::string& profile) {
@@ -708,6 +716,14 @@ void App::setupTooltips() {
     m_chordPosBtnTT = tgui::Label::create(m_languageData.at(7) + " (C)");
     m_chordPosBtnTT->setRenderer(tgui::Theme::getDefault()->getRenderer("ToolTip"));
     m_chordPosBtn->setToolTip(m_chordPosBtnTT);
+
+    m_editProfileBtnTT = tgui::Label::create(m_languageData.at(9));
+    m_editProfileBtnTT->setRenderer(tgui::Theme::getDefault()->getRenderer("ToolTip"));
+    m_editProfileBtn->setToolTip(m_editProfileBtnTT);
+
+    m_saveProfileBtnTT = tgui::Label::create(m_languageData.at(10));
+    m_saveProfileBtnTT->setRenderer(tgui::Theme::getDefault()->getRenderer("ToolTip"));
+    m_saveProfileBtn->setToolTip(m_saveProfileBtnTT);
 }
 
 void App::loadLanguage(const std::string& filepath) {

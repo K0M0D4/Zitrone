@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Config.hpp"
+#include "ProfileEditor.hpp"
 #include "ProfileManager.hpp"
 #include "Project.hpp"
 #include "Settings.hpp"
@@ -26,6 +27,8 @@ private:
 
     ProfileManager m_profiles{};
     std::string m_currentProfileName{"default"};
+
+    ProfileEditor* m_profileEditor;
 
     cmt::ResourceManager m_resources{};
 
@@ -95,7 +98,7 @@ private:
     bool m_wasMousePressed{};
     float m_vpzoom{1.0f};
 
-    std::array<std::string, 9> m_languageData{};
+    std::array<std::string, 11> m_languageData{};
 
     // methods
 

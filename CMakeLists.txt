@@ -48,6 +48,7 @@ add_executable(${PROJECT_NAME}
     src/Grid.cpp
     src/GridHints.cpp
     src/Note.cpp
+    src/ProfileEditor.cpp
     src/ProfileManager.cpp
     src/Project.cpp
     src/Config.cpp

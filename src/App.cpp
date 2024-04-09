@@ -86,12 +86,12 @@ void App::update() {
 
         if(!m_isChordPosModeOn) {
             if(event.type == sf::Event::MouseWheelScrolled
-                && event.mouseWheelScroll.wheel == sf::Mouse::VerticalWheel) {
+                && event.mouseWheelScroll.wheel == sf::Mouse::VerticalWheel && enableMouseInput) {
                 
                 processZoom(event);
             }
 
-            if(event.type == sf::Event::MouseButtonPressed)
+            if(event.type == sf::Event::MouseButtonPressed && enableMouseInput)
                 processMouseInput(event);
         }
 
@@ -126,7 +126,7 @@ void App::update() {
             m_deltaMousePos = sf::Vector2i{};
         }
 
-        if(!m_isChordPosModeOn) {
+        if(!m_isChordPosModeOn && enableMouseInput) {
             m_viewport.move(static_cast<float>(-m_deltaMousePos.x) * m_vpzoom,
                 static_cast<float>(-m_deltaMousePos.y) * m_vpzoom);
         }
@@ -536,18 +536,12 @@ void App::setupDownBtnsLook() {
     for(int i{}; i < m_profiles.getProfilesCount(); ++i) {
         auto element = tgui::Button::create();
         element->setText(m_profiles.getName(i));
-        if(m_profileSwitchers.size() == 0) {
-            element->setPosition({bindLeft(m_profilesList) + 5},
-                {bindTop(m_profilesList) + 5});
-        } else {
-            element->setPosition({bindLeft(m_profilesList) + 5},
-                {bindBottom(m_profileSwitchers.back()) + 5});
+        if(m_profileSwitchers.size() != 0) {
+            element->setPosition(0, {bindBottom(m_profileSwitchers.back()) + 5});
         }
-        element->setVisible(false);
-        element->setEnabled(false);
-        m_GUI.add(element);
+        m_profilesList->add(element);
 
-        element->onPress(&changeProfile, this, element->getText().toStdString());
+        element->onPress(&App::changeProfile, this, element->getText().toStdString());
 
         m_profileSwitchers.push_back(element);
     }
@@ -572,17 +566,17 @@ void App::setupBtnsBehaviour() {
 }
 
 void App::setupUpBtnsBehaviour() {
-    m_saveBtn->onPress(&saveBtnPressed, this);
-    m_saveAsBtn->onPress(&saveAsBtnPressed, this);
-    m_exportBtn->onPress(&exportBtnPressed, this);
-    m_openBtn->onPress(&openBtnPressed, this);
-    m_settingsBtn->onPress(&settingsBtnPressed, this);
+    m_saveBtn->onPress(&App::saveBtnPressed, this);
+    m_saveAsBtn->onPress(&App::saveAsBtnPressed, this);
+    m_exportBtn->onPress(&App::exportBtnPressed, this);
+    m_openBtn->onPress(&App::openBtnPressed, this);
+    m_settingsBtn->onPress(&App::settingsBtnPressed, this);
 }
 
 void App::setupVerBtnsBehaviour() {
-    m_addNoteBtn->onPress(&addNoteBtnPressed, this);
-    m_deleteNoteBtn->onPress(&deleteNoteBtnPressed, this);
-    m_chordPosBtn->onPress(&chordPosBtnPressed, this);
+    m_addNoteBtn->onPress(&App::addNoteBtnPressed, this);
+    m_deleteNoteBtn->onPress(&App::deleteNoteBtnPressed, this);
+    m_chordPosBtn->onPress(&App::chordPosBtnPressed, this);
 }
 
 void App::setupDownBtnsBehaviour() {
@@ -590,19 +584,13 @@ void App::setupDownBtnsBehaviour() {
         if(m_profilesList->isEnabled()) {
             m_profilesList->setVisible(false);
             m_profilesList->setEnabled(false);
-
-            for(const auto& profileLabel : m_profileSwitchers) {
-                profileLabel->setVisible(false);
-                profileLabel->setEnabled(false);
-            }
+            
+            enableMouseInput = true;
         } else {
             m_profilesList->setVisible(true);
             m_profilesList->setEnabled(true);
 
-            for(const auto& profileLabel : m_profileSwitchers) {
-                profileLabel->setVisible(true);
-                profileLabel->setEnabled(true);
-            }
+            enableMouseInput = false;
         }
     });
 
@@ -618,10 +606,7 @@ void App::changeProfile(const std::string& profile) {
     m_profilesList->setVisible(false);
     m_profilesList->setEnabled(false);
 
-    for(const auto& profileLabel : m_profileSwitchers) {
-        profileLabel->setVisible(false);
-        profileLabel->setEnabled(false);
-    }
+    enableMouseInput = true;
 }
 
 void App::setupChordsBtns() {
@@ -632,7 +617,7 @@ void App::setupChordsBtns() {
         m_GUI.add(m_chordsBtns.at(c));
 
         m_chordsBtns.at(c)->setText(std::to_string(c));
-        m_chordsBtns.at(c)->onPress(&chordBtnPressed, this, c);
+        m_chordsBtns.at(c)->onPress(&App::chordBtnPressed, this, c);
     }
 }
 
@@ -662,14 +647,14 @@ void App::setupChordPosSetBtns() {
         }
     }
 
-    m_chordPosSetBtns.at(0)->onPress(&chordPosSetBtnPressed, this, 7);
-    m_chordPosSetBtns.at(1)->onPress(&chordPosSetBtnPressed, this, 8);
-    m_chordPosSetBtns.at(2)->onPress(&chordPosSetBtnPressed, this, 9);
-    m_chordPosSetBtns.at(3)->onPress(&chordPosSetBtnPressed, this, 4);
-    m_chordPosSetBtns.at(4)->onPress(&chordPosSetBtnPressed, this, 6);
-    m_chordPosSetBtns.at(5)->onPress(&chordPosSetBtnPressed, this, 1);
-    m_chordPosSetBtns.at(6)->onPress(&chordPosSetBtnPressed, this, 2);
-    m_chordPosSetBtns.at(7)->onPress(&chordPosSetBtnPressed, this, 3);
+    m_chordPosSetBtns.at(0)->onPress(&App::chordPosSetBtnPressed, this, 7);
+    m_chordPosSetBtns.at(1)->onPress(&App::chordPosSetBtnPressed, this, 8);
+    m_chordPosSetBtns.at(2)->onPress(&App::chordPosSetBtnPressed, this, 9);
+    m_chordPosSetBtns.at(3)->onPress(&App::chordPosSetBtnPressed, this, 4);
+    m_chordPosSetBtns.at(4)->onPress(&App::chordPosSetBtnPressed, this, 6);
+    m_chordPosSetBtns.at(5)->onPress(&App::chordPosSetBtnPressed, this, 1);
+    m_chordPosSetBtns.at(6)->onPress(&App::chordPosSetBtnPressed, this, 2);
+    m_chordPosSetBtns.at(7)->onPress(&App::chordPosSetBtnPressed, this, 3);
 
     m_chordPosSetBtnsHorLayouts.at(1)->insertSpace(1, 1.0f);
 }

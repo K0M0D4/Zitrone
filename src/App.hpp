@@ -38,6 +38,8 @@ private:
     float m_VerBarSize{60};
     float m_DownBarSize{43};
 
+    bool enableMouseInput{true};
+
     // GUI
     tgui::GuiSFML m_GUI;
 

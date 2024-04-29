@@ -9,3 +9,11 @@ Zmień pozycję akordu
 Profil:
 Edytuj profil
 Zapisz profil
+edytor profilu
+Wysokość strony:
+Szerokość strony:
+Pozycja X lini odcięcia:
+Pozycja Y lini odcięcia:
+Przerwa pozioma:
+Przerwa pionowa:
+Przesunięcie pierwszej nuty:

@@ -100,7 +100,7 @@ private:
     bool m_wasMousePressed{};
     float m_vpzoom{1.0f};
 
-    std::array<std::string, 11> m_languageData{};
+    std::vector<std::string> m_languageData{};
 
     // methods
 

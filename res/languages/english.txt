@@ -9,3 +9,11 @@ Change chord position
 Profile:
 Edit profile
 Save profile
+profile editor
+Page width:
+Page height:
+Cut line X position:
+Cut line Y position:
+Vertical break:
+Horizontal break:
+First note offset:

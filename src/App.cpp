@@ -595,7 +595,7 @@ void App::setupDownBtnsBehaviour() {
     });
 
     m_editProfileBtn->onPress([&]{
-        m_profileEditor->start();
+        m_profileEditor->start(m_resources, m_languageData);
     });
 }
 
@@ -717,7 +717,8 @@ void App::loadLanguage(const std::string& filepath) {
         throw std::runtime_error("Error: Can't read language: "
             + filepath + '\n');
 
-    for(uint16_t i{}; i < m_languageData.size(); ++i) {
-        getline(file, m_languageData.at(i));
+    std::string data{};
+    while(getline(file, data)) {
+        m_languageData.push_back(data);
     }
 }

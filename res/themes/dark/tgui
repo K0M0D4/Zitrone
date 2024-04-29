@@ -26,3 +26,11 @@ ScrollablePanel {
     BorderColor = #1B2A41A0;
     RoundedBorderRadius = 6;
 }
+
+EditBox {
+    Font = ../../Manrope-Medium.ttf;
+    TextColor = #CCC9DC;
+    BackgroundColor = #1B2A41;
+    CaretWidth = 1;
+    CaretColor = #FFFFFF;
+}

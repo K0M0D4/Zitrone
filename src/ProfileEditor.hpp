@@ -52,4 +52,10 @@ private:
     void update();
     void render();
 
+    void initButtons();
+
+    void setupBtnsNames();
+    void setupBtnsLook();
+    void setupBtnsBehaviour();
+
 };

@@ -5,14 +5,21 @@ ProfileEditor::ProfileEditor() {
 }
 
 void ProfileEditor::start(cmt::ResourceManager& resources,
-    std::vector<std::string>& languageData) {
+    std::vector<std::string>& languageData, ProfileManager* profiles,
+    const std::string& currentProfile) {
 
     m_resources = &resources;
     m_languageData = &languageData;
+    m_profiles = profiles;
+    m_currentProfile = currentProfile;
+
+    m_profiles->switchProfile(m_currentProfile);
+
+    m_GUI.removeAllWidgets();
 
     std::string windowName{"Zitrone - " + m_languageData->at(11)};
 
-    m_window.create(sf::VideoMode(720, 720), windowName);
+    m_window.create(sf::VideoMode(920, 720), windowName);
     m_GUI.setTarget(m_window);
 
     initButtons();
@@ -28,6 +35,9 @@ void ProfileEditor::update() {
     sf::Event event{};
     while(m_window.pollEvent(event)) {
         m_GUI.handleEvent(event);
+
+        m_currentProfileLabel->setSize(m_window.getSize().x - 150, 33);
+        m_currentProfileLabel->setPosition(7, m_window.getSize().y - 40);
 
         if(event.type == sf::Event::Closed) {
             m_window.close();
@@ -63,9 +73,18 @@ void ProfileEditor::setupBtnsNames() {
     m_verticalBreakInput = tgui::EditBox::create();
     m_horizontalBreakInput = tgui::EditBox::create();
     m_firstNoteOffsetInput = tgui::EditBox::create();
+
+    m_helperImage = tgui::Picture::create();
+
+    m_currentProfileLabel = tgui::Button::create();
+    m_profilesList = tgui::ScrollablePanel::create();
+
+    m_saveBtn = tgui::Button::create();
 }
 
 void ProfileEditor::setupBtnsLook() {
+    m_profileSwitchers.clear();
+
     // Labels
     m_pageWidthLabel->setRenderer(tgui::Theme::getDefault()->getRenderer("Label"));
     m_pageWidthLabel->setPosition(30, 30);
@@ -110,57 +129,131 @@ void ProfileEditor::setupBtnsLook() {
     m_GUI.add(m_firstNoteOffsetLabel);
 
     // Input boxes
+    std::string valueBuffer{std::to_string(m_profiles->getPageSize().x)};
     m_pageWidthInput->setSize(100, 27);
     m_pageWidthInput->setTextSize(17);
     m_pageWidthInput->setPosition("50% - 115", {bindTop(m_pageWidthLabel)});
-    m_pageWidthInput->setText("1.0f");
+    m_pageWidthInput->setText(valueBuffer);
 
     m_GUI.add(m_pageWidthInput);
 
+    valueBuffer = std::to_string(m_profiles->getPageSize().y);
     m_pageHeightInput->setSize(100, 27);
     m_pageHeightInput->setTextSize(17);
     m_pageHeightInput->setPosition("100% - 115", {bindTop(m_pageHeightLabel)});
-    m_pageHeightInput->setText("2.0f");
+    m_pageHeightInput->setText(valueBuffer);
 
     m_GUI.add(m_pageHeightInput);
 
+    valueBuffer = std::to_string(m_profiles->getCutLine().x);
     m_cutLineXInput->setSize(100, 27);
     m_cutLineXInput->setTextSize(17);
     m_cutLineXInput->setPosition("50% - 115", {bindTop(m_cutLineXLabel)});
-    m_cutLineXInput->setText("1.0f");
+    m_cutLineXInput->setText(valueBuffer);
 
     m_GUI.add(m_cutLineXInput);
 
+    valueBuffer = std::to_string(m_profiles->getCutLine().y);
     m_cutLineYInput->setSize(100, 27);
     m_cutLineYInput->setTextSize(17);
     m_cutLineYInput->setPosition("100% - 115", {bindTop(m_cutLineYLabel)});
-    m_cutLineYInput->setText("2.0f");
+    m_cutLineYInput->setText(valueBuffer);
 
     m_GUI.add(m_cutLineYInput);
 
+    valueBuffer = std::to_string(m_profiles->getBreaks().x);
     m_verticalBreakInput->setSize(100, 27);
     m_verticalBreakInput->setTextSize(17);
     m_verticalBreakInput->setPosition("50% - 115", {bindTop(m_verticalBreakLabel)});
-    m_verticalBreakInput->setText("1.0f");
+    m_verticalBreakInput->setText(valueBuffer);
 
     m_GUI.add(m_verticalBreakInput);
 
+    valueBuffer = std::to_string(m_profiles->getBreaks().y);
     m_horizontalBreakInput->setSize(100, 27);
     m_horizontalBreakInput->setTextSize(17);
     m_horizontalBreakInput->setPosition("100% - 115", {bindTop(m_horizontalBreakLabel)});
-    m_horizontalBreakInput->setText("2.0f");
+    m_horizontalBreakInput->setText(valueBuffer);
 
     m_GUI.add(m_horizontalBreakInput);
 
+    valueBuffer = std::to_string(m_profiles->getFirstNoteOffset());
     m_firstNoteOffsetInput->setSize(100, 27);
     m_firstNoteOffsetInput->setTextSize(17);
     m_firstNoteOffsetInput->setPosition("50% - 115", {bindTop(m_firstNoteOffsetLabel)});
-    m_firstNoteOffsetInput->setText("1.0f");
+    m_firstNoteOffsetInput->setText(valueBuffer);
 
     m_GUI.add(m_firstNoteOffsetInput);
+
+    m_helperImage->getRenderer()->setTexture(m_resources->getTexture(13));
+    m_helperImage->setSize(400, 200);
+    m_helperImage->setPosition("50% - 200", {bindBottom(m_firstNoteOffsetInput) + 100});
+
+    m_GUI.add(m_helperImage);
+
+    m_currentProfileLabel->setText(m_currentProfile);
+    m_currentProfileLabel->setTextSize(17);
+    m_GUI.add(m_currentProfileLabel);
+
+    m_profilesList->setSize(250, 150);
+    m_profilesList->setPosition({bindLeft(m_currentProfileLabel)},
+        {bindTop(m_currentProfileLabel) - 156});
+    m_profilesList->setVisible(false);
+    m_profilesList->setEnabled(false);
+    m_GUI.add(m_profilesList);
+
+    for(int i{}; i < m_profiles->getProfilesCount(); ++i) {
+        auto element = tgui::Button::create();
+        element->setText(m_profiles->getName(i));
+        if(m_profileSwitchers.size() != 0) {
+            element->setPosition(0, {bindBottom(m_profileSwitchers.back()) + 5});
+        }
+        m_profilesList->add(element);
+
+        element->onPress(&ProfileEditor::switchProfile, this, element->getText().toStdString());
+
+        m_profileSwitchers.push_back(element);
+    }
+
+    m_saveBtn->getRenderer()->setTexture(m_resources->getTexture(12));
+    m_saveBtn->setSize(33, 33);
+    m_saveBtn->setPosition({bindRight(m_currentProfileLabel) + 7},
+        {bindTop(m_currentProfileLabel)});
+    m_GUI.add(m_saveBtn);
 }
 
 void ProfileEditor::setupBtnsBehaviour() {
+    m_currentProfileLabel->onPress([&]{ 
+        if(m_profilesList->isEnabled()) {
+            m_profilesList->setVisible(false);
+            m_profilesList->setEnabled(false);
+        } else {
+            m_profilesList->setVisible(true);
+            m_profilesList->setEnabled(true);
+        }
+    });
 
+    m_saveBtn->onPress([&]{
+        m_profiles->setPageSize(sf::Vector2f{m_pageWidthInput->getText().toFloat(),
+            m_pageHeightInput->getText().toFloat()});
+        m_profiles->setCutLine(sf::Vector2f{m_cutLineXInput->getText().toFloat(),
+            m_cutLineYInput->getText().toFloat()});
+        m_profiles->setFirstNoteOffset(m_firstNoteOffsetInput->getText().toFloat());
+        m_profiles->setBreaks(sf::Vector2f{m_verticalBreakInput->getText().toFloat(),
+            m_horizontalBreakInput->getText().toFloat()});
+        
+        m_profiles->saveProfile();
+    });
 }
 
+void ProfileEditor::switchProfile(const std::string& profileName) {
+    m_currentProfile = profileName;
+    m_currentProfileLabel->setText(m_currentProfile);
+
+    m_profiles->switchProfile(profileName);
+
+    setupBtnsLook();
+
+    m_profilesList->setVisible(false);
+    m_profilesList->setEnabled(false);
+}

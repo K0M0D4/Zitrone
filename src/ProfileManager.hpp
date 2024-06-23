@@ -23,6 +23,13 @@ public:
     float getFirstNoteOffset();
     sf::Vector2f getBreaks();
 
+    void setPageSize(sf::Vector2f pageSize);
+    void setCutLine(sf::Vector2f cutLine);
+    void setFirstNoteOffset(float offset);
+    void setBreaks(sf::Vector2f breaks);
+
+    void saveProfile();
+
 private:
     std::map<std::string, json> m_profiles{};
     std::map<int, std::string> m_profileNames{};

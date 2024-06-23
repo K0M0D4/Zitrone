@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ProfileManager.hpp"
+
 #include "fw/ResourceManager.hpp"
 
 #include <SFML/Graphics.hpp>
@@ -13,7 +15,8 @@ public:
     ProfileEditor();
 
     void start(cmt::ResourceManager& resources,
-        std::vector<std::string>& languageData);
+        std::vector<std::string>& languageData, ProfileManager* profiles,
+        const std::string& currentProfile);
 
 private:
     sf::RenderWindow m_window{};
@@ -22,6 +25,9 @@ private:
 
     cmt::ResourceManager* m_resources{};
     std::vector<std::string>* m_languageData{};
+    ProfileManager* m_profiles{};
+
+    std::string m_currentProfile{};
 
     tgui::Button::Ptr m_pageWidthLabel;
     tgui::Button::Ptr m_pageHeightLabel;
@@ -46,7 +52,6 @@ private:
     tgui::ScrollablePanel::Ptr m_profilesList;
     std::vector<tgui::Button::Ptr> m_profileSwitchers{};
 
-    tgui::Button::Ptr m_saveAsBtn;
     tgui::Button::Ptr m_saveBtn;
 
     void update();
@@ -57,5 +62,7 @@ private:
     void setupBtnsNames();
     void setupBtnsLook();
     void setupBtnsBehaviour();
+
+    void switchProfile(const std::string& profileName);
 
 };

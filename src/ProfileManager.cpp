@@ -53,3 +53,39 @@ float ProfileManager::getFirstNoteOffset() {
 sf::Vector2f ProfileManager::getBreaks() {
     return sf::Vector2f{m_profiles.at(m_currentProfile)[0]["verticalBreak"], m_profiles.at(m_currentProfile)[0]["horizontalBreak"]};
 }
+
+void ProfileManager::setPageSize(sf::Vector2f pageSize) {
+    m_profiles.at(m_currentProfile)[0]["pageWidth"] = pageSize.x;
+    m_profiles.at(m_currentProfile)[0]["pageHeight"] = pageSize.y;
+}
+
+void ProfileManager::setCutLine(sf::Vector2f cutLine) {
+    m_profiles.at(m_currentProfile)[0]["cutLineX"] = cutLine.x;
+    m_profiles.at(m_currentProfile)[0]["cutLineY"] = cutLine.y;
+}
+
+void ProfileManager::setFirstNoteOffset(float offset) {
+    m_profiles.at(m_currentProfile)[0]["firstNoteOffset"] = offset;
+}
+
+void ProfileManager::setBreaks(sf::Vector2f breaks) {
+    m_profiles.at(m_currentProfile)[0]["verticalBreak"] = breaks.x;
+    m_profiles.at(m_currentProfile)[0]["horizontalBreak"] = breaks.y;
+}
+
+void ProfileManager::saveProfile() {
+    std::ofstream profileFile{"res/profiles/" + m_currentProfile + ".json", std::ios::trunc};
+
+    std::string profileData {"{\n"};
+    profileData += "\"pageWidth\": " + std::to_string((float)m_profiles.at(m_currentProfile)[0]["pageWidth"]) + ",\n";
+    profileData += "\"pageHeight\": " + std::to_string((float)m_profiles.at(m_currentProfile)[0]["pageHeight"]) + ",\n";
+    profileData += "\"cutLineX\": " + std::to_string((float)m_profiles.at(m_currentProfile)[0]["cutLineX"]) + ",\n";
+    profileData += "\"cutLineY\": " + std::to_string((float)m_profiles.at(m_currentProfile)[0]["cutLineY"]) + ",\n";
+    profileData += "\"firstNoteOffset\": " + std::to_string((float)m_profiles.at(m_currentProfile)[0]["firstNoteOffset"]) + ",\n";
+    profileData += "\"verticalBreak\": " + std::to_string((float)m_profiles.at(m_currentProfile)[0]["verticalBreak"]) + ",\n";
+    profileData += "\"horizontalBreak\": " + std::to_string((float)m_profiles.at(m_currentProfile)[0]["horizontalBreak"]) + "\n}";
+
+    profileFile << profileData << std::flush;
+
+    profileFile.close();
+}

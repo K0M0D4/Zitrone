@@ -172,6 +172,7 @@ private:
         3 - 10 -> arrows counting from left to right by rows
         11 -> edit
         12 -> save
+        13 -> helper image placeholder
 
     Font IDs:
         0 -> Manrope

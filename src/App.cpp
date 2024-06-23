@@ -36,6 +36,8 @@ App::App() {
 
     m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/"
         + m_resources.getTheme(0).getSaveImgFilepath());
+
+    m_resources.loadTexture("res/helperPlaceholder.png");
     
     m_resources.loadFont("res/Manrope-Medium.ttf");
 
@@ -595,7 +597,8 @@ void App::setupDownBtnsBehaviour() {
     });
 
     m_editProfileBtn->onPress([&]{
-        m_profileEditor->start(m_resources, m_languageData);
+        m_profileEditor->start(m_resources, m_languageData, &m_profiles,
+            m_currentProfileName);
     });
 }
 

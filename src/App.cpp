@@ -599,6 +599,7 @@ void App::setupDownBtnsBehaviour() {
     m_editProfileBtn->onPress([&]{
         m_profileEditor->start(m_resources, m_languageData, &m_profiles,
             m_currentProfileName);
+        // setupDownBtnsLook();
     });
 }
 

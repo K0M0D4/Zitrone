@@ -36,8 +36,11 @@ void ProfileEditor::update() {
     while(m_window.pollEvent(event)) {
         m_GUI.handleEvent(event);
 
-        m_currentProfileLabel->setSize(m_window.getSize().x - 150, 33);
-        m_currentProfileLabel->setPosition(7, m_window.getSize().y - 40);
+        m_changeProfileBtn->setSize(250, 33);
+        m_changeProfileBtn->setPosition(7, m_window.getSize().y - 40);
+
+        m_currentProfileName->setSize(m_window.getSize().x - 500, 33);
+        m_currentProfileName->setPosition(264, m_window.getSize().y - 40);
 
         if(event.type == sf::Event::Closed) {
             m_window.close();
@@ -76,7 +79,8 @@ void ProfileEditor::setupBtnsNames() {
 
     m_helperImage = tgui::Picture::create();
 
-    m_currentProfileLabel = tgui::Button::create();
+    m_changeProfileBtn = tgui::Button::create();
+    m_currentProfileName = tgui::EditBox::create();
     m_profilesList = tgui::ScrollablePanel::create();
 
     m_saveBtn = tgui::Button::create();
@@ -191,39 +195,32 @@ void ProfileEditor::setupBtnsLook() {
 
     m_GUI.add(m_helperImage);
 
-    m_currentProfileLabel->setText(m_currentProfile);
-    m_currentProfileLabel->setTextSize(17);
-    m_GUI.add(m_currentProfileLabel);
+    m_changeProfileBtn->setText("Change profile");
+    m_changeProfileBtn->setTextSize(17);
+    m_GUI.add(m_changeProfileBtn);
+
+    m_currentProfileName->setText(m_currentProfile);
+    m_currentProfileName->setTextSize(17);
+    m_GUI.add(m_currentProfileName);
 
     m_profilesList->setSize(250, 150);
-    m_profilesList->setPosition({bindLeft(m_currentProfileLabel)},
-        {bindTop(m_currentProfileLabel) - 156});
+    m_profilesList->setPosition({bindLeft(m_changeProfileBtn)},
+        {bindTop(m_changeProfileBtn) - 156});
     m_profilesList->setVisible(false);
     m_profilesList->setEnabled(false);
     m_GUI.add(m_profilesList);
 
-    for(int i{}; i < m_profiles->getProfilesCount(); ++i) {
-        auto element = tgui::Button::create();
-        element->setText(m_profiles->getName(i));
-        if(m_profileSwitchers.size() != 0) {
-            element->setPosition(0, {bindBottom(m_profileSwitchers.back()) + 5});
-        }
-        m_profilesList->add(element);
-
-        element->onPress(&ProfileEditor::switchProfile, this, element->getText().toStdString());
-
-        m_profileSwitchers.push_back(element);
-    }
+    setupProfileSwitchers();
 
     m_saveBtn->getRenderer()->setTexture(m_resources->getTexture(12));
     m_saveBtn->setSize(33, 33);
-    m_saveBtn->setPosition({bindRight(m_currentProfileLabel) + 7},
-        {bindTop(m_currentProfileLabel)});
+    m_saveBtn->setPosition({bindRight(m_currentProfileName) + 7},
+        {bindTop(m_currentProfileName)});
     m_GUI.add(m_saveBtn);
 }
 
 void ProfileEditor::setupBtnsBehaviour() {
-    m_currentProfileLabel->onPress([&]{ 
+    m_changeProfileBtn->onPress([&]{ 
         if(m_profilesList->isEnabled()) {
             m_profilesList->setVisible(false);
             m_profilesList->setEnabled(false);
@@ -241,14 +238,36 @@ void ProfileEditor::setupBtnsBehaviour() {
         m_profiles->setFirstNoteOffset(m_firstNoteOffsetInput->getText().toFloat());
         m_profiles->setBreaks(sf::Vector2f{m_verticalBreakInput->getText().toFloat(),
             m_horizontalBreakInput->getText().toFloat()});
-        
-        m_profiles->saveProfile();
+
+        m_profiles->changeName(m_currentProfile, m_currentProfileName->getText().toStdString());
+
+        m_profiles->saveProfile(m_currentProfileName->getText().toStdString());
+
+        setupProfileSwitchers();
     });
+}
+
+void ProfileEditor::setupProfileSwitchers() {
+    m_profilesList->removeAllWidgets();
+    m_profileSwitchers.clear();
+
+    for(int i{}; i < m_profiles->getProfilesCount(); ++i) {
+        auto element = tgui::Button::create();
+        element->setText(m_profiles->getName(i));
+        if(m_profileSwitchers.size() != 0) {
+            element->setPosition(0, {bindBottom(m_profileSwitchers.back()) + 5});
+        }
+        m_profilesList->add(element);
+
+        element->onPress(&ProfileEditor::switchProfile, this, element->getText().toStdString());
+
+        m_profileSwitchers.push_back(element);
+    }
 }
 
 void ProfileEditor::switchProfile(const std::string& profileName) {
     m_currentProfile = profileName;
-    m_currentProfileLabel->setText(m_currentProfile);
+    m_changeProfileBtn->setText(m_currentProfile);
 
     m_profiles->switchProfile(profileName);
 

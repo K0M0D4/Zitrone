@@ -47,7 +47,8 @@ private:
 
     tgui::Picture::Ptr m_helperImage;
 
-    tgui::Button::Ptr m_currentProfileLabel;
+    tgui::Button::Ptr m_changeProfileBtn;
+    tgui::EditBox::Ptr m_currentProfileName;
 
     tgui::ScrollablePanel::Ptr m_profilesList;
     std::vector<tgui::Button::Ptr> m_profileSwitchers{};
@@ -62,6 +63,8 @@ private:
     void setupBtnsNames();
     void setupBtnsLook();
     void setupBtnsBehaviour();
+
+    void setupProfileSwitchers();
 
     void switchProfile(const std::string& profileName);
 

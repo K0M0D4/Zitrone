@@ -28,7 +28,9 @@ public:
     void setFirstNoteOffset(float offset);
     void setBreaks(sf::Vector2f breaks);
 
-    void saveProfile();
+    void saveProfile(const std::string& fileRename);
+
+    void changeName(const std::string& oldName, const std::string& newName);
 
 private:
     std::map<std::string, json> m_profiles{};

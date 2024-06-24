@@ -1,6 +1,7 @@
 #include "ProfileManager.hpp"
 
 #include <fstream>
+#include <cstdlib>
 
 ProfileManager::ProfileManager() {
 
@@ -14,6 +15,8 @@ void ProfileManager::load() {
     json list{json::parse(profilesList)};
 
     m_profilesCount = list.at(0).at("profiles").size();
+    m_profiles.clear();
+    m_profileNames.clear();
     
     for(int i{}; i < list.at(0).at("profiles").size(); ++i) {
         std::ifstream currentBuffer{"res/profiles/"
@@ -73,19 +76,48 @@ void ProfileManager::setBreaks(sf::Vector2f breaks) {
     m_profiles.at(m_currentProfile)[0]["horizontalBreak"] = breaks.y;
 }
 
-void ProfileManager::saveProfile() {
-    std::ofstream profileFile{"res/profiles/" + m_currentProfile + ".json", std::ios::trunc};
+void ProfileManager::saveProfile(const std::string& fileRename) {
+    std::ofstream profileFile{"res/profiles/" + fileRename + ".json", std::ios::trunc};
 
-    std::string profileData {"{\n"};
+    std::string profileData{"{\n"};
     profileData += "\"pageWidth\": " + std::to_string((float)m_profiles.at(m_currentProfile)[0]["pageWidth"]) + ",\n";
     profileData += "\"pageHeight\": " + std::to_string((float)m_profiles.at(m_currentProfile)[0]["pageHeight"]) + ",\n";
     profileData += "\"cutLineX\": " + std::to_string((float)m_profiles.at(m_currentProfile)[0]["cutLineX"]) + ",\n";
     profileData += "\"cutLineY\": " + std::to_string((float)m_profiles.at(m_currentProfile)[0]["cutLineY"]) + ",\n";
     profileData += "\"firstNoteOffset\": " + std::to_string((float)m_profiles.at(m_currentProfile)[0]["firstNoteOffset"]) + ",\n";
     profileData += "\"verticalBreak\": " + std::to_string((float)m_profiles.at(m_currentProfile)[0]["verticalBreak"]) + ",\n";
-    profileData += "\"horizontalBreak\": " + std::to_string((float)m_profiles.at(m_currentProfile)[0]["horizontalBreak"]) + "\n}";
+    profileData += "\"horizontalBreak\": " + std::to_string((float)m_profiles.at(m_currentProfile)[0]["horizontalBreak"]) + "\n}\n";
 
     profileFile << profileData << std::flush;
 
     profileFile.close();
+
+    std::ofstream profilesListFile{"res/profiles/list.app.json", std::ios::trunc};
+    std::string listData{"{\n"};
+    listData += "\"profiles\": [";
+    for(int i{}; i < m_profilesCount; ++i) {
+        listData += "\"" + m_profileNames[i] + "\"";
+        if(i + 1 < m_profilesCount) {
+            listData += ", ";
+        }
+    } 
+    listData += "]\n}\n";
+
+    profilesListFile << listData << std::flush;
+
+    profilesListFile.close();
+
+    std::string oldFilename{"res/profiles/" + m_currentProfile + ".json"};
+    std::remove(oldFilename.c_str());
+
+    load();
+}
+
+void ProfileManager::changeName(const std::string& oldName, const std::string& newName) {
+    for(int i{}; i < m_profilesCount; ++i) {
+        if(getName(i) == oldName) {
+            m_profileNames[i] = newName;
+            break;
+        }
+    }
 }

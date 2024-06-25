@@ -28,6 +28,7 @@ private:
     ProfileManager* m_profiles{};
 
     std::string m_currentProfile{};
+    std::string m_oldProfile{};
 
     tgui::Button::Ptr m_pageWidthLabel;
     tgui::Button::Ptr m_pageHeightLabel;

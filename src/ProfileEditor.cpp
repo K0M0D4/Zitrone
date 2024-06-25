@@ -195,7 +195,7 @@ void ProfileEditor::setupBtnsLook() {
 
     m_GUI.add(m_helperImage);
 
-    m_changeProfileBtn->setText("Change profile");
+    m_changeProfileBtn->setText(m_languageData->at(19));
     m_changeProfileBtn->setTextSize(17);
     m_GUI.add(m_changeProfileBtn);
 
@@ -231,6 +231,9 @@ void ProfileEditor::setupBtnsBehaviour() {
     });
 
     m_saveBtn->onPress([&]{
+        m_oldProfile = m_currentProfile;
+        m_currentProfile = m_currentProfileName->getText().toStdString();
+
         m_profiles->setPageSize(sf::Vector2f{m_pageWidthInput->getText().toFloat(),
             m_pageHeightInput->getText().toFloat()});
         m_profiles->setCutLine(sf::Vector2f{m_cutLineXInput->getText().toFloat(),
@@ -239,9 +242,7 @@ void ProfileEditor::setupBtnsBehaviour() {
         m_profiles->setBreaks(sf::Vector2f{m_verticalBreakInput->getText().toFloat(),
             m_horizontalBreakInput->getText().toFloat()});
 
-        m_profiles->changeName(m_currentProfile, m_currentProfileName->getText().toStdString());
-
-        m_profiles->saveProfile(m_currentProfileName->getText().toStdString());
+        m_profiles->saveProfile(m_oldProfile, m_currentProfile);
 
         setupProfileSwitchers();
     });

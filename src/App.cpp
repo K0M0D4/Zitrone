@@ -535,6 +535,9 @@ void App::setupDownBtnsLook() {
     m_profilesList->setEnabled(false);
     m_GUI.add(m_profilesList);
 
+    m_profileSwitchers.clear();
+    m_profilesList->removeAllWidgets();
+
     for(int i{}; i < m_profiles.getProfilesCount(); ++i) {
         auto element = tgui::Button::create();
         element->setText(m_profiles.getName(i));
@@ -599,7 +602,7 @@ void App::setupDownBtnsBehaviour() {
     m_editProfileBtn->onPress([&]{
         m_profileEditor->start(m_resources, m_languageData, &m_profiles,
             m_currentProfileName);
-        // setupDownBtnsLook();
+        setupDownBtnsLook();
     });
 }
 
@@ -611,6 +614,9 @@ void App::changeProfile(const std::string& profile) {
     m_profilesList->setEnabled(false);
 
     enableMouseInput = true;
+
+    m_currentProfileName = profile;
+    m_currentProfileLabel->setText(m_currentProfileName);
 }
 
 void App::setupChordsBtns() {

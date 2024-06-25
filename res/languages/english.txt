@@ -17,3 +17,4 @@ Cut line Y position:
 Vertical break:
 Horizontal break:
 First note offset:
+Change profile

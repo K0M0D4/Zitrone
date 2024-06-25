@@ -14,11 +14,11 @@ void ProfileManager::load() {
 
     json list{json::parse(profilesList)};
 
-    m_profilesCount = list.at(0).at("profiles").size();
+    m_profilesCount = list[0].at("profiles").size();
     m_profiles.clear();
     m_profileNames.clear();
     
-    for(int i{}; i < list.at(0).at("profiles").size(); ++i) {
+    for(int i{}; i < list[0].at("profiles").size(); ++i) {
         std::ifstream currentBuffer{"res/profiles/"
             + std::string{list[0]["profiles"][i]} + ".json"};
         m_profileNames[i] = std::string{list[0]["profiles"][i]};
@@ -76,8 +76,13 @@ void ProfileManager::setBreaks(sf::Vector2f breaks) {
     m_profiles.at(m_currentProfile)[0]["horizontalBreak"] = breaks.y;
 }
 
-void ProfileManager::saveProfile(const std::string& fileRename) {
-    std::ofstream profileFile{"res/profiles/" + fileRename + ".json", std::ios::trunc};
+void ProfileManager::saveProfile(const std::string& oldName, const std::string& newName) {
+    changeName(oldName, newName);
+
+    std::string oldFilename{"res/profiles/" + oldName + ".json"};
+    std::remove(oldFilename.c_str());
+
+    std::ofstream profileFile{"res/profiles/" + newName + ".json", std::ios::trunc};
 
     std::string profileData{"{\n"};
     profileData += "\"pageWidth\": " + std::to_string((float)m_profiles.at(m_currentProfile)[0]["pageWidth"]) + ",\n";
@@ -107,9 +112,6 @@ void ProfileManager::saveProfile(const std::string& fileRename) {
 
     profilesListFile.close();
 
-    std::string oldFilename{"res/profiles/" + m_currentProfile + ".json"};
-    std::remove(oldFilename.c_str());
-
     load();
 }
 
@@ -120,4 +122,12 @@ void ProfileManager::changeName(const std::string& oldName, const std::string& n
             break;
         }
     }
+
+    m_profiles[newName] = m_profiles[oldName];
+    
+    if(m_profiles.find(oldName) != m_profiles.end() && oldName != newName) {
+        m_profiles.erase(m_profiles.find(oldName));
+    }
+
+    m_currentProfile = newName;
 }

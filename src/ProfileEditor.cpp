@@ -68,6 +68,7 @@ void ProfileEditor::setupBtnsNames() {
     m_verticalBreakLabel = tgui::Button::create(m_languageData->at(16));
     m_horizontalBreakLabel = tgui::Button::create(m_languageData->at(17));
     m_firstNoteOffsetLabel = tgui::Button::create(m_languageData->at(18));
+    m_chordSizeLabel = tgui::Button::create(m_languageData->at(20));
 
     m_pageWidthInput = tgui::EditBox::create();
     m_pageHeightInput = tgui::EditBox::create();
@@ -76,6 +77,7 @@ void ProfileEditor::setupBtnsNames() {
     m_verticalBreakInput = tgui::EditBox::create();
     m_horizontalBreakInput = tgui::EditBox::create();
     m_firstNoteOffsetInput = tgui::EditBox::create();
+    m_chordSizeInput = tgui::EditBox::create();
 
     m_helperImage = tgui::Picture::create();
 
@@ -131,6 +133,12 @@ void ProfileEditor::setupBtnsLook() {
     m_firstNoteOffsetLabel->setTextSize(17);
 
     m_GUI.add(m_firstNoteOffsetLabel);
+    
+    m_chordSizeLabel->setRenderer(tgui::Theme::getDefault()->getRenderer("Label"));
+    m_chordSizeLabel->setPosition("50%", {bindTop(m_firstNoteOffsetLabel)});
+    m_chordSizeLabel->setTextSize(17);
+
+    m_GUI.add(m_chordSizeLabel);
 
     // Input boxes
     std::string valueBuffer{std::to_string(m_profiles->getPageSize().x)};
@@ -188,6 +196,14 @@ void ProfileEditor::setupBtnsLook() {
     m_firstNoteOffsetInput->setText(valueBuffer);
 
     m_GUI.add(m_firstNoteOffsetInput);
+
+    valueBuffer = std::to_string(m_profiles->getChordSize());
+    m_chordSizeInput->setSize(100, 27);
+    m_chordSizeInput->setTextSize(17);
+    m_chordSizeInput->setPosition("100% - 115", {bindTop(m_chordSizeLabel)});
+    m_chordSizeInput->setText(valueBuffer);
+
+    m_GUI.add(m_chordSizeInput);
 
     m_helperImage->getRenderer()->setTexture(m_resources->getTexture(13));
     m_helperImage->setSize(400, 200);

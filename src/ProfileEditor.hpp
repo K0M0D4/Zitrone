@@ -37,6 +37,7 @@ private:
     tgui::Button::Ptr m_verticalBreakLabel;
     tgui::Button::Ptr m_horizontalBreakLabel;
     tgui::Button::Ptr m_firstNoteOffsetLabel;
+    tgui::Button::Ptr m_chordSizeLabel;
 
     tgui::EditBox::Ptr m_pageWidthInput;
     tgui::EditBox::Ptr m_pageHeightInput;
@@ -45,6 +46,7 @@ private:
     tgui::EditBox::Ptr m_verticalBreakInput;
     tgui::EditBox::Ptr m_horizontalBreakInput;
     tgui::EditBox::Ptr m_firstNoteOffsetInput;
+    tgui::EditBox::Ptr m_chordSizeInput;
 
     tgui::Picture::Ptr m_helperImage;
 

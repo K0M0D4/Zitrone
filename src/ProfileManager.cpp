@@ -57,6 +57,10 @@ sf::Vector2f ProfileManager::getBreaks() {
     return sf::Vector2f{m_profiles.at(m_currentProfile)[0]["verticalBreak"], m_profiles.at(m_currentProfile)[0]["horizontalBreak"]};
 }
 
+float ProfileManager::getChordSize() {
+    return m_profiles.at(m_currentProfile)[0]["chordSize"];
+}
+
 void ProfileManager::setPageSize(sf::Vector2f pageSize) {
     m_profiles.at(m_currentProfile)[0]["pageWidth"] = pageSize.x;
     m_profiles.at(m_currentProfile)[0]["pageHeight"] = pageSize.y;
@@ -74,6 +78,10 @@ void ProfileManager::setFirstNoteOffset(float offset) {
 void ProfileManager::setBreaks(sf::Vector2f breaks) {
     m_profiles.at(m_currentProfile)[0]["verticalBreak"] = breaks.x;
     m_profiles.at(m_currentProfile)[0]["horizontalBreak"] = breaks.y;
+}
+
+void ProfileManager::setChordSize(float chordSize) {
+    m_profiles.at(m_currentProfile)[0]["chordSize"] = chordSize;
 }
 
 void ProfileManager::saveProfile(const std::string& oldName, const std::string& newName) {

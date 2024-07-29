@@ -5,5 +5,6 @@
     "cutLineY": 16.7,
     "firstNoteOffset": 1.3,
     "verticalBreak": 0.5,
-    "horizontalBreak": 0.9
+    "horizontalBreak": 0.9,
+    "chordSize": 90
 }

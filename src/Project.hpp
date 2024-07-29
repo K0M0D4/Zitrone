@@ -60,6 +60,7 @@ private:
     float m_firstNoteOffset{};
     float m_breakBetweenNotesV{};
     float m_breakBetweenNotesH{};
+    float m_chordSize{};
 
     cmt::Line m_cutLine{};
 

@@ -13,7 +13,7 @@ Page size, cut line and spaces between tones are now customizable in app.
 ![Light Windows](screenshots/light.png)
 ![Industrial Windows](screenshots/industrial.png)
 # Building
-If you want to build it yourself, you'll need git, cmake and some c++ compiler.
+If you want to build it yourself, you'll need git, cmake and some c++ compiler, preferably G++, since I've had trouble compiling this with msvc and clang.
 Then, it's as simple as:
 ```
 git clone https://github.com/K0M0D4/Zitrone.git

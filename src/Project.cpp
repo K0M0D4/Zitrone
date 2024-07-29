@@ -89,6 +89,8 @@ void Project::reloadProfile(ProfileManager* profiles)
         m_firstNoteOffset);
     m_gridHints.move(sf::Vector2f{m_firstNoteOffset, 0.0f});
 
+    m_chordSize = profiles->getChordSize();
+
     m_cutLine = cmt::Line{sf::Vector2f{profiles->getCutLine().x * m_dpcm, 0.0f},
         sf::Vector2f{m_workspace.getSize().x, m_workspace.getSize().y
         - profiles->getCutLine().y * m_dpcm}, sf::Color::Red};
@@ -282,7 +284,7 @@ void Project::sortNotes() {
         for(uint32_t j{i + 1}; j < m_notes.size(); ++j) {
             Note temp{sf::Vector2f{}, sf::Vector2i{},
                 m_resources->getFont(0),
-                m_resources->getTheme(0).getNotesColor()};
+                m_resources->getTheme(0).getNotesColor(), m_chordSize};
             if(m_notes.at(j).getCoords().y < m_notes.at(i).getCoords().y) {
                 temp = m_notes.at(i);
                 m_notes.at(i) = m_notes.at(j);
@@ -310,7 +312,7 @@ void Project::addNewNote(const sf::Vector2i& al) {
         al.x * m_breakBetweenNotesV + m_firstNoteOffset,
         (al.y + 1) * m_breakBetweenNotesH}, al,
         m_resources->getFont(0),
-        m_resources->getTheme(0).getNotesColor()});
+        m_resources->getTheme(0).getNotesColor(), m_chordSize});
 }
 
 void Project::processOpenInput(const std::string& data) {

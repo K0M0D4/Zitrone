@@ -4,12 +4,13 @@
 
 class Note {
 public:
-    Note(sf::Vector2f pos, sf::Vector2i coords, sf::Font& font, sf::Color color);
+    Note(sf::Vector2f pos, sf::Vector2i coords, sf::Font& font, sf::Color color, float chordSize);
 
     void setPos(sf::Vector2f pos, sf::Vector2i coords);
     void setChord(uint16_t chord);
     void setChordPos(int position);
     void setColor(sf::Color color);
+    void setChordSize(float chordSize);
 
     sf::Vector2i getCoords();
     sf::Vector2f getPos();

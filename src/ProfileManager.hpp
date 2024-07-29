@@ -22,11 +22,13 @@ public:
     sf::Vector2f getCutLine();
     float getFirstNoteOffset();
     sf::Vector2f getBreaks();
+    float getChordSize();
 
     void setPageSize(sf::Vector2f pageSize);
     void setCutLine(sf::Vector2f cutLine);
     void setFirstNoteOffset(float offset);
     void setBreaks(sf::Vector2f breaks);
+    void setChordSize(float chordSize);
 
     void saveProfile(const std::string& oldName, const std::string& newName);
 

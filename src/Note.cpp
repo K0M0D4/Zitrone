@@ -1,10 +1,12 @@
 #include "Note.hpp"
 
-Note::Note(sf::Vector2f pos, sf::Vector2i coords, sf::Font& font, sf::Color color) {
+Note::Note(sf::Vector2f pos, sf::Vector2i coords, sf::Font& font,
+    sf::Color color, float chordSize) {
+
     m_circle.setOrigin(m_circle.getRadius(), m_circle.getRadius());
 
     m_chordText.setFont(font);
-    m_chordText.setCharacterSize(90);
+    setChordSize(chordSize);
     setColor(color);
     setPos(pos, coords);
 }
@@ -46,6 +48,10 @@ void Note::setChordPos(int position) {
 void Note::setColor(sf::Color color) {
     m_circle.setFillColor(color);
     m_chordText.setFillColor(color);
+}
+
+void Note::setChordSize(float chordSize) {
+    m_chordText.setCharacterSize(chordSize);
 }
 
 sf::Vector2i Note::getCoords() {

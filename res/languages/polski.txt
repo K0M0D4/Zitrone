@@ -18,3 +18,4 @@ Przerwa pozioma:
 Przerwa pionowa:
 Przesunięcie pierwszej nuty:
 Zmień profil
+Rozmiar akordu:

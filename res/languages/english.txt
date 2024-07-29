@@ -18,3 +18,4 @@ Vertical break:
 Horizontal break:
 First note offset:
 Change profile
+Chord size:

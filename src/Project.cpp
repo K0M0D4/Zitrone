@@ -117,6 +117,7 @@ void Project::addNote() {
                 m_notes.at(i).setPos(sf::Vector2f{
                     al.x * m_breakBetweenNotesV + m_firstNoteOffset,
                     m_notes.at(i).getPos().y}, al);
+                m_notes.at(i).repositionChord();
                 break;
             }
         }

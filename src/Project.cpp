@@ -3,6 +3,12 @@
 #include <fstream>
 #include <sstream>
 
+
+
+#include <iostream>
+
+
+
 Project::Project() {}
 
 Project::Project(ProfileManager* profiles, cmt::ResourceManager* resources) {
@@ -299,7 +305,13 @@ void Project::sortNotes() {
 void Project::recalculateNotes() {
     for(auto& note : m_notes) {
         note.setChordSize(m_chordSize);
+        note.setPos(sf::Vector2f{
+            note.getCoords().x * m_breakBetweenNotesV + m_firstNoteOffset,
+            (note.getCoords().y + 1) * m_breakBetweenNotesH}, note.getCoords());
+        note.repositionChord();
     }
+
+    calculateLines();
 }
 
 void Project::calculateLines() {

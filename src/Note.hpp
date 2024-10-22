@@ -18,6 +18,8 @@ public:
     int getChordPosition();
     sf::Color getColor();
 
+    void repositionChord();
+
     void render(sf::RenderTarget& target);
 
 private:
@@ -30,7 +32,5 @@ private:
 
     uint16_t m_chord{};
     int m_chordPos{3};
-
-    void repositionChord();
 
 };

@@ -94,6 +94,8 @@ void Project::reloadProfile(ProfileManager* profiles)
     m_cutLine = cmt::Line{sf::Vector2f{profiles->getCutLine().x * m_dpcm, 0.0f},
         sf::Vector2f{m_workspace.getSize().x, m_workspace.getSize().y
         - profiles->getCutLine().y * m_dpcm}, sf::Color::Red};
+
+    recalculateNotes();
 }
 
 void Project::addNote() {        
@@ -291,6 +293,12 @@ void Project::sortNotes() {
                 m_notes.at(j) = temp;
             }
         }
+    }
+}
+
+void Project::recalculateNotes() {
+    for(auto& note : m_notes) {
+        note.setChordSize(m_chordSize);
     }
 }
 

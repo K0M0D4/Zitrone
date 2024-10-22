@@ -74,6 +74,7 @@ private:
     void render(sf::RenderTexture& target);
 
     void sortNotes();
+    void recalculateNotes();
 
     void calculateLines();
 

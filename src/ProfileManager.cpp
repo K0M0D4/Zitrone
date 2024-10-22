@@ -100,6 +100,7 @@ void ProfileManager::saveProfile(const std::string& oldName, const std::string& 
     profileData += "\"firstNoteOffset\": " + std::to_string((float)m_profiles.at(m_currentProfile)[0]["firstNoteOffset"]) + ",\n";
     profileData += "\"verticalBreak\": " + std::to_string((float)m_profiles.at(m_currentProfile)[0]["verticalBreak"]) + ",\n";
     profileData += "\"horizontalBreak\": " + std::to_string((float)m_profiles.at(m_currentProfile)[0]["horizontalBreak"]) + "\n}\n";
+    profileData += "\"chordSize\": " + std::to_string((float)m_profiles.at(m_currentProfile)[0]["chordSize"]) + "\n}\n";
 
     profileFile << profileData << std::flush;
 

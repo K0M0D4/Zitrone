@@ -124,6 +124,10 @@ void ProfileManager::saveProfile(const std::string& oldName, const std::string& 
     load();
 }
 
+void ProfileManager::createProfile(const std::string& name) {
+
+}
+
 void ProfileManager::changeName(const std::string& oldName, const std::string& newName) {
     for(int i{}; i < m_profilesCount; ++i) {
         if(getName(i) == oldName) {

@@ -86,6 +86,7 @@ void ProfileEditor::setupBtnsNames() {
     m_profilesList = tgui::ScrollablePanel::create();
 
     m_saveBtn = tgui::Button::create();
+    m_newProfileBtn = tgui::Button::create();
 }
 
 void ProfileEditor::setupBtnsLook() {
@@ -233,6 +234,12 @@ void ProfileEditor::setupBtnsLook() {
     m_saveBtn->setPosition({bindRight(m_currentProfileName) + 7},
         {bindTop(m_currentProfileName)});
     m_GUI.add(m_saveBtn);
+
+    m_newProfileBtn->getRenderer()->setTexture(m_resources->getTexture(0));
+    m_newProfileBtn->setSize(33, 33);
+    m_newProfileBtn->setPosition({bindRight(m_saveBtn) + 7},
+        {bindTop(m_saveBtn)});
+    m_GUI.add(m_newProfileBtn);
 }
 
 void ProfileEditor::setupBtnsBehaviour() {
@@ -261,6 +268,10 @@ void ProfileEditor::setupBtnsBehaviour() {
         m_profiles->saveProfile(m_oldProfile, m_currentProfile);
 
         setupProfileSwitchers();
+    });
+
+    m_newProfileBtn->onPress([&]{
+
     });
 }
 

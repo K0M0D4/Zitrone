@@ -57,6 +57,7 @@ private:
     std::vector<tgui::Button::Ptr> m_profileSwitchers{};
 
     tgui::Button::Ptr m_saveBtn;
+    tgui::Button::Ptr m_newProfileBtn;
 
     void update();
     void render();

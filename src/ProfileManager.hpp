@@ -31,6 +31,7 @@ public:
     void setChordSize(float chordSize);
 
     void saveProfile(const std::string& oldName, const std::string& newName);
+    void createProfile(const std::string& name);
 
 private:
     std::map<std::string, json> m_profiles{};

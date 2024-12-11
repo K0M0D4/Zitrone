@@ -4,19 +4,6 @@
 #include <cstdlib>
 #include <sys/stat.h>
 
-
-
-
-
-
-
-#include <iostream>
-
-
-
-
-
-
 ProfileManager::ProfileManager() {
 
 }
@@ -154,7 +141,26 @@ void ProfileManager::createProfile(const std::string& name) {
     m_profileNames[m_profileNames.size()] = newProfileFilename;
 
     updateProfilesListFile();
+    load();
+}
 
+void ProfileManager::removeCurrentProfile() {
+    if(m_currentProfile == "default") {
+        return;
+    }
+
+    for(int i{}; i < m_profilesCount; ++i) {
+        if(m_profileNames[i] == m_currentProfile) {
+            m_profileNames.erase(m_profileNames.find(i));
+        }
+    }
+
+    std::remove(std::string{"res/profiles/" + m_currentProfile + ".json"}.c_str());
+
+    m_currentProfile = "default";
+    --m_profilesCount;
+
+    updateProfilesListFile();
     load();
 }
 

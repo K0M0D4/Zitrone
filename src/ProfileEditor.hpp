@@ -58,6 +58,7 @@ private:
 
     tgui::Button::Ptr m_saveBtn;
     tgui::Button::Ptr m_newProfileBtn;
+    tgui::Button::Ptr m_removeProfileBtn;
 
     void update();
     void render();

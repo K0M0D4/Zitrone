@@ -87,6 +87,7 @@ void ProfileEditor::setupBtnsNames() {
 
     m_saveBtn = tgui::Button::create();
     m_newProfileBtn = tgui::Button::create();
+    m_removeProfileBtn = tgui::Button::create();
 }
 
 void ProfileEditor::setupBtnsLook() {
@@ -240,6 +241,12 @@ void ProfileEditor::setupBtnsLook() {
     m_newProfileBtn->setPosition({bindRight(m_saveBtn) + 7},
         {bindTop(m_saveBtn)});
     m_GUI.add(m_newProfileBtn);
+
+    m_removeProfileBtn->getRenderer()->setTexture(m_resources->getTexture(1));
+    m_removeProfileBtn->setSize(33, 33);
+    m_removeProfileBtn->setPosition({bindRight(m_newProfileBtn) + 7},
+        {bindTop(m_newProfileBtn)});
+    m_GUI.add(m_removeProfileBtn);
 }
 
 void ProfileEditor::setupBtnsBehaviour() {
@@ -272,6 +279,10 @@ void ProfileEditor::setupBtnsBehaviour() {
 
     m_newProfileBtn->onPress([&]{
         m_profiles->createProfile("New profile");
+    });
+
+    m_removeProfileBtn->onPress([&]{
+        m_profiles->removeCurrentProfile();
     });
 }
 

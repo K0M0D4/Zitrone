@@ -32,6 +32,7 @@ public:
 
     void saveProfile(const std::string& oldName, const std::string& newName);
     void createProfile(const std::string& name);
+    void removeCurrentProfile();
 
 private:
     std::map<std::string, json> m_profiles{};

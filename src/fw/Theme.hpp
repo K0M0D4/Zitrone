@@ -29,6 +29,8 @@ namespace cmt {
         std::string getArrowUpImgFilepath();
         std::string getEditImgFilepath();
         std::string getSaveImgFilepath();
+        std::string getCreateProfileImgFilepath();
+        std::string getRemoveProfileImgFilepath();
 
     private:
         static const uint16_t m_colorsCount{8};

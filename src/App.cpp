@@ -38,6 +38,12 @@ App::App() {
         + m_resources.getTheme(0).getSaveImgFilepath());
 
     m_resources.loadTexture("res/helperPlaceholder.png");
+
+    m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/"
+        + m_resources.getTheme(0).getCreateProfileImgFilepath());
+
+    m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/"
+        + m_resources.getTheme(0).getRemoveProfileImgFilepath());
     
     m_resources.loadFont("res/Manrope-Medium.ttf");
 

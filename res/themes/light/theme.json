@@ -12,5 +12,7 @@
     "changeChordPosBtnImg": "chordPos.png",
     "arrowUpImg": "arrowUpBlack.png",
     "editImg": "edit.png",
-    "saveImg": "save.png"
+    "saveImg": "save.png",
+    "createProfile": "createProfile.png",
+    "removeProfile": "removeProfile.png"
 }

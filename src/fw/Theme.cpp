@@ -62,6 +62,14 @@ namespace cmt {
         return m_theme.at("saveImg");
     }
 
+    std::string Theme::getCreateProfileImgFilepath() {
+        return m_theme.at("createProfile");
+    }
+
+    std::string Theme::getRemoveProfileImgFilepath() {
+        return m_theme.at("removeProfile");
+    }
+
     sf::Color Theme::hexToSfColor(const std::string& hexColor) {
         std::string colorStr{hexColor};
 

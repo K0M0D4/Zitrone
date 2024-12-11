@@ -236,13 +236,13 @@ void ProfileEditor::setupBtnsLook() {
         {bindTop(m_currentProfileName)});
     m_GUI.add(m_saveBtn);
 
-    m_newProfileBtn->getRenderer()->setTexture(m_resources->getTexture(0));
+    m_newProfileBtn->getRenderer()->setTexture(m_resources->getTexture(14));
     m_newProfileBtn->setSize(33, 33);
     m_newProfileBtn->setPosition({bindRight(m_saveBtn) + 7},
         {bindTop(m_saveBtn)});
     m_GUI.add(m_newProfileBtn);
 
-    m_removeProfileBtn->getRenderer()->setTexture(m_resources->getTexture(1));
+    m_removeProfileBtn->getRenderer()->setTexture(m_resources->getTexture(15));
     m_removeProfileBtn->setSize(33, 33);
     m_removeProfileBtn->setPosition({bindRight(m_newProfileBtn) + 7},
         {bindTop(m_newProfileBtn)});

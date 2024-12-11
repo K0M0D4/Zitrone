@@ -173,6 +173,8 @@ private:
         11 -> edit
         12 -> save
         13 -> helper image placeholder
+        14 -> create profile
+        15 -> remove profile
 
     Font IDs:
         0 -> Manrope

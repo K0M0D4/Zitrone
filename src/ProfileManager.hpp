@@ -41,5 +41,6 @@ private:
     int m_profilesCount{};
 
     void changeName(const std::string& oldName, const std::string& newName);
+    void updateProfilesListFile();
 
 };

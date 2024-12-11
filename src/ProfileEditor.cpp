@@ -271,7 +271,7 @@ void ProfileEditor::setupBtnsBehaviour() {
     });
 
     m_newProfileBtn->onPress([&]{
-
+        m_profiles->createProfile("New profile");
     });
 }
 

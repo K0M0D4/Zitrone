@@ -2,6 +2,20 @@
 
 #include <fstream>
 #include <cstdlib>
+#include <sys/stat.h>
+
+
+
+
+
+
+
+#include <iostream>
+
+
+
+
+
 
 ProfileManager::ProfileManager() {
 
@@ -106,26 +120,42 @@ void ProfileManager::saveProfile(const std::string& oldName, const std::string& 
 
     profileFile.close();
 
-    std::ofstream profilesListFile{"res/profiles/list.app.json", std::ios::trunc};
-    std::string listData{"{\n"};
-    listData += "\"profiles\": [";
-    for(int i{}; i < m_profilesCount; ++i) {
-        listData += "\"" + m_profileNames[i] + "\"";
-        if(i + 1 < m_profilesCount) {
-            listData += ", ";
-        }
-    } 
-    listData += "]\n}\n";
-
-    profilesListFile << listData << std::flush;
-
-    profilesListFile.close();
+    updateProfilesListFile();
 
     load();
 }
 
 void ProfileManager::createProfile(const std::string& name) {
+    struct stat sb;
 
+    bool fileExists{true};
+    std::string newProfileFilename{name};
+
+    while(fileExists) {
+        if(stat(std::string("res/profiles/" + newProfileFilename + ".json").c_str(), &sb) == 0 && !(sb.st_mode & S_IFDIR)) {
+            newProfileFilename += "(copy)";
+        } else {
+            fileExists = false;
+        }
+    }
+    
+    std::ifstream templateData{"res/profiles/template"};
+    std::ofstream newProfile{"res/profiles/" + newProfileFilename + ".json"};
+
+    std::string line;
+    while(getline(templateData, line)) {
+        newProfile << line << '\n';
+    }
+
+    templateData.close();
+    newProfile.close();
+
+    ++m_profilesCount;
+    m_profileNames[m_profileNames.size()] = newProfileFilename;
+
+    updateProfilesListFile();
+
+    load();
 }
 
 void ProfileManager::changeName(const std::string& oldName, const std::string& newName) {
@@ -143,4 +173,21 @@ void ProfileManager::changeName(const std::string& oldName, const std::string& n
     }
 
     m_currentProfile = newName;
+}
+
+void ProfileManager::updateProfilesListFile() {
+    std::ofstream profilesListFile{"res/profiles/list.app.json", std::ios::trunc};
+    std::string listData{"{\n"};
+    listData += "\"profiles\": [";
+    for(int i{}; i < m_profilesCount; ++i) {
+        listData += "\"" + m_profileNames[i] + "\"";
+        if(i + 1 < m_profilesCount) {
+            listData += ", ";
+        }
+    } 
+    listData += "]\n}\n";
+
+    profilesListFile << listData << std::flush;
+
+    profilesListFile.close();
 }

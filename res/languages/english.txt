@@ -19,3 +19,5 @@ Horizontal break:
 First note offset:
 Change profile
 Chord size:
+New profile
+Remove current profile

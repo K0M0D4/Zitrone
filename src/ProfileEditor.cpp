@@ -247,6 +247,20 @@ void ProfileEditor::setupBtnsLook() {
     m_removeProfileBtn->setPosition({bindRight(m_newProfileBtn) + 7},
         {bindTop(m_newProfileBtn)});
     m_GUI.add(m_removeProfileBtn);
+
+    // tooltips
+
+    m_saveBtnTT = tgui::Label::create(m_languageData->at(10));
+    m_saveBtnTT->setRenderer(tgui::Theme::getDefault()->getRenderer("ToolTip"));
+    m_saveBtn->setToolTip(m_saveBtnTT);
+
+    m_newProfileBtnTT = tgui::Label::create(m_languageData->at(21));
+    m_newProfileBtnTT->setRenderer(tgui::Theme::getDefault()->getRenderer("ToolTip"));
+    m_newProfileBtn->setToolTip(m_newProfileBtnTT);
+
+    m_removeProfileBtnTT = tgui::Label::create(m_languageData->at(22));
+    m_removeProfileBtnTT->setRenderer(tgui::Theme::getDefault()->getRenderer("ToolTip"));
+    m_removeProfileBtn->setToolTip(m_removeProfileBtnTT);
 }
 
 void ProfileEditor::setupBtnsBehaviour() {

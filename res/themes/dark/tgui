@@ -32,5 +32,5 @@ EditBox {
     TextColor = #CCC9DC;
     BackgroundColor = #1B2A41;
     CaretWidth = 1;
-    CaretColor = #FFFFFF;
+    CaretColor = #CCC9DC;
 }

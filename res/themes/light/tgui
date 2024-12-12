@@ -14,9 +14,23 @@ ToolTip {
     Padding = (2, 2, 2, 2);
 }
 
+Label {
+    Font = ../../Manrope-Medium.ttf;
+    TextColor = #4A6FA5;
+    BackgroundColor = #00000000;
+}
+
 ScrollablePanel {
     BackgroundColor = #4A6FA5AA;
     Borders = (6, 6, 6, 6);
     BorderColor = #4A6FA5AA;
     RoundedBorderRadius = 6;
+}
+
+EditBox {
+    Font = ../../Manrope-Medium.ttf;
+    TextColor = #E8E9F3;
+    BackgroundColor = #4A6FA5;
+    CaretWidth = 1;
+    CaretColor = #E8E9F3;
 }

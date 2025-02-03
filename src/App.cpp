@@ -37,13 +37,32 @@ App::App() {
     m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/"
         + m_resources.getTheme(0).getSaveImgFilepath());
 
-    m_resources.loadTexture("res/helperPlaceholder.png");
-
     m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/"
         + m_resources.getTheme(0).getCreateProfileImgFilepath());
 
     m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/"
         + m_resources.getTheme(0).getRemoveProfileImgFilepath());
+    
+    m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/"
+        + m_resources.getTheme(0).getPageWidthHelperImgFilepath());
+    
+    m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/"
+        + m_resources.getTheme(0).getPageHeightHelperImgFilepath());
+    
+    m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/"
+        + m_resources.getTheme(0).getCutLineXHelperImgFilepath());
+    
+    m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/"
+        + m_resources.getTheme(0).getCutLineYHelperImgFilepath());
+
+    m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/"
+        + m_resources.getTheme(0).getHorizontalBreakHelperImgFilepath());
+
+    m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/"
+        + m_resources.getTheme(0).getVerticalBreakHelperImgFilepath());
+    
+    m_resources.loadTexture("res/themes/" + m_config.getTheme() + "/"
+        + m_resources.getTheme(0).getChordSizeHelperImgFilepath());
     
     m_resources.loadFont("res/Manrope-Medium.ttf");
 

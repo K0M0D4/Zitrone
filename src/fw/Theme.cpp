@@ -70,6 +70,35 @@ namespace cmt {
         return m_theme.at("removeProfile");
     }
 
+    std::string Theme::getPageWidthHelperImgFilepath() {
+        return m_theme.at("pageWidthHelper");
+    }
+
+    std::string Theme::getPageHeightHelperImgFilepath() {
+        return m_theme.at("pageHeightHelper");
+    }
+
+    std::string Theme::getCutLineXHelperImgFilepath() {
+        return m_theme.at("cutLineXHelper");
+    }
+
+    std::string Theme::getCutLineYHelperImgFilepath() {
+        return m_theme.at("cutLineYHelper");
+    }
+
+    std::string Theme::getHorizontalBreakHelperImgFilepath() {
+        return m_theme.at("horizontalBreakHelper");
+    }
+
+    std::string Theme::getVerticalBreakHelperImgFilepath() {
+        return m_theme.at("verticalBreakHelper");
+    }
+
+    std::string Theme::getChordSizeHelperImgFilepath() {
+        return m_theme.at("chordSizeHelper");
+    }
+
+
     sf::Color Theme::hexToSfColor(const std::string& hexColor) {
         std::string colorStr{hexColor};
 

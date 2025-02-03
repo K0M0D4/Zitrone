@@ -32,6 +32,14 @@ namespace cmt {
         std::string getCreateProfileImgFilepath();
         std::string getRemoveProfileImgFilepath();
 
+        std::string getPageWidthHelperImgFilepath();
+        std::string getPageHeightHelperImgFilepath();
+        std::string getCutLineXHelperImgFilepath();
+        std::string getCutLineYHelperImgFilepath();
+        std::string getHorizontalBreakHelperImgFilepath();
+        std::string getVerticalBreakHelperImgFilepath();
+        std::string getChordSizeHelperImgFilepath();
+
     private:
         static const uint16_t m_colorsCount{8};
         std::array<sf::Color, m_colorsCount> m_colors{};

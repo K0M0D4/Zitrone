@@ -172,9 +172,15 @@ private:
         3 - 10 -> arrows counting from left to right by rows
         11 -> edit
         12 -> save
-        13 -> helper image placeholder
-        14 -> create profile
-        15 -> remove profile
+        13 -> create profile
+        14 -> remove profile
+        15 -> page width helper
+        16 -> page height helper
+        17 -> cut line X helper
+        18 -> cut line Y helper
+        19 -> horizontal break helper
+        20 -> vertical break helper
+        21 -> chord size helper
 
     Font IDs:
         0 -> Manrope

@@ -14,5 +14,13 @@
     "editImg": "edit.png",
     "saveImg": "save.png",
     "createProfile": "createProfile.png",
-    "removeProfile": "removeProfile.png"
+    "removeProfile": "removeProfile.png",
+
+    "pageWidthHelper": "pageWidth.png",
+    "pageHeightHelper": "pageHeight.png",
+    "cutLineXHelper": "cutLineX.png",
+    "cutLineYHelper": "cutLineY.png",
+    "verticalBreakHelper": "verticalBreak.png",
+    "horizontalBreakHelper": "horizontalBreak.png",
+    "chordSizeHelper": "chordSize.png"
 }

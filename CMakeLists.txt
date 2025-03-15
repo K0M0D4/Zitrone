@@ -53,6 +53,8 @@ add_executable(${PROJECT_NAME}
     src/Project.cpp
     src/Config.cpp
     src/Settings.cpp
+    src/ToneOffsetUI.cpp
+    src/ToneSelectors.cpp
     )
 
 target_compile_options(${PROJECT_NAME} PUBLIC -DSFML_STATIC)

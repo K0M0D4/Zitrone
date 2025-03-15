@@ -494,6 +494,7 @@ void App::setupDownBtnsNames() {
     m_profilesList = tgui::ScrollablePanel::create();
     m_editProfileBtn = tgui::Button::create();
     m_saveProfileBtn = tgui::Button::create();
+    m_moveOneStringBtn = tgui::Button::create();
 }
 
 void App::setupBtnsLook() {
@@ -587,6 +588,12 @@ void App::setupDownBtnsLook() {
     m_saveProfileBtn->setPosition({bindRight(m_editProfileBtn) + 7},
         {bindTop(m_currentProfileLabel)});
     m_GUI.add(m_saveProfileBtn);
+
+    m_moveOneStringBtn->getRenderer()->setTexture(m_resources.getTexture(19));
+    m_moveOneStringBtn->setSize(25, 25);
+    m_moveOneStringBtn->setPosition({bindRight(m_saveProfileBtn) + 7},
+        {bindTop(m_currentProfileLabel)});
+    m_GUI.add(m_moveOneStringBtn);
 }
 
 void App::setupBtnsBehaviour() {
@@ -628,6 +635,10 @@ void App::setupDownBtnsBehaviour() {
         m_profileEditor->start(m_resources, m_languageData, &m_profiles,
             m_currentProfileName);
         setupDownBtnsLook();
+    });
+
+    m_moveOneStringBtn->onPress([&]{
+        m_project.showToneSelectors(true);
     });
 }
 

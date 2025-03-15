@@ -70,6 +70,8 @@ private:
     tgui::Button::Ptr m_editProfileBtn;
     tgui::Button::Ptr m_saveProfileBtn;
 
+    tgui::Button::Ptr m_moveOneStringBtn;
+
     // tooltips
     tgui::Label::Ptr m_saveBtnTT;
     tgui::Label::Ptr m_saveAsBtnTT;
@@ -82,6 +84,8 @@ private:
 
     tgui::Label::Ptr m_editProfileBtnTT;
     tgui::Label::Ptr m_saveProfileBtnTT;
+
+    tgui::Label::Ptr m_moveOneStringBtnTT;
 
     Project m_project{};
 

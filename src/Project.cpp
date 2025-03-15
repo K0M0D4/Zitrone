@@ -91,9 +91,12 @@ void Project::reloadProfile(ProfileManager* profiles)
     m_workspace.setOutlineColor(m_resources->getTheme(0).getOutlineColor());
 
     m_gridHints = GridHints(m_resources);
-    m_gridHints.calculate(m_workspace.getSize(), m_breakBetweenNotesV,
-        m_firstNoteOffset);
+    m_gridHints.calculate(m_workspace.getSize(), m_breakBetweenNotesV, m_firstNoteOffset);
     m_gridHints.move(sf::Vector2f{m_firstNoteOffset, 0.0f});
+
+    m_toneSelectors = ToneSelectors(m_resources);
+    m_toneSelectors.calculate(m_workspace.getSize(), m_breakBetweenNotesV, m_firstNoteOffset);
+    m_toneSelectors.move(sf::Vector2f{m_firstNoteOffset, 0.0f});
 
     m_chordSize = profiles->getChordSize();
 
@@ -268,6 +271,14 @@ void Project::render(sf::RenderWindow& target) {
         target.getSize().y) - 72}).y));
 
     m_gridHints.render(target);
+
+    m_toneSelectors.setPos(sf::Vector2f(m_gridHints.getPos().x - 17, -50));
+
+    m_toneSelectors.render(target);
+}
+
+void Project::showToneSelectors(bool show) {
+    
 }
 
 void Project::render(sf::RenderTexture& target) {

@@ -4,6 +4,7 @@
 #include "Grid.hpp"
 #include "GridHints.hpp"
 #include "Note.hpp"
+#include "ToneSelectors.hpp"
 
 #include "fw/Line.hpp"
 #include "fw/ResourceManager.hpp"
@@ -45,6 +46,8 @@ public:
     sf::Vector2f getNotePosAtAL();
 
     bool isALValidforChordPos();
+
+    void showToneSelectors(bool show);
     
     void render(sf::RenderWindow& target);
 
@@ -66,6 +69,8 @@ private:
 
     Grid m_grid{};
     GridHints m_gridHints{};
+
+    ToneSelectors m_toneSelectors{};
 
     std::vector<Note> m_notes{};
     std::vector<cmt::Line> m_noteLines{};

@@ -44,6 +44,8 @@ private:
     tgui::GuiSFML m_GUI;
 
     // buttons
+    int m_buttonWidth{};
+
     tgui::Button::Ptr m_saveBtn;
     tgui::Button::Ptr m_saveAsBtn;
     tgui::Button::Ptr m_exportBtn;

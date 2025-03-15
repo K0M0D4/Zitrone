@@ -39,7 +39,11 @@ void ProfileEditor::update() {
         m_changeProfileBtn->setSize(250, 33);
         m_changeProfileBtn->setPosition(7, m_window.getSize().y - 40);
 
-        m_currentProfileName->setSize(m_window.getSize().x - 500, 33);
+        m_removeProfileBtn->setPosition(m_window.getSize().x - 40, {bindTop(m_changeProfileBtn)});
+        m_newProfileBtn->setPosition({bindLeft(m_removeProfileBtn) - 40}, {bindTop(m_changeProfileBtn)});
+        m_saveBtn->setPosition({bindLeft(m_newProfileBtn) - 40}, {bindTop(m_changeProfileBtn)});
+
+        m_currentProfileName->setSize(m_window.getSize().x - 391, 33);
         m_currentProfileName->setPosition(264, m_window.getSize().y - 40);
 
         if(event.type == sf::Event::Closed) {
@@ -209,7 +213,7 @@ void ProfileEditor::setupBtnsLook() {
 
     m_helperImage->getRenderer()->setTexture(m_resources->getTexture(15));
     m_helperImage->setSize(300, 300);
-    m_helperImage->setPosition("50% - 200", {bindBottom(m_firstNoteOffsetInput) + 100});
+    m_helperImage->setPosition("50% - 150", {bindBottom(m_firstNoteOffsetInput) + 100});
 
     m_GUI.add(m_helperImage);
 
@@ -232,20 +236,14 @@ void ProfileEditor::setupBtnsLook() {
 
     m_saveBtn->getRenderer()->setTexture(m_resources->getTexture(12));
     m_saveBtn->setSize(33, 33);
-    m_saveBtn->setPosition({bindRight(m_currentProfileName) + 7},
-        {bindTop(m_currentProfileName)});
     m_GUI.add(m_saveBtn);
 
     m_newProfileBtn->getRenderer()->setTexture(m_resources->getTexture(13));
     m_newProfileBtn->setSize(33, 33);
-    m_newProfileBtn->setPosition({bindRight(m_saveBtn) + 7},
-        {bindTop(m_saveBtn)});
     m_GUI.add(m_newProfileBtn);
 
     m_removeProfileBtn->getRenderer()->setTexture(m_resources->getTexture(14));
     m_removeProfileBtn->setSize(33, 33);
-    m_removeProfileBtn->setPosition({bindRight(m_newProfileBtn) + 7},
-        {bindTop(m_newProfileBtn)});
     m_GUI.add(m_removeProfileBtn);
 
     // tooltips

@@ -504,7 +504,7 @@ void App::setupBtnsLook() {
 
 void App::setupUpBtnsLook() {
     m_saveBtn->setPosition(5, 5);
-    m_saveBtn->setSize(100, 25);
+    m_saveBtn->setSize(m_buttonWidth, 25);
     m_saveBtn->setTextSize(17);
     m_GUI.add(m_saveBtn);
 
@@ -753,6 +753,9 @@ void App::loadLanguage(const std::string& filepath) {
             + filepath + '\n');
 
     std::string data{};
+    getline(file, data);
+    m_buttonWidth = std::stoi(data);
+
     while(getline(file, data)) {
         m_languageData.push_back(data);
     }
